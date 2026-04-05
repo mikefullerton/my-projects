@@ -1,0 +1,1527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Project Hub</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Instrument+Serif:ital@0;1&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ─── Reset & Variables ───────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #0c0c0f;
+  --surface: #14141a;
+  --surface-hover: #1c1c24;
+  --border: #2a2a36;
+  --border-accent: #3d3d50;
+  --text: #e8e6e3;
+  --text-muted: #8a8a9a;
+  --text-dim: #5a5a6a;
+  --accent: #c4a35a;
+  --accent-dim: rgba(196, 163, 90, 0.15);
+  --green: #5cb270;
+  --green-dim: rgba(92, 178, 112, 0.12);
+  --red: #d45454;
+  --red-dim: rgba(212, 84, 84, 0.12);
+  --yellow: #d4a754;
+  --yellow-dim: rgba(212, 167, 84, 0.12);
+  --blue: #5a8fd4;
+  --blue-dim: rgba(90, 143, 212, 0.12);
+  --mono: 'DM Mono', monospace;
+  --serif: 'Instrument Serif', serif;
+  --sans: 'Manrope', sans-serif;
+}
+
+html { font-size: 15px; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--sans);
+  line-height: 1.7;
+  min-height: 100vh;
+}
+
+::selection { background: var(--accent-dim); color: var(--accent); }
+
+/* ─── Grain Overlay ───────────────────────────────────────────────── */
+body::after {
+  content: '';
+  position: fixed; inset: 0; z-index: 9999;
+  pointer-events: none;
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+}
+
+/* ─── Layout ──────────────────────────────────────────────────────── */
+.app { display: flex; min-height: 100vh; }
+
+nav {
+  position: fixed; left: 0; top: 0; bottom: 0;
+  width: 280px;
+  background: var(--surface);
+  border-right: 1px solid var(--border);
+  padding: 40px 0;
+  overflow-y: auto;
+  z-index: 100;
+}
+
+nav .nav-title {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 1.4rem;
+  color: var(--accent);
+  padding: 0 24px;
+  margin-bottom: 8px;
+}
+
+nav .nav-sub {
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 0 24px;
+  margin-bottom: 32px;
+}
+
+nav .nav-section {
+  font-family: var(--mono);
+  font-size: 0.55rem;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 20px 16px 6px;
+  margin-top: 4px;
+  border-top: 1px solid var(--border);
+}
+
+nav .nav-section:first-child { border-top: none; margin-top: 0; }
+
+nav a {
+  display: block;
+  padding: 5px 16px 5px 28px;
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  text-decoration: none;
+  transition: all 0.2s;
+  border-left: 2px solid transparent;
+}
+
+nav a:hover { color: var(--text); background: var(--surface-hover); }
+nav a.active { color: var(--accent); border-left-color: var(--accent); background: var(--accent-dim); }
+
+main {
+  margin-left: 280px;
+  flex: 1;
+  padding: 40px 48px 80px;
+  max-width: 1100px;
+}
+
+/* ─── Header ──────────────────────────────────────────────────────── */
+.page-header {
+  padding-bottom: 48px;
+  margin-bottom: 48px;
+  border-bottom: 1px solid var(--border);
+}
+
+.page-header h1 {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 3.2rem;
+  font-weight: 400;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+
+.page-header h1 span { color: var(--accent); }
+
+.title-rule {
+  width: 80px; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  margin: 16px 0;
+}
+
+.page-header p {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+}
+
+/* ─── Stats Bar ───────────────────────────────────────────────────── */
+.stats-bar {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 48px;
+}
+
+.stat-card {
+  background: var(--surface);
+  padding: 20px 24px;
+  text-align: center;
+}
+
+.stat-card .stat-value {
+  font-family: var(--serif);
+  font-size: 2rem;
+  color: var(--text);
+}
+
+.stat-card .stat-label {
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-top: 4px;
+}
+
+.stat-card.accent .stat-value { color: var(--accent); }
+.stat-card.red .stat-value { color: var(--red); }
+.stat-card.green .stat-value { color: var(--green); }
+.stat-card.blue .stat-value { color: var(--blue); }
+
+/* ─── Section Headers ─────────────────────────────────────────────── */
+.section { margin-bottom: 48px; }
+.section.hidden { display: none; }
+
+.section-header {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border);
+}
+
+.section-header h2 {
+  font-family: var(--serif);
+  font-size: 1.8rem;
+  font-weight: 400;
+}
+
+.section-header .count {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  color: var(--text-dim);
+}
+
+/* ─── Project Cards ───────────────────────────────────────────────── */
+.project-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.project-group-header {
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 20px 0 4px;
+  border-bottom: 1px solid var(--border);
+  margin-top: 8px;
+}
+
+.project-group-header:first-child { margin-top: 0; padding-top: 0; }
+
+.project-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 16px 20px;
+  transition: all 0.25s;
+  cursor: pointer;
+  position: relative;
+}
+
+.card-indicators {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.indicator-pill {
+  font-family: var(--mono);
+  font-size: 0.58rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 2px 8px;
+  border-radius: 3px;
+  border-left: 2px solid;
+}
+
+.indicator-yellow { color: var(--yellow); background: var(--yellow-dim); border-left-color: var(--yellow); }
+.indicator-red { color: var(--red); background: var(--red-dim); border-left-color: var(--red); }
+.indicator-blue { color: var(--blue); background: var(--blue-dim); border-left-color: var(--blue); }
+.indicator-green { color: var(--green); background: var(--green-dim); border-left-color: var(--green); }
+
+.card-attention-list {
+  margin-top: 10px;
+  padding-top: 8px;
+  border-top: 1px solid var(--border);
+}
+
+.card-attention-item {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  padding: 4px 0 4px 10px;
+  border-left: 2px solid var(--border);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.card-attention-item:hover { color: var(--text); }
+.card-attention-item.yellow { border-left-color: var(--yellow); }
+.card-attention-item.red { border-left-color: var(--red); }
+
+/* ─── Project Detail Extras ───────────────────────────────────────── */
+.detail-extra {
+  padding: 16px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.detail-extra-label {
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 8px;
+}
+
+.detail-info-row {
+  display: flex;
+  gap: 32px;
+  flex-wrap: wrap;
+}
+
+.detail-info-cell { min-width: 140px; }
+
+.detail-inline-section { margin-top: 32px; }
+
+nav .nav-sub-summary {
+  display: block;
+  padding: 0 16px 5px 42px;
+  font-family: var(--mono);
+  font-size: 0.52rem;
+  color: var(--text-dim);
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+nav .nav-sub-summary:hover { color: var(--text-muted); }
+nav .nav-sub-summary.clean { color: var(--green); opacity: 0.5; }
+
+nav .nav-dot {
+  display: inline-block;
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  margin-left: 6px;
+  vertical-align: middle;
+}
+
+nav .nav-dot.nav-badge-yellow { background: var(--yellow); }
+nav .nav-dot.nav-badge-red { background: var(--red); }
+
+nav .nav-count {
+  font-family: var(--mono);
+  font-size: 0.55rem;
+  color: var(--text-dim);
+  margin-left: 4px;
+}
+
+.project-card:hover {
+  border-color: var(--border-accent);
+  background: var(--surface-hover);
+}
+
+.project-card.expanded {
+  border-color: var(--accent);
+  background: var(--surface);
+}
+
+.card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 8px;
+}
+
+.project-card h3 {
+  font-family: var(--sans);
+  font-weight: 600;
+  font-size: 1rem;
+  color: var(--text);
+}
+
+.status-badge {
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 3px 8px;
+  border-radius: 3px;
+  border: 1px solid;
+}
+
+.status-badge.active { color: var(--green); border-color: var(--green); background: var(--green-dim); }
+.status-badge.stable { color: var(--blue); border-color: var(--blue); background: var(--blue-dim); }
+.status-badge.new { color: var(--accent); border-color: var(--accent); background: var(--accent-dim); }
+.status-badge.paused { color: var(--text-dim); border-color: var(--border-accent); background: var(--surface-hover); }
+.status-badge.deprecated { color: var(--red); border-color: var(--red); background: var(--red-dim); opacity: 0.6; }
+
+.tagline {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-bottom: 4px;
+}
+
+.tech-stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 14px;
+}
+
+.tech-tag {
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  color: var(--text-muted);
+  background: var(--bg);
+  padding: 2px 8px;
+  border-radius: 3px;
+  border: 1px solid var(--border);
+}
+
+.latest-work {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+  margin-bottom: 14px;
+}
+
+.uncommitted-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  color: var(--yellow);
+  margin-top: 4px;
+}
+
+.uncommitted-indicator::before {
+  content: '';
+  display: inline-block;
+  width: 6px; height: 6px;
+  background: var(--yellow);
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+.branch-section {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid var(--border);
+}
+
+.branch-section-label {
+  font-family: var(--mono);
+  font-size: 0.58rem;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 6px;
+}
+
+.branch-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 0;
+}
+
+.branch-tag {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  color: var(--blue);
+  background: var(--blue-dim);
+  padding: 3px 8px;
+  border-radius: 3px;
+}
+
+.branch-summary {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+/* ─── Expanded Card Detail Panels ─────────────────────────────────── */
+.card-details { display: none; margin-top: 20px; padding-top: 20px; border-top: 1px solid var(--border); }
+.project-card.expanded .card-details { display: block; }
+
+.detail-tabs {
+  display: flex;
+  gap: 0;
+  margin-bottom: 16px;
+  border-bottom: 1px solid var(--border);
+}
+
+.detail-tab {
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-dim);
+  padding: 8px 16px;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: all 0.2s;
+  background: none;
+  border-top: none; border-left: none; border-right: none;
+}
+
+.detail-tab:hover { color: var(--text-muted); }
+.detail-tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+
+.detail-panel { display: none; }
+.detail-panel.active { display: block; }
+
+.run-cmd {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  color: var(--accent);
+  background: var(--bg);
+  padding: 10px 14px;
+  border-radius: 4px;
+  border: 1px solid var(--border);
+  margin-top: 8px;
+}
+
+/* ─── Item Lists (Todos, Issues, Concerns, Decisions) ─────────────── */
+.item-list { list-style: none; }
+
+.item-list li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 0.85rem;
+}
+
+.item-list li:last-child { border-bottom: none; }
+
+/* Checkbox styling */
+.item-checkbox {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 16px; height: 16px;
+  border: 1.5px solid var(--border-accent);
+  border-radius: 3px;
+  background: transparent;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: all 0.2s;
+  position: relative;
+}
+
+.item-checkbox:hover { border-color: var(--accent); }
+
+.item-checkbox:checked {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+.item-checkbox:checked::after {
+  content: '';
+  position: absolute;
+  left: 4px; top: 1px;
+  width: 5px; height: 9px;
+  border: solid var(--bg);
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+.item-priority {
+  font-family: var(--mono);
+  font-size: 0.58rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 2px 6px;
+  border-radius: 3px;
+  white-space: nowrap;
+  flex-shrink: 0;
+  margin-left: auto;
+  min-width: 52px;
+  text-align: center;
+  display: inline-block;
+}
+
+.priority-high, .severity-high { color: var(--red); background: var(--red-dim); }
+.priority-medium, .severity-medium { color: var(--yellow); background: var(--yellow-dim); }
+.priority-low, .severity-low { color: var(--text-dim); background: var(--surface-hover); }
+
+.item-title { color: var(--text); flex: 1; min-width: 0; }
+.item-detail { color: var(--text-muted); font-size: 0.78rem; margin-top: 3px; }
+.item-meta { color: var(--text-dim); font-family: var(--mono); font-size: 0.6rem; white-space: nowrap; flex-shrink: 0; }
+.item-meta-link { cursor: pointer; transition: color 0.2s; }
+.item-meta-link:hover { color: var(--accent); }
+
+.item-list li.done .item-title { opacity: 0.4; text-decoration: line-through; }
+.item-list li.done .item-meta { opacity: 0.4; }
+.item-list li.done .item-priority { opacity: 0.4; }
+
+/* ─── Attention Section ───────────────────────────────────────────── */
+.attention-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.attention-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 20px;
+  border-left: 3px solid var(--yellow);
+}
+
+/* ─── Tracking Cards (todos, issues, decisions) ───────────────────── */
+.tracking-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 16px 20px;
+  border-left: 3px solid var(--yellow);
+  margin-bottom: 8px;
+}
+
+.tracking-card.critical { border-left-color: var(--red); }
+.tracking-card.info { border-left-color: var(--blue); }
+.tracking-card.done { opacity: 0.4; }
+
+.tracking-card-top {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.tracking-card-top h4 {
+  flex: 1;
+  font-family: var(--sans);
+  font-weight: 600;
+  font-size: 0.85rem;
+}
+
+.tracking-card .attention-project { margin-top: 6px; }
+
+.attention-card.clickable { cursor: pointer; transition: border-color 0.2s, background 0.2s; }
+.attention-card.clickable:hover { background: var(--surface-hover); border-color: var(--border-accent); }
+.attention-card.critical { border-left-color: var(--red); }
+.attention-card.info { border-left-color: var(--blue); }
+
+.attention-card h4 {
+  font-family: var(--sans);
+  font-weight: 600;
+  font-size: 0.85rem;
+  margin-bottom: 6px;
+}
+
+.attention-project {
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 8px;
+}
+
+.attention-card p {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+/* ─── Add Item Forms ──────────────────────────────────────────────── */
+.add-form {
+  display: none;
+  margin-top: 12px;
+  padding: 16px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+}
+
+.add-form.visible { display: block; }
+
+.add-form input, .add-form select, .add-form textarea {
+  width: 100%;
+  font-family: var(--sans);
+  font-size: 0.85rem;
+  color: var(--text);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 8px 12px;
+  margin-bottom: 8px;
+  outline: none;
+}
+
+.add-form input:focus, .add-form select:focus, .add-form textarea:focus {
+  border-color: var(--accent);
+}
+
+.btn {
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 6px 14px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s;
+  border: 1px solid;
+}
+
+.btn-accent { color: var(--accent); border-color: var(--accent); background: var(--accent-dim); }
+.btn-accent:hover { background: var(--accent); color: var(--bg); }
+.btn-ghost { color: var(--text-dim); border-color: var(--border); background: transparent; }
+.btn-ghost:hover { border-color: var(--text-muted); color: var(--text-muted); }
+.btn-small { padding: 4px 10px; font-size: 0.58rem; }
+
+.btn-row { display: flex; gap: 8px; margin-top: 4px; }
+
+.add-trigger {
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  color: var(--text-dim);
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 8px 0;
+  transition: color 0.2s;
+}
+
+.add-trigger:hover { color: var(--accent); }
+
+/* ─── Decision Items ──────────────────────────────────────────────── */
+.decision-item {
+  padding: 14px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.decision-item:last-child { border-bottom: none; }
+
+.decision-title { font-weight: 600; font-size: 0.85rem; margin-bottom: 4px; }
+.decision-rationale { font-size: 0.8rem; color: var(--text-muted); font-style: italic; }
+.decision-meta { font-family: var(--mono); font-size: 0.58rem; color: var(--text-dim); margin-top: 4px; }
+
+/* ─── Mobile ──────────────────────────────────────────────────────── */
+@media (max-width: 800px) {
+  nav { display: none; }
+  main { margin-left: 0; padding: 24px 16px 60px; }
+  .page-header h1 { font-size: 2.2rem; }
+  .project-grid { grid-template-columns: 1fr; }
+  .attention-grid { grid-template-columns: 1fr; }
+  .stats-bar { grid-template-columns: repeat(2, 1fr); }
+}
+</style>
+</head>
+<body>
+
+<div class="app">
+  <nav>
+    <div class="nav-title">Project Hub</div>
+    <div class="nav-sub">Mike Fullerton</div>
+    <div class="nav-section">Overview</div>
+    <a href="#dashboard" class="active" data-view="dashboard" onclick="navigate(this)">Dashboard</a>
+    <div class="nav-section">Tracking</div>
+    <a href="#attention" data-view="attention" onclick="navigate(this)" id="nav-attention">Needs Attention</a>
+    <a href="#all-todos" data-view="all-todos" onclick="navigate(this)" id="nav-todos">All Todos</a>
+    <a href="#all-issues" data-view="all-issues" onclick="navigate(this)" id="nav-issues">All Issues</a>
+    <a href="#all-decisions" data-view="all-decisions" onclick="navigate(this)" id="nav-decisions">All Decisions</a>
+    <div id="nav-projects"></div>
+  </nav>
+
+  <main>
+    <div class="section" data-section="dashboard" id="dashboard">
+      <div class="page-header">
+        <h1><span>Project</span> Hub</h1>
+        <div class="title-rule"></div>
+        <p>Personal project management — 8 projects across plugins, AI tools, web apps, and automation.</p>
+      </div>
+      <div class="stats-bar" id="stats-bar"></div>
+    </div>
+    <div class="section" data-section="attention" id="attention">
+      <div class="section-header"><h2>Needs Attention</h2></div>
+      <div class="attention-grid" id="attention-grid"></div>
+    </div>
+    <div class="section" data-section="projects" id="projects">
+      <div class="section-header">
+        <h2>Projects</h2>
+        <span class="count" id="project-count"></span>
+      </div>
+      <div class="project-grid" id="project-grid"></div>
+    </div>
+    <div class="section hidden" data-section="project-detail" id="project-detail"></div>
+    <div class="section" data-section="all-todos" id="all-todos">
+      <div class="section-header">
+        <h2>All Todos</h2>
+        <span class="count" id="todo-count"></span>
+      </div>
+      <button class="add-trigger" onclick="toggleAddForm('global-todo-form')">+ Add todo</button>
+      <div class="add-form" id="global-todo-form">
+        <select id="global-todo-project"></select>
+        <input type="text" id="global-todo-title" placeholder="What needs to be done?">
+        <select id="global-todo-priority">
+          <option value="high">High Priority</option>
+          <option value="medium" selected>Medium Priority</option>
+          <option value="low">Low Priority</option>
+        </select>
+        <div class="btn-row">
+          <button class="btn btn-accent btn-small" onclick="addGlobalTodo()">Add</button>
+          <button class="btn btn-ghost btn-small" onclick="toggleAddForm('global-todo-form')">Cancel</button>
+        </div>
+      </div>
+      <div id="all-todos-list"></div>
+    </div>
+    <div class="section" data-section="all-issues" id="all-issues">
+      <div class="section-header">
+        <h2>All Issues</h2>
+        <span class="count" id="issue-count"></span>
+      </div>
+      <div id="all-issues-list"></div>
+    </div>
+    <div class="section" data-section="all-decisions" id="all-decisions">
+      <div class="section-header">
+        <h2>All Decisions</h2>
+        <span class="count" id="decision-count"></span>
+      </div>
+      <div id="all-decisions-list"></div>
+    </div>
+  </main>
+</div>
+
+<script src="db.js"></script>
+<script src="config.js"></script>
+<script src="seed-data.js"></script>
+<script>
+// ─── HTML Escaping (XSS prevention for user-generated content) ───────────────
+const ESC_MAP = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' };
+function esc(str) { return str ? String(str).replace(/[&<>"']/g, c => ESC_MAP[c]) : ''; }
+
+// ─── Safe DOM helpers ────────────────────────────────────────────────────────
+function el(tag, attrs, ...children) {
+  const node = document.createElement(tag);
+  if (attrs) Object.entries(attrs).forEach(([k, v]) => {
+    if (k === 'className') node.className = v;
+    else if (k === 'style' && typeof v === 'object') Object.assign(node.style, v);
+    else if (k.startsWith('on') && typeof v === 'function') node.addEventListener(k.slice(2).toLowerCase(), v);
+    else node.setAttribute(k, v);
+  });
+  children.flat().forEach(c => {
+    if (c == null) return;
+    node.appendChild(typeof c === 'string' ? document.createTextNode(c) : c);
+  });
+  return node;
+}
+
+function clearEl(node) { while (node.firstChild) node.removeChild(node.firstChild); }
+
+// ─── Init ────────────────────────────────────────────────────────────────────
+const db = new ProjectDB();
+let appConfig = (typeof APP_CONFIG !== 'undefined') ? APP_CONFIG : { projects: {}, projectOrder: [] };
+
+const SEED_VERSION = 4; // bump to re-seed after data changes
+
+async function init() {
+
+  const currentVersion = localStorage.getItem('pmhub:seed_version');
+  if (!currentVersion || parseInt(currentVersion) < SEED_VERSION) {
+    await db.reset();
+    await db.seed(SEED_DATA);
+    localStorage.setItem('pmhub:seed_version', String(SEED_VERSION));
+  }
+
+  // Update project paths from config
+  for (const [id, path] of Object.entries(appConfig.projects || {})) {
+    const project = await db.getProject(id);
+    if (project) {
+      project.configPath = path;
+      await db.saveProject(project);
+    }
+  }
+
+  await render();
+  const dashLink = document.querySelector('nav a[data-view="dashboard"]');
+  if (dashLink) navigate(dashLink);
+}
+
+function getOrderedProjects(projects) {
+  const order = appConfig.projectOrder || [];
+  if (order.length === 0) return projects;
+  return order
+    .map(id => projects.find(p => p.id === id))
+    .filter(Boolean);
+}
+
+function getProjectGroup(projectId) {
+  const path = (appConfig.projects || {})[projectId] || '';
+  if (path === '.' || path === '../..') return 'personal';
+  // Extract parent folder: "../../apps/catnip" -> "apps"
+  const parts = path.replace(/^\.\.\/\.\.\//,'').split('/');
+  return parts.length > 1 ? parts[0] : 'personal';
+}
+
+function groupProjects(projects) {
+  const groups = [];
+  const groupMap = {};
+  projects.forEach(p => {
+    const g = getProjectGroup(p.id);
+    if (!groupMap[g]) {
+      groupMap[g] = [];
+      groups.push(g);
+    }
+    groupMap[g].push(p);
+  });
+  return groups.map(name => ({ name, projects: groupMap[name] }));
+}
+
+function formatGroupName(name) {
+  return name.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+}
+
+// View definitions: which sections are visible for each nav view
+const VIEWS = {
+  'dashboard': ['dashboard', 'projects'],
+  'attention': ['attention'],
+  'projects': ['projects'],
+  'project-detail': ['project-detail'],
+  'all-todos': ['all-todos'],
+  'all-issues': ['all-issues'],
+  'all-decisions': ['all-decisions'],
+};
+
+function navigate(anchor, scrollTarget) {
+  document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
+  anchor.classList.add('active');
+
+  const view = anchor.dataset.view;
+  const sections = VIEWS[view] || [view];
+
+  // Hide all sections, then show the ones for this view
+  document.querySelectorAll('.section[data-section]').forEach(s => s.classList.add('hidden'));
+  sections.forEach(id => {
+    const s = document.querySelector(`.section[data-section="${id}"]`);
+    if (s) s.classList.remove('hidden');
+  });
+
+  // Scroll to top, or to a specific target
+  if (scrollTarget) {
+    const el = document.getElementById(scrollTarget);
+    if (el) { el.scrollIntoView({ behavior: 'smooth', block: 'start' }); return; }
+  }
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ─── Rendering ───────────────────────────────────────────────────────────────
+async function render() {
+  const allProjects = await db.getProjects();
+  const projects = getOrderedProjects(allProjects);
+  const stats = await db.getDashboardStats();
+  const todos = await db.list('todos');
+  const issues = await db.list('issues');
+  const concerns = await db.list('concerns');
+  const decisions = await db.list('decisions');
+
+  // Filter items to only visible projects
+  const visibleIds = new Set(projects.map(p => p.id));
+  const vTodos = todos.filter(t => visibleIds.has(t.projectId));
+  const vIssues = issues.filter(i => visibleIds.has(i.projectId));
+  const vConcerns = concerns.filter(c => visibleIds.has(c.projectId));
+  const vDecisions = decisions.filter(d => visibleIds.has(d.projectId));
+
+  // Recompute stats for visible projects only
+  const vStats = {
+    projectCount: projects.length,
+    openTodos: vTodos.filter(t => t.status !== 'done').length,
+    totalTodos: vTodos.length,
+    openIssues: vIssues.filter(i => i.status !== 'resolved').length,
+    totalIssues: vIssues.length,
+    activeConcerns: vConcerns.filter(c => c.status !== 'closed').length,
+    totalDecisions: vDecisions.length,
+  };
+
+  renderStats(vStats);
+  renderNavProjects(projects, vTodos, vIssues, vConcerns, vDecisions);
+  renderProjects(projects, vTodos, vIssues);
+  renderAttention(projects, vTodos, vIssues, vConcerns);
+  renderAllTodos(vTodos, projects);
+  renderAllIssues(vIssues, projects);
+  renderAllDecisions(vDecisions, projects);
+  populateProjectSelects(projects);
+  updateNavCounts(projects, vTodos, vIssues, vConcerns, vDecisions);
+}
+
+function renderStats(s) {
+  const bar = document.getElementById('stats-bar');
+  clearEl(bar);
+  const cards = [
+    { val: s.projectCount, label: 'Projects', cls: 'accent' },
+    { val: s.openTodos, label: 'Open Todos', cls: s.openTodos > 0 ? 'red' : 'green' },
+    { val: s.openIssues, label: 'Open Issues', cls: s.openIssues > 0 ? 'red' : 'green' },
+    { val: s.activeConcerns, label: 'Active Concerns', cls: s.activeConcerns > 0 ? '' : 'green' },
+    { val: s.totalDecisions, label: 'Decisions', cls: 'blue' },
+  ];
+  cards.forEach(c => {
+    const card = el('div', { className: `stat-card ${c.cls}` },
+      el('div', { className: 'stat-value' }, String(c.val)),
+      el('div', { className: 'stat-label' }, c.label)
+    );
+    bar.appendChild(card);
+  });
+}
+
+function updateNavCounts(projects, todos, issues, concerns, decisions) {
+  const attentionCount = projects.filter(p => p.uncommitted).length
+    + todos.filter(t => t.priority === 'high' && t.status !== 'done').length
+    + issues.filter(i => i.status !== 'resolved').length;
+  const todoCount = todos.filter(t => t.status !== 'done').length;
+  const issueCount = issues.filter(i => i.status !== 'resolved').length;
+  const decisionCount = decisions.length;
+
+  function setCount(id, count) {
+    const navEl = document.getElementById(id);
+    if (!navEl) return;
+    const existing = navEl.querySelector('.nav-count');
+    if (existing) existing.remove();
+    if (count > 0) navEl.appendChild(el('span', { className: 'nav-count' }, `(${count})`));
+  }
+  setCount('nav-attention', attentionCount);
+  setCount('nav-todos', todoCount);
+  setCount('nav-issues', issueCount);
+  setCount('nav-decisions', decisionCount);
+}
+
+function renderNavProjects(projects, todos, issues, concerns, decisions) {
+  const container = document.getElementById('nav-projects');
+  clearEl(container);
+  const groups = groupProjects(projects);
+
+  groups.forEach(g => {
+    container.appendChild(el('div', { className: 'nav-section' }, formatGroupName(g.name)));
+    g.projects.forEach(p => {
+      const pTodos = (todos || []).filter(t => t.projectId === p.id && t.status !== 'done');
+      const pIssues = (issues || []).filter(i => i.projectId === p.id && i.status !== 'resolved');
+      const pConcerns = (concerns || []).filter(c => c.projectId === p.id && c.status !== 'closed');
+      const pDecisions = (decisions || []).filter(d => d.projectId === p.id);
+      const hasHighTodos = pTodos.some(t => t.priority === 'high');
+      const needsAttention = hasHighTodos || pIssues.length > 0;
+      const isDirty = p.uncommitted || (p.openBranches || []).length > 0;
+      const badgeClass = needsAttention ? 'nav-badge-red' : isDirty ? 'nav-badge-yellow' : '';
+
+      const link = el('a', { href: `#project-${esc(p.id)}`, className: badgeClass }, p.name);
+      if (badgeClass) link.appendChild(el('span', { className: `nav-dot ${badgeClass}` }));
+      link.addEventListener('click', (e) => { e.preventDefault(); showProjectDetail(p.id); });
+      container.appendChild(link);
+
+      // Summary sub-line
+      const counts = [
+        { label: 'todos', count: pTodos.length },
+        { label: 'issues', count: pIssues.length },
+        { label: 'concerns', count: pConcerns.length },
+        { label: 'decisions', count: pDecisions.length },
+      ];
+      const active = counts.filter(c => c.count > 0);
+      const summaryText = active.length > 0
+        ? active.map(c => `${c.count} ${c.label}`).join(', ')
+        : 'no issues';
+      const summary = el('div', { className: `nav-sub-summary ${active.length === 0 ? 'clean' : ''}` }, summaryText);
+      summary.addEventListener('click', (e) => { e.preventDefault(); showProjectDetail(p.id); });
+      container.appendChild(summary);
+    });
+  });
+}
+
+function buildProjectCard(p, todos, issues) {
+  const card = el('div', { className: 'project-card', id: `project-${p.id}` });
+  card.addEventListener('click', () => showProjectDetail(p.id));
+
+  card.appendChild(el('div', { className: 'card-top' },
+    el('h3', null, p.name),
+    el('span', { className: `status-badge ${p.status}` }, p.status)
+  ));
+  card.appendChild(el('div', { className: 'tagline' }, p.tagline));
+
+  const indicators = el('div', { className: 'card-indicators' });
+  if (p.uncommitted) {
+    indicators.appendChild(el('span', { className: 'indicator-pill indicator-yellow' }, 'uncommitted changes'));
+  }
+  const branchCount = (p.openBranches || []).length;
+  if (branchCount > 0) {
+    indicators.appendChild(el('span', { className: 'indicator-pill indicator-blue' },
+      `${branchCount} open branch${branchCount > 1 ? 'es' : ''}`));
+  }
+  const highTodos = (todos || []).filter(t => t.projectId === p.id && t.priority === 'high' && t.status !== 'done');
+  if (highTodos.length > 0) {
+    indicators.appendChild(el('span', { className: 'indicator-pill indicator-red' },
+      `${highTodos.length} high priority todo${highTodos.length > 1 ? 's' : ''}`));
+  }
+  const openIssues = (issues || []).filter(i => i.projectId === p.id && i.status !== 'resolved');
+  if (openIssues.length > 0) {
+    indicators.appendChild(el('span', { className: 'indicator-pill indicator-red' },
+      `${openIssues.length} open issue${openIssues.length > 1 ? 's' : ''}`));
+  }
+  const isClean = !p.uncommitted && branchCount === 0 && highTodos.length === 0 && openIssues.length === 0;
+  if (isClean) {
+    indicators.appendChild(el('span', { className: 'indicator-pill indicator-green' }, 'clean'));
+  }
+  card.appendChild(indicators);
+
+  const attentionItems = [];
+  if (p.uncommitted) attentionItems.push({ text: p.uncommittedDetail || 'Uncommitted changes', type: 'yellow' });
+  highTodos.forEach(t => attentionItems.push({ text: t.title, type: 'red', projectId: p.id }));
+  openIssues.forEach(i => attentionItems.push({ text: i.title, type: 'red', projectId: p.id }));
+
+  if (attentionItems.length > 0) {
+    const attList = el('div', { className: 'card-attention-list' });
+    attentionItems.forEach(item => {
+      const row = el('div', { className: `card-attention-item ${item.type}` }, el('span', null, item.text));
+      row.addEventListener('click', (e) => { e.stopPropagation(); showProjectDetail(item.projectId || p.id); });
+      attList.appendChild(row);
+    });
+    card.appendChild(attList);
+  }
+  return card;
+}
+
+function renderProjects(projects, todos, issues) {
+  document.getElementById('project-count').textContent = `${projects.length} projects`;
+  const grid = document.getElementById('project-grid');
+  clearEl(grid);
+
+  const groups = groupProjects(projects);
+  groups.forEach(g => {
+    grid.appendChild(el('div', { className: 'project-group-header' }, formatGroupName(g.name)));
+    g.projects.forEach(p => grid.appendChild(buildProjectCard(p, todos, issues)));
+  });
+}
+
+async function showProjectDetail(projectId, scrollToSection) {
+  // Switch view to project-detail
+  document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
+  const navLink = document.querySelector(`nav a[href="#project-${projectId}"]`);
+  if (navLink) navLink.classList.add('active');
+
+
+  document.querySelectorAll('.section[data-section]').forEach(s => s.classList.add('hidden'));
+  const detailSection = document.getElementById('project-detail');
+  detailSection.classList.remove('hidden');
+  clearEl(detailSection);
+
+  const [allTodos, allIssues] = await Promise.all([db.list('todos'), db.list('issues')]);
+  const [todos, issues, concerns, decisions, deps] = await Promise.all([
+    db.getTodos(projectId), db.getIssues(projectId), db.getConcerns(projectId),
+    db.getDecisions(projectId), db.getDependencies(projectId),
+  ]);
+  const project = await db.getProject(projectId);
+  const p = project;
+
+  // ── Same card structure as overview, but bigger ──
+  const card = el('div', { className: 'project-card', style: { cursor: 'default' } });
+
+  // Top row: name + status
+  card.appendChild(el('div', { className: 'card-top' },
+    el('h3', { style: { fontSize: '1.3rem' } }, p.name),
+    el('span', { className: `status-badge ${p.status}` }, p.status)
+  ));
+  card.appendChild(el('div', { className: 'tagline' }, p.tagline));
+
+  // Indicators (same as overview)
+  const indicators = el('div', { className: 'card-indicators' });
+  if (p.uncommitted) {
+    indicators.appendChild(el('span', { className: 'indicator-pill indicator-yellow' }, 'uncommitted changes'));
+  }
+  const branchCount = (p.openBranches || []).length;
+  if (branchCount > 0) {
+    indicators.appendChild(el('span', { className: 'indicator-pill indicator-blue' },
+      `${branchCount} open branch${branchCount > 1 ? 'es' : ''}`));
+  }
+  const highTodos = todos.filter(t => t.priority === 'high' && t.status !== 'done');
+  if (highTodos.length > 0) {
+    indicators.appendChild(el('span', { className: 'indicator-pill indicator-red' },
+      `${highTodos.length} high priority todo${highTodos.length > 1 ? 's' : ''}`));
+  }
+  const openIssues = issues.filter(i => i.status !== 'resolved');
+  if (openIssues.length > 0) {
+    indicators.appendChild(el('span', { className: 'indicator-pill indicator-red' },
+      `${openIssues.length} open issue${openIssues.length > 1 ? 's' : ''}`));
+  }
+  const isClean = !p.uncommitted && branchCount === 0 && highTodos.length === 0 && openIssues.length === 0;
+  if (isClean) {
+    indicators.appendChild(el('span', { className: 'indicator-pill indicator-green' }, 'clean'));
+  }
+  card.appendChild(indicators);
+
+  // Attention items (same as overview)
+  const attentionItems = [];
+  if (p.uncommitted) attentionItems.push({ text: p.uncommittedDetail || 'Uncommitted changes', type: 'yellow' });
+  highTodos.forEach(t => attentionItems.push({ text: t.title, type: 'red' }));
+  openIssues.forEach(i => attentionItems.push({ text: i.title, type: 'red' }));
+  if (attentionItems.length > 0) {
+    const attList = el('div', { className: 'card-attention-list' });
+    attentionItems.forEach(item => {
+      attList.appendChild(el('div', { className: `card-attention-item ${item.type}` }, el('span', null, item.text)));
+    });
+    card.appendChild(attList);
+  }
+
+  detailSection.appendChild(card);
+
+  // ── Extra detail below the card ──
+
+  // Tech stack
+  if ((p.techStack || []).length > 0) {
+    const stackRow = el('div', { className: 'detail-extra' },
+      el('div', { className: 'detail-extra-label' }, 'Tech Stack'),
+      el('div', { className: 'tech-stack' }, ...(p.techStack || []).map(t => el('span', { className: 'tech-tag' }, t)))
+    );
+    detailSection.appendChild(stackRow);
+  }
+
+  // Latest work
+  if (p.latestWork) {
+    detailSection.appendChild(el('div', { className: 'detail-extra' },
+      el('div', { className: 'detail-extra-label' }, 'Latest Work'),
+      el('div', { style: { fontSize: '0.85rem', color: 'var(--text-muted)', lineHeight: '1.6' } }, p.latestWork)
+    ));
+  }
+
+  // Open branches with summaries
+  if (branchCount > 0) {
+    const branchExtra = el('div', { className: 'detail-extra' });
+    branchExtra.appendChild(el('div', { className: 'detail-extra-label' },
+      `Open Branches (${branchCount})`));
+    p.openBranches.forEach(b => {
+      const summary = (p.branchSummaries && p.branchSummaries[b]) || '';
+      branchExtra.appendChild(el('div', { className: 'branch-item' },
+        el('span', { className: 'branch-tag' }, b),
+        summary ? el('span', { className: 'branch-summary' }, summary) : null
+      ));
+    });
+    detailSection.appendChild(branchExtra);
+  }
+
+  // Info row: path, branch, run command
+  const infoRow = el('div', { className: 'detail-extra detail-info-row' });
+  [{ label: 'Path', value: p.path }, { label: 'Branch', value: p.branch }, { label: 'Run', value: p.runCmd }].forEach(item => {
+    if (!item.value) return;
+    infoRow.appendChild(el('div', { className: 'detail-info-cell' },
+      el('div', { className: 'detail-extra-label' }, item.label),
+      el('div', { style: { fontFamily: 'var(--mono)', fontSize: '0.75rem', color: item.label === 'Run' ? 'var(--accent)' : 'var(--text-muted)' } }, item.value)
+    ));
+  });
+  detailSection.appendChild(infoRow);
+
+  // ── Inline sections (no tabs) ──
+  function inlineSection(id, title, content) {
+    const sec = el('div', { className: 'detail-inline-section', id: `pd-${projectId}-${id}` },
+      el('div', { className: 'section-header' },
+        el('h2', { style: { fontSize: '1.4rem' } }, title)
+      )
+    );
+    if (content) sec.appendChild(content);
+    return sec;
+  }
+
+  // Todos
+  const todosSection = inlineSection('todos', `Todos (${todos.filter(t=>t.status!=='done').length})`);
+  const addTrigger = el('button', { className: 'add-trigger' }, '+ Add todo');
+  const addFormEl = el('div', { className: 'add-form' });
+  const titleInput = el('input', { type: 'text', placeholder: 'What needs to be done?' });
+  const prioSelect = el('select', null,
+    el('option', { value: 'high' }, 'High'),
+    el('option', { value: 'medium', selected: 'selected' }, 'Medium'),
+    el('option', { value: 'low' }, 'Low')
+  );
+  const addBtn = el('button', { className: 'btn btn-accent btn-small' }, 'Add');
+  addBtn.addEventListener('click', async (e) => {
+    e.stopPropagation();
+    const title = titleInput.value.trim();
+    if (!title) return;
+    await db.saveTodo({ projectId, title, priority: prioSelect.value, status: 'open', assignee: 'Mike' });
+    showProjectDetail(projectId);
+  });
+  const cancelBtn = el('button', { className: 'btn btn-ghost btn-small' }, 'Cancel');
+  cancelBtn.addEventListener('click', (e) => { e.stopPropagation(); addFormEl.classList.remove('visible'); });
+  addFormEl.append(titleInput, prioSelect, el('div', { className: 'btn-row' }, addBtn, cancelBtn));
+  addTrigger.addEventListener('click', (e) => { e.stopPropagation(); addFormEl.classList.toggle('visible'); });
+  todosSection.append(addTrigger, addFormEl, buildItemList(todos, 'todo'));
+  detailSection.appendChild(todosSection);
+
+  // Issues
+  detailSection.appendChild(inlineSection('issues',
+    `Issues (${issues.filter(i=>i.status!=='resolved').length})`,
+    buildItemList(issues, 'issue')));
+
+  // Concerns
+  const concernsContent = el('div');
+  if (concerns.length === 0) {
+    concernsContent.appendChild(el('p', { style: { color: 'var(--text-dim)', fontSize: '0.8rem' } }, 'No concerns'));
+  } else {
+    concerns.forEach(c => {
+      concernsContent.appendChild(el('div', { className: 'decision-item' },
+        el('div', { className: 'decision-title' }, c.title),
+        el('div', { className: 'decision-rationale' }, c.detail || ''),
+        el('div', { className: 'decision-meta' }, `${c.status} \u00B7 raised by ${c.raiser || '\u2014'}`)
+      ));
+    });
+  }
+  detailSection.appendChild(inlineSection('concerns', `Concerns (${concerns.filter(c=>c.status!=='closed').length})`, concernsContent));
+
+  // Decisions
+  const decisionsContent = el('div');
+  if (decisions.length === 0) {
+    decisionsContent.appendChild(el('p', { style: { color: 'var(--text-dim)', fontSize: '0.8rem' } }, 'No decisions recorded'));
+  } else {
+    decisions.forEach(d => {
+      decisionsContent.appendChild(el('div', { className: 'decision-item' },
+        el('div', { className: 'decision-title' }, d.title),
+        el('div', { className: 'decision-rationale' }, d.rationale || ''),
+        el('div', { className: 'decision-meta' }, `decided by ${d.decidedBy || '\u2014'}`)
+      ));
+    });
+  }
+  detailSection.appendChild(inlineSection('decisions', `Decisions (${decisions.length})`, decisionsContent));
+
+  if (scrollToSection) {
+    const target = document.getElementById(`pd-${projectId}-${scrollToSection}`);
+    if (target) { target.scrollIntoView({ behavior: 'smooth', block: 'start' }); return; }
+  }
+  window.scrollTo({ top: 0 });
+}
+
+function buildItemList(items, type) {
+  if (!items.length) return el('p', { style: { color: 'var(--text-dim)', fontSize: '0.8rem' } }, `No ${type}s`);
+  const list = el('ul', { className: 'item-list' });
+  const priorityField = type === 'issue' ? 'severity' : 'priority';
+  items.forEach(item => {
+    const level = item[priorityField] || 'medium';
+    const cssClass = type === 'issue' ? `severity-${level}` : `priority-${level}`;
+    const isDone = item.status === 'done' || item.status === 'resolved';
+    const li = el('li', { className: isDone ? 'done' : '' });
+
+    // Checkbox at start
+    const cb = el('input', { type: 'checkbox', className: 'item-checkbox' });
+    if (isDone) cb.checked = true;
+    cb.addEventListener('change', async (e) => {
+      e.stopPropagation();
+      if (cb.checked) {
+        await markDone(`${type}s`, item.id);
+      } else {
+        await markUndone(`${type}s`, item.id);
+      }
+    });
+    li.appendChild(cb);
+
+    // Title in the middle
+    li.appendChild(el('span', { className: 'item-title' },
+      item.title,
+      item.detail ? el('div', { className: 'item-detail' }, item.detail) : null
+    ));
+
+    // Priority badge at end
+    li.appendChild(el('span', { className: `item-priority ${cssClass}` }, level));
+
+    list.appendChild(li);
+  });
+  return list;
+}
+
+function renderAttention(projects, todos, issues, concerns) {
+  const grid = document.getElementById('attention-grid');
+  clearEl(grid);
+  const cards = [];
+
+  projects.filter(p => p.uncommitted).forEach(p => {
+    cards.push({ type: 'warning', projectId: p.id, project: p.name, title: 'Uncommitted changes', detail: p.uncommittedDetail });
+  });
+  todos.filter(t => t.priority === 'high' && t.status !== 'done').forEach(t => {
+    const p = projects.find(pr => pr.id === t.projectId);
+    cards.push({ type: 'critical', projectId: t.projectId, project: p ? p.name : t.projectId, title: t.title, detail: 'High priority todo' });
+  });
+  issues.filter(i => i.status !== 'resolved').forEach(i => {
+    const p = projects.find(pr => pr.id === i.projectId);
+    cards.push({ type: i.severity === 'high' ? 'critical' : 'warning', projectId: i.projectId, project: p ? p.name : i.projectId, title: i.title, detail: i.detail });
+  });
+
+  if (cards.length === 0) {
+    grid.appendChild(el('p', { style: { color: 'var(--green)', fontSize: '0.85rem' } }, 'All clear \u2014 nothing needs attention right now.'));
+    return;
+  }
+  cards.forEach(c => {
+    const card = el('div', { className: `attention-card clickable ${c.type === 'critical' ? 'critical' : c.type === 'info' ? 'info' : ''}` },
+      el('div', { className: 'attention-project' }, c.project),
+      el('h4', null, c.title),
+      el('p', null, c.detail || '')
+    );
+    card.addEventListener('click', () => showProjectDetail(c.projectId));
+    grid.appendChild(card);
+  });
+}
+
+function renderAllTodos(todos, projects) {
+  const open = todos.filter(t => t.status !== 'done');
+  document.getElementById('todo-count').textContent = `${open.length} open / ${todos.length} total`;
+  const list = document.getElementById('all-todos-list');
+  clearEl(list);
+
+  const sorted = [...todos].sort((a, b) => {
+    const order = { high: 0, medium: 1, low: 2 };
+    if ((a.status === 'done') !== (b.status === 'done')) return a.status === 'done' ? 1 : -1;
+    return (order[a.priority] || 1) - (order[b.priority] || 1);
+  });
+
+  sorted.forEach(t => {
+    const p = projects.find(pr => pr.id === t.projectId);
+    const isDone = t.status === 'done';
+    const accentClass = t.priority === 'high' ? 'critical' : t.priority === 'low' ? 'info' : '';
+    const card = el('div', { className: `tracking-card ${accentClass} ${isDone ? 'done' : ''}` });
+
+    const cb = el('input', { type: 'checkbox', className: 'item-checkbox' });
+    if (isDone) cb.checked = true;
+    cb.addEventListener('change', async () => {
+      if (cb.checked) await markDone('todos', t.id);
+      else await markUndone('todos', t.id);
+    });
+
+    const projectLink = el('span', { className: 'attention-project item-meta-link' }, p ? p.name : t.projectId);
+    projectLink.addEventListener('click', (e) => { e.stopPropagation(); showProjectDetail(t.projectId); });
+
+    const topRow = el('div', { className: 'tracking-card-top' },
+      cb,
+      el('h4', null, t.title),
+      el('span', { className: `item-priority ${t.priority === 'high' ? 'priority-high' : t.priority === 'low' ? 'priority-low' : 'priority-medium'}` }, t.priority || 'medium')
+    );
+    card.append(topRow, projectLink);
+    list.appendChild(card);
+  });
+}
+
+function renderAllIssues(issues, projects) {
+  const open = issues.filter(i => i.status !== 'resolved');
+  document.getElementById('issue-count').textContent = `${open.length} open / ${issues.length} total`;
+  const list = document.getElementById('all-issues-list');
+  clearEl(list);
+
+  issues.forEach(i => {
+    const p = projects.find(pr => pr.id === i.projectId);
+    const isDone = i.status === 'resolved';
+    const accentClass = i.severity === 'high' ? 'critical' : i.severity === 'low' ? 'info' : '';
+    const card = el('div', { className: `tracking-card ${accentClass} ${isDone ? 'done' : ''}` });
+
+    const cb = el('input', { type: 'checkbox', className: 'item-checkbox' });
+    if (isDone) cb.checked = true;
+    cb.addEventListener('change', async () => {
+      if (cb.checked) await markDone('issues', i.id);
+      else await markUndone('issues', i.id);
+    });
+
+    const projectLink = el('span', { className: 'attention-project item-meta-link' }, p ? p.name : i.projectId);
+    projectLink.addEventListener('click', (e) => { e.stopPropagation(); showProjectDetail(i.projectId); });
+
+    const topRow = el('div', { className: 'tracking-card-top' },
+      cb,
+      el('h4', null, i.title),
+      el('span', { className: `item-priority ${i.severity === 'high' ? 'severity-high' : i.severity === 'low' ? 'severity-low' : 'severity-medium'}` }, i.severity || 'medium')
+    );
+    card.append(topRow, projectLink);
+    if (i.detail) card.appendChild(el('p', { style: { fontSize: '0.8rem', color: 'var(--text-muted)', marginTop: '4px' } }, i.detail));
+    list.appendChild(card);
+  });
+}
+
+function renderAllDecisions(decisions, projects) {
+  document.getElementById('decision-count').textContent = `${decisions.length} recorded`;
+  const container = document.getElementById('all-decisions-list');
+  clearEl(container);
+
+  decisions.forEach(d => {
+    const p = projects.find(pr => pr.id === d.projectId);
+    const card = el('div', { className: 'tracking-card info' });
+
+    const projectLink = el('span', { className: 'attention-project item-meta-link' }, p ? p.name : d.projectId);
+    projectLink.addEventListener('click', (e) => { e.stopPropagation(); showProjectDetail(d.projectId); });
+
+    card.append(
+      projectLink,
+      el('h4', null, d.title),
+      el('p', { style: { fontSize: '0.8rem', color: 'var(--text-muted)', fontStyle: 'italic', marginTop: '4px' } }, d.rationale || ''),
+      el('div', { className: 'decision-meta' }, `decided by ${d.decidedBy || '\u2014'}`)
+    );
+    container.appendChild(card);
+  });
+}
+
+// ─── Actions ─────────────────────────────────────────────────────────────────
+function toggleAddForm(formId) {
+  document.getElementById(formId).classList.toggle('visible');
+}
+
+async function addGlobalTodo() {
+  const projectId = document.getElementById('global-todo-project').value;
+  const titleEl = document.getElementById('global-todo-title');
+  const title = titleEl.value.trim();
+  const priority = document.getElementById('global-todo-priority').value;
+  if (!title) return;
+  await db.saveTodo({ projectId, title, priority, status: 'open', assignee: 'Mike' });
+  titleEl.value = '';
+  toggleAddForm('global-todo-form');
+  render();
+}
+
+async function markDone(table, id) {
+  const item = await db.getById(table, id);
+  if (item) {
+    item.status = table === 'issues' ? 'resolved' : table === 'concerns' ? 'closed' : 'done';
+    await db.save(table, item);
+    render();
+  }
+}
+
+async function markUndone(table, id) {
+  const item = await db.getById(table, id);
+  if (item) {
+    item.status = 'open';
+    await db.save(table, item);
+    render();
+  }
+}
+
+function populateProjectSelects(projects) {
+  const sel = document.getElementById('global-todo-project');
+  clearEl(sel);
+  projects.forEach(p => sel.appendChild(el('option', { value: p.id }, p.name)));
+}
+
+// ─── Boot ────────────────────────────────────────────────────────────────────
+init();
+</script>
+</body>
+</html>
