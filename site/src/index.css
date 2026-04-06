@@ -391,6 +391,8 @@ nav .nav-sub-summary {
 nav .nav-sub-summary:hover { color: var(--text-muted); }
 nav .nav-sub-summary.clean { color: var(--text-dim); opacity: 0.4; }
 nav .nav-sub-summary.has-items { color: var(--yellow); opacity: 0.7; }
+nav .nav-sub-summary.has-todos { color: var(--blue); opacity: 0.7; }
+nav .nav-sub-summary.has-low-todos { color: var(--text-muted); opacity: 1; }
 nav .nav-sub-summary.has-attention { color: var(--red); opacity: 0.8; }
 
 nav .nav-dot {
@@ -403,6 +405,7 @@ nav .nav-dot {
 
 nav .nav-dot.nav-badge-yellow { background: var(--yellow); }
 nav .nav-dot.nav-badge-red { background: var(--red); }
+nav .nav-dot.nav-badge-blue { background: var(--blue); }
 
 nav .nav-count {
   font-family: var(--mono);
@@ -644,7 +647,8 @@ nav .nav-count {
 }
 
 .priority-high, .severity-high { color: var(--red); background: var(--red-dim); }
-.priority-medium, .severity-medium { color: var(--yellow); background: var(--yellow-dim); }
+.priority-medium { color: var(--blue); background: var(--blue-dim); }
+.severity-medium { color: var(--yellow); background: var(--yellow-dim); }
 .priority-low, .severity-low { color: var(--text-dim); background: var(--surface-hover); }
 
 .item-title { color: var(--text); flex: 1; min-width: 0; }
@@ -682,6 +686,7 @@ nav .nav-count {
   margin-bottom: 8px;
 }
 
+.tracking-card.todo { border-left-color: var(--blue); }
 .tracking-card.critical { border-left-color: var(--red); }
 .tracking-card.info { border-left-color: var(--blue); }
 .tracking-card.done { opacity: 0.4; }
