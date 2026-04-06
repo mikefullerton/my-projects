@@ -32,5 +32,5 @@ Documents what each project writes where — paths, output locations, database s
 
 ## Key Links
 
-- **Path:** `/Users/mfullerton/projects/personal/my-projects/`
+- **Path:** `/Users/mfullerton/projects/active/my-projects/`
 - **Related:** social-media-bot, cat-herding (covered in unified data spec)

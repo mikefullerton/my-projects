@@ -55,5 +55,5 @@ mysetup                     # List all available scripts
 
 ## Key Links
 
-- **Path:** `/Users/mfullerton/projects/personal/mysetup/`
+- **Path:** `/Users/mfullerton/projects/active/mysetup/`
 - **Related:** cat-herding (plugins installed by this), all other projects (cloned by this)

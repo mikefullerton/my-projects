@@ -41,9 +41,9 @@ npm run test:watch      # Watch mode
 npm run clean           # Remove /tmp/smbot-test-* dirs
 ```
 
-**Requires:** Python bot repo at `/Users/mfullerton/projects/personal/social-media-bot` with venv
+**Requires:** Python bot repo at `/Users/mfullerton/projects/active/social-media-bot` with venv
 
 ## Key Links
 
-- **Path:** `/Users/mfullerton/projects/personal/social-media-bot-tests/`
+- **Path:** `/Users/mfullerton/projects/tests/social-media-bot-tests/`
 - **Tests for:** social-media-bot

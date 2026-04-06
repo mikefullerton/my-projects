@@ -45,7 +45,7 @@ Also includes 10 local skills (lint-skill, lint-rule, optimize-rules, etc.) and 
 
 ```bash
 # As marketplace user
-claude plugin marketplace add ~/projects/personal/cat-herding
+claude plugin marketplace add ~/projects/active/cat-herding
 claude plugin install webinitor@cat-herding
 
 # For development
@@ -57,5 +57,5 @@ claude --plugin-dir ./plugins/webinitor
 
 ## Key Links
 
-- **Path:** `/Users/mfullerton/projects/personal/cat-herding/`
+- **Path:** `/Users/mfullerton/projects/active/cat-herding/`
 - **Related:** mysetup (installs these plugins), social-media-bot (uses site-manager patterns)

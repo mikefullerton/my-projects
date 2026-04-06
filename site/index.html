@@ -285,6 +285,23 @@ main {
 .card-attention-item.yellow { border-left-color: var(--yellow); }
 .card-attention-item.red { border-left-color: var(--red); }
 
+.indicator-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 6px;
+}
+
+.indicator-row-label {
+  font-family: var(--mono);
+  font-size: 0.58rem;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  min-width: 60px;
+  flex-shrink: 0;
+}
+
 /* ─── Project Detail Extras ───────────────────────────────────────── */
 .detail-extra {
   padding: 16px 0;
@@ -308,6 +325,67 @@ main {
 
 .detail-info-cell { min-width: 140px; }
 
+/* ─── Branch Details ──────────────────────────────────────────────── */
+.branch-detail-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.branch-commits {
+  margin-top: 4px;
+  margin-bottom: 12px;
+}
+
+.branch-commit {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  padding: 2px 0;
+  font-size: 0.72rem;
+}
+
+.commit-hash {
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  color: var(--accent);
+  flex-shrink: 0;
+}
+
+.commit-message {
+  color: var(--text-muted);
+}
+
+.modified-files-list { display: flex; flex-direction: column; gap: 2px; }
+
+.modified-file-item {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  padding: 3px 0;
+  font-family: var(--mono);
+  font-size: 0.7rem;
+}
+
+.modified-file-change {
+  font-size: 0.55rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  min-width: 65px;
+}
+
+.modified-file-path { color: var(--text-muted); }
+
+.modified-file-summary {
+  color: var(--text-dim);
+  font-size: 0.6rem;
+  font-style: italic;
+  margin-left: auto;
+  text-align: right;
+  flex-shrink: 0;
+}
+
 .detail-inline-section { margin-top: 32px; }
 
 nav .nav-sub-summary {
@@ -321,7 +399,9 @@ nav .nav-sub-summary {
 }
 
 nav .nav-sub-summary:hover { color: var(--text-muted); }
-nav .nav-sub-summary.clean { color: var(--green); opacity: 0.5; }
+nav .nav-sub-summary.clean { color: var(--text-dim); opacity: 0.4; }
+nav .nav-sub-summary.has-items { color: var(--yellow); opacity: 0.7; }
+nav .nav-sub-summary.has-attention { color: var(--red); opacity: 0.8; }
 
 nav .nav-dot {
   display: inline-block;
@@ -747,7 +827,10 @@ nav .nav-count {
 
 <div class="app">
   <nav>
-    <div class="nav-title">Project Hub</div>
+    <div style="display:flex;justify-content:space-between;align-items:center;padding-right:16px">
+      <div class="nav-title">Project Hub</div>
+      <button class="btn btn-accent btn-small" id="refresh-btn" onclick="refreshProjects()">Refresh</button>
+    </div>
     <div class="nav-sub">Mike Fullerton</div>
     <div class="nav-section">Overview</div>
     <a href="#dashboard" class="active" data-view="dashboard" onclick="navigate(this)">Dashboard</a>
@@ -848,7 +931,7 @@ function clearEl(node) { while (node.firstChild) node.removeChild(node.firstChil
 const db = new ProjectDB();
 let appConfig = (typeof APP_CONFIG !== 'undefined') ? APP_CONFIG : { projects: {}, projectOrder: [] };
 
-const SEED_VERSION = 4; // bump to re-seed after data changes
+const SEED_VERSION = 12; // bump to re-seed after data changes
 
 async function init() {
 
@@ -1006,16 +1089,25 @@ function updateNavCounts(projects, todos, issues, concerns, decisions) {
   const issueCount = issues.filter(i => i.status !== 'resolved').length;
   const decisionCount = decisions.length;
 
-  function setCount(id, count) {
+  function setCount(id, count, colorClass) {
     const navEl = document.getElementById(id);
     if (!navEl) return;
-    const existing = navEl.querySelector('.nav-count');
-    if (existing) existing.remove();
-    if (count > 0) navEl.appendChild(el('span', { className: 'nav-count' }, `(${count})`));
+    navEl.querySelectorAll('.nav-count, .nav-dot').forEach(x => x.remove());
+    navEl.classList.remove('nav-badge-red', 'nav-badge-yellow');
+    if (count > 0) {
+      navEl.appendChild(el('span', { className: 'nav-count' }, `(${count})`));
+      if (colorClass) {
+        navEl.classList.add(colorClass);
+        navEl.appendChild(el('span', { className: `nav-dot ${colorClass}` }));
+      }
+    }
   }
-  setCount('nav-attention', attentionCount);
-  setCount('nav-todos', todoCount);
-  setCount('nav-issues', issueCount);
+  const hasHighTodos = todos.some(t => t.priority === 'high' && t.status !== 'done');
+  const hasOpenIssues = issues.some(i => i.status !== 'resolved');
+  const attColor = (hasHighTodos || hasOpenIssues) ? 'nav-badge-red' : attentionCount > 0 ? 'nav-badge-yellow' : '';
+  setCount('nav-attention', attentionCount, attColor);
+  setCount('nav-todos', todoCount, todoCount > 0 ? 'nav-badge-yellow' : '');
+  setCount('nav-issues', issueCount, issueCount > 0 ? 'nav-badge-red' : '');
   setCount('nav-decisions', decisionCount);
 }
 
@@ -1033,8 +1125,8 @@ function renderNavProjects(projects, todos, issues, concerns, decisions) {
       const pDecisions = (decisions || []).filter(d => d.projectId === p.id);
       const hasHighTodos = pTodos.some(t => t.priority === 'high');
       const needsAttention = hasHighTodos || pIssues.length > 0;
-      const isDirty = p.uncommitted || (p.openBranches || []).length > 0;
-      const badgeClass = needsAttention ? 'nav-badge-red' : isDirty ? 'nav-badge-yellow' : '';
+      const hasItems = pTodos.length > 0 || pIssues.length > 0 || pConcerns.length > 0 || pDecisions.length > 0;
+      const badgeClass = needsAttention ? 'nav-badge-red' : hasItems ? 'nav-badge-yellow' : '';
 
       const link = el('a', { href: `#project-${esc(p.id)}`, className: badgeClass }, p.name);
       if (badgeClass) link.appendChild(el('span', { className: `nav-dot ${badgeClass}` }));
@@ -1052,11 +1144,30 @@ function renderNavProjects(projects, todos, issues, concerns, decisions) {
       const summaryText = active.length > 0
         ? active.map(c => `${c.count} ${c.label}`).join(', ')
         : 'no issues';
-      const summary = el('div', { className: `nav-sub-summary ${active.length === 0 ? 'clean' : ''}` }, summaryText);
+      const summaryClass = active.length === 0 ? 'clean' : needsAttention ? 'has-attention' : 'has-items';
+      const summary = el('div', { className: `nav-sub-summary ${summaryClass}` }, summaryText);
       summary.addEventListener('click', (e) => { e.preventDefault(); showProjectDetail(p.id); });
       container.appendChild(summary);
     });
   });
+}
+
+function buildGitIndicators(p, container) {
+  const modCount = p.modifiedCount || 0;
+  const stagedCount = p.stagedCount || 0;
+  const untrackedCount = p.untrackedCount || 0;
+  const deletedCount = p.deletedCount || 0;
+  const aheadCount = p.aheadCount || 0;
+  const behindCount = p.behindCount || 0;
+  const branchCount = (p.openBranches || []).length;
+
+  if (stagedCount > 0) container.appendChild(el('span', { className: 'indicator-pill indicator-green' }, `${stagedCount} staged`));
+  if (modCount > 0) container.appendChild(el('span', { className: 'indicator-pill indicator-yellow' }, `${modCount} modified`));
+  if (untrackedCount > 0) container.appendChild(el('span', { className: 'indicator-pill indicator-yellow' }, `${untrackedCount} untracked`));
+  if (deletedCount > 0) container.appendChild(el('span', { className: 'indicator-pill indicator-red' }, `${deletedCount} deleted`));
+  if (aheadCount > 0) container.appendChild(el('span', { className: 'indicator-pill indicator-blue' }, `${aheadCount} ahead`));
+  if (behindCount > 0) container.appendChild(el('span', { className: 'indicator-pill indicator-yellow' }, `${behindCount} behind`));
+  if (branchCount > 0) container.appendChild(el('span', { className: 'indicator-pill indicator-blue' }, `${branchCount} branch${branchCount > 1 ? 'es' : ''}`));
 }
 
 function buildProjectCard(p, todos, issues) {
@@ -1070,14 +1181,7 @@ function buildProjectCard(p, todos, issues) {
   card.appendChild(el('div', { className: 'tagline' }, p.tagline));
 
   const indicators = el('div', { className: 'card-indicators' });
-  if (p.uncommitted) {
-    indicators.appendChild(el('span', { className: 'indicator-pill indicator-yellow' }, 'uncommitted changes'));
-  }
-  const branchCount = (p.openBranches || []).length;
-  if (branchCount > 0) {
-    indicators.appendChild(el('span', { className: 'indicator-pill indicator-blue' },
-      `${branchCount} open branch${branchCount > 1 ? 'es' : ''}`));
-  }
+  buildGitIndicators(p, indicators);
   const highTodos = (todos || []).filter(t => t.projectId === p.id && t.priority === 'high' && t.status !== 'done');
   if (highTodos.length > 0) {
     indicators.appendChild(el('span', { className: 'indicator-pill indicator-red' },
@@ -1088,6 +1192,7 @@ function buildProjectCard(p, todos, issues) {
     indicators.appendChild(el('span', { className: 'indicator-pill indicator-red' },
       `${openIssues.length} open issue${openIssues.length > 1 ? 's' : ''}`));
   }
+  const branchCount = (p.openBranches || []).length;
   const isClean = !p.uncommitted && branchCount === 0 && highTodos.length === 0 && openIssues.length === 0;
   if (isClean) {
     indicators.appendChild(el('span', { className: 'indicator-pill indicator-green' }, 'clean'));
@@ -1143,92 +1248,18 @@ async function showProjectDetail(projectId, scrollToSection) {
   const project = await db.getProject(projectId);
   const p = project;
 
-  // ── Same card structure as overview, but bigger ──
-  const card = el('div', { className: 'project-card', style: { cursor: 'default' } });
-
-  // Top row: name + status
-  card.appendChild(el('div', { className: 'card-top' },
-    el('h3', { style: { fontSize: '1.3rem' } }, p.name),
-    el('span', { className: `status-badge ${p.status}` }, p.status)
-  ));
-  card.appendChild(el('div', { className: 'tagline' }, p.tagline));
-
-  // Indicators (same as overview)
-  const indicators = el('div', { className: 'card-indicators' });
-  if (p.uncommitted) {
-    indicators.appendChild(el('span', { className: 'indicator-pill indicator-yellow' }, 'uncommitted changes'));
-  }
   const branchCount = (p.openBranches || []).length;
-  if (branchCount > 0) {
-    indicators.appendChild(el('span', { className: 'indicator-pill indicator-blue' },
-      `${branchCount} open branch${branchCount > 1 ? 'es' : ''}`));
-  }
   const highTodos = todos.filter(t => t.priority === 'high' && t.status !== 'done');
-  if (highTodos.length > 0) {
-    indicators.appendChild(el('span', { className: 'indicator-pill indicator-red' },
-      `${highTodos.length} high priority todo${highTodos.length > 1 ? 's' : ''}`));
-  }
   const openIssues = issues.filter(i => i.status !== 'resolved');
-  if (openIssues.length > 0) {
-    indicators.appendChild(el('span', { className: 'indicator-pill indicator-red' },
-      `${openIssues.length} open issue${openIssues.length > 1 ? 's' : ''}`));
-  }
+  const openTodos = todos.filter(t => t.status !== 'done');
+  const openConcerns = concerns.filter(c => c.status !== 'closed');
   const isClean = !p.uncommitted && branchCount === 0 && highTodos.length === 0 && openIssues.length === 0;
-  if (isClean) {
-    indicators.appendChild(el('span', { className: 'indicator-pill indicator-green' }, 'clean'));
-  }
-  card.appendChild(indicators);
+  const changeColors = {
+    'modified': 'var(--yellow)', 'added': 'var(--green)', 'added+modified': 'var(--green)',
+    'deleted': 'var(--red)', 'untracked': 'var(--text-dim)', 'renamed': 'var(--blue)', 'conflict': 'var(--red)',
+  };
 
-  // Attention items (same as overview)
-  const attentionItems = [];
-  if (p.uncommitted) attentionItems.push({ text: p.uncommittedDetail || 'Uncommitted changes', type: 'yellow' });
-  highTodos.forEach(t => attentionItems.push({ text: t.title, type: 'red' }));
-  openIssues.forEach(i => attentionItems.push({ text: i.title, type: 'red' }));
-  if (attentionItems.length > 0) {
-    const attList = el('div', { className: 'card-attention-list' });
-    attentionItems.forEach(item => {
-      attList.appendChild(el('div', { className: `card-attention-item ${item.type}` }, el('span', null, item.text)));
-    });
-    card.appendChild(attList);
-  }
-
-  detailSection.appendChild(card);
-
-  // ── Extra detail below the card ──
-
-  // Tech stack
-  if ((p.techStack || []).length > 0) {
-    const stackRow = el('div', { className: 'detail-extra' },
-      el('div', { className: 'detail-extra-label' }, 'Tech Stack'),
-      el('div', { className: 'tech-stack' }, ...(p.techStack || []).map(t => el('span', { className: 'tech-tag' }, t)))
-    );
-    detailSection.appendChild(stackRow);
-  }
-
-  // Latest work
-  if (p.latestWork) {
-    detailSection.appendChild(el('div', { className: 'detail-extra' },
-      el('div', { className: 'detail-extra-label' }, 'Latest Work'),
-      el('div', { style: { fontSize: '0.85rem', color: 'var(--text-muted)', lineHeight: '1.6' } }, p.latestWork)
-    ));
-  }
-
-  // Open branches with summaries
-  if (branchCount > 0) {
-    const branchExtra = el('div', { className: 'detail-extra' });
-    branchExtra.appendChild(el('div', { className: 'detail-extra-label' },
-      `Open Branches (${branchCount})`));
-    p.openBranches.forEach(b => {
-      const summary = (p.branchSummaries && p.branchSummaries[b]) || '';
-      branchExtra.appendChild(el('div', { className: 'branch-item' },
-        el('span', { className: 'branch-tag' }, b),
-        summary ? el('span', { className: 'branch-summary' }, summary) : null
-      ));
-    });
-    detailSection.appendChild(branchExtra);
-  }
-
-  // Info row: path, branch, run command
+  // ── Path / Branch / Run at top ──
   const infoRow = el('div', { className: 'detail-extra detail-info-row' });
   [{ label: 'Path', value: p.path }, { label: 'Branch', value: p.branch }, { label: 'Run', value: p.runCmd }].forEach(item => {
     if (!item.value) return;
@@ -1238,6 +1269,114 @@ async function showProjectDetail(projectId, scrollToSection) {
     ));
   });
   detailSection.appendChild(infoRow);
+
+  // ── Card: name, tagline, git: / tracking: indicator rows ──
+  const card = el('div', { className: 'project-card', style: { cursor: 'default' } });
+  card.appendChild(el('div', { className: 'card-top' },
+    el('h3', { style: { fontSize: '1.3rem' } }, p.name),
+    el('span', { className: `status-badge ${p.status}` }, p.status)
+  ));
+  card.appendChild(el('div', { className: 'tagline' }, p.tagline));
+
+  // git: row
+  const gitRow = el('div', { className: 'indicator-row' });
+  gitRow.appendChild(el('span', { className: 'indicator-row-label' }, 'git:'));
+  const gitPills = el('div', { className: 'card-indicators', style: { margin: '0' } });
+  buildGitIndicators(p, gitPills);
+  if (!gitPills.childNodes.length) gitPills.appendChild(el('span', { className: 'indicator-pill indicator-green' }, 'clean'));
+  gitRow.appendChild(gitPills);
+  card.appendChild(gitRow);
+
+  // tracking: row
+  const trackRow = el('div', { className: 'indicator-row' });
+  trackRow.appendChild(el('span', { className: 'indicator-row-label' }, 'tracking:'));
+  const trackPills = el('div', { className: 'card-indicators', style: { margin: '0' } });
+  if (openTodos.length > 0) trackPills.appendChild(el('span', { className: `indicator-pill ${highTodos.length > 0 ? 'indicator-red' : 'indicator-yellow'}` }, `${openTodos.length} todo${openTodos.length > 1 ? 's' : ''}`));
+  if (openIssues.length > 0) trackPills.appendChild(el('span', { className: 'indicator-pill indicator-red' }, `${openIssues.length} issue${openIssues.length > 1 ? 's' : ''}`));
+  if (openConcerns.length > 0) trackPills.appendChild(el('span', { className: 'indicator-pill indicator-yellow' }, `${openConcerns.length} concern${openConcerns.length > 1 ? 's' : ''}`));
+  if (decisions.length > 0) trackPills.appendChild(el('span', { className: 'indicator-pill indicator-blue' }, `${decisions.length} decision${decisions.length > 1 ? 's' : ''}`));
+  if (!trackPills.childNodes.length) trackPills.appendChild(el('span', { className: 'indicator-pill indicator-green' }, 'no issues'));
+  trackRow.appendChild(trackPills);
+  card.appendChild(trackRow);
+  detailSection.appendChild(card);
+
+  // ── Tech stack ──
+  if ((p.techStack || []).length > 0) {
+    detailSection.appendChild(el('div', { className: 'detail-extra' },
+      el('div', { className: 'detail-extra-label' }, 'Tech Stack'),
+      el('div', { className: 'tech-stack' }, ...(p.techStack || []).map(t => el('span', { className: 'tech-tag' }, t)))
+    ));
+  }
+
+  // ── Latest commits as list ──
+  // Latest commits (prefer structured array, fallback to string split)
+  const latestCommits = p.latestCommits || [];
+  if (latestCommits.length > 0 || p.latestWork) {
+    const workExtra = el('div', { className: 'detail-extra' });
+    workExtra.appendChild(el('div', { className: 'detail-extra-label' }, 'Latest Commits'));
+    if (latestCommits.length > 0) {
+      latestCommits.forEach(c => {
+        workExtra.appendChild(el('div', { className: 'branch-commit' },
+          el('span', { className: 'commit-hash' }, c.hash),
+          el('span', { className: 'commit-message' }, c.message)
+        ));
+      });
+    } else {
+      // Fallback for old data without latestCommits array
+      const parts = p.latestWork.split(/(?<=\.)\s+/).filter(s => s.trim());
+      parts.forEach(c => {
+        workExtra.appendChild(el('div', { className: 'branch-commit' },
+          el('span', { className: 'commit-message' }, c.replace(/\.$/, '').trim())
+        ));
+      });
+    }
+    detailSection.appendChild(workExtra);
+  }
+
+  // ── Open branches — flat vertical list ──
+  if (branchCount > 0) {
+    const branchExtra = el('div', { className: 'detail-extra' });
+    branchExtra.appendChild(el('div', { className: 'detail-extra-label' }, `Open Branches (${branchCount})`));
+    const details = p.branchDetails || [];
+    p.openBranches.forEach(b => {
+      const detail = details.find(d => d.name === b);
+      const manualSummary = (p.branchSummaries && p.branchSummaries[b]) || '';
+      const summaryText = manualSummary || (detail ? detail.summary : '');
+
+      branchExtra.appendChild(el('div', { className: 'branch-detail-header', style: { padding: '8px 0', borderBottom: '1px solid var(--border)' } },
+        el('span', { className: 'branch-tag' }, b),
+        summaryText ? el('span', { className: 'branch-summary' }, summaryText) : null
+      ));
+      if (detail && detail.commits && detail.commits.length > 0) {
+        const commitList = el('div', { className: 'branch-commits', style: { borderTop: 'none', marginBottom: '8px' } });
+        detail.commits.forEach(c => {
+          commitList.appendChild(el('div', { className: 'branch-commit' },
+            el('span', { className: 'commit-hash' }, c.hash),
+            el('span', { className: 'commit-message' }, c.message)
+          ));
+        });
+        branchExtra.appendChild(commitList);
+      }
+    });
+    detailSection.appendChild(branchExtra);
+  }
+
+  // ── Modified files ──
+  if ((p.modifiedFiles || []).length > 0) {
+    const modExtra = el('div', { className: 'detail-extra' });
+    modExtra.appendChild(el('div', { className: 'detail-extra-label' }, `Modified Files (${p.modifiedFiles.length})`));
+    const modList = el('div', { className: 'modified-files-list' });
+    p.modifiedFiles.forEach(f => {
+      const color = changeColors[f.change] || 'var(--text-dim)';
+      modList.appendChild(el('div', { className: 'modified-file-item' },
+        el('span', { className: 'modified-file-change', style: { color } }, f.change),
+        el('span', { className: 'modified-file-path' }, f.path),
+        f.summary ? el('span', { className: 'modified-file-summary' }, f.summary) : null
+      ));
+    });
+    modExtra.appendChild(modList);
+    detailSection.appendChild(modExtra);
+  }
 
   // ── Inline sections (no tabs) ──
   function inlineSection(id, title, content) {
@@ -1375,14 +1514,30 @@ function renderAttention(projects, todos, issues, concerns) {
     grid.appendChild(el('p', { style: { color: 'var(--green)', fontSize: '0.85rem' } }, 'All clear \u2014 nothing needs attention right now.'));
     return;
   }
+  // Sort: critical first, then warning
+  const typeOrder = { critical: 0, warning: 1, info: 2 };
+  cards.sort((a, b) => (typeOrder[a.type] || 1) - (typeOrder[b.type] || 1));
+
+  // Group by project
+  const grouped = {};
+  const projectOrder = [];
   cards.forEach(c => {
-    const card = el('div', { className: `attention-card clickable ${c.type === 'critical' ? 'critical' : c.type === 'info' ? 'info' : ''}` },
-      el('div', { className: 'attention-project' }, c.project),
-      el('h4', null, c.title),
-      el('p', null, c.detail || '')
-    );
-    card.addEventListener('click', () => showProjectDetail(c.projectId));
-    grid.appendChild(card);
+    if (!grouped[c.projectId]) { grouped[c.projectId] = []; projectOrder.push(c.projectId); }
+    grouped[c.projectId].push(c);
+  });
+
+  projectOrder.forEach(pid => {
+    const items = grouped[pid];
+    const projectName = items[0].project;
+    grid.appendChild(el('div', { className: 'project-group-header', style: { marginTop: '12px' } }, projectName));
+    items.forEach(c => {
+      const card = el('div', { className: `attention-card clickable ${c.type === 'critical' ? 'critical' : c.type === 'info' ? 'info' : ''}` },
+        el('h4', null, c.title),
+        el('p', null, c.detail || '')
+      );
+      card.addEventListener('click', () => showProjectDetail(c.projectId));
+      grid.appendChild(card);
+    });
   });
 }
 
@@ -1398,29 +1553,37 @@ function renderAllTodos(todos, projects) {
     return (order[a.priority] || 1) - (order[b.priority] || 1);
   });
 
+  // Group by project
+  const grouped = {};
+  const pOrder = [];
   sorted.forEach(t => {
-    const p = projects.find(pr => pr.id === t.projectId);
-    const isDone = t.status === 'done';
-    const accentClass = t.priority === 'high' ? 'critical' : t.priority === 'low' ? 'info' : '';
-    const card = el('div', { className: `tracking-card ${accentClass} ${isDone ? 'done' : ''}` });
+    if (!grouped[t.projectId]) { grouped[t.projectId] = []; pOrder.push(t.projectId); }
+    grouped[t.projectId].push(t);
+  });
 
-    const cb = el('input', { type: 'checkbox', className: 'item-checkbox' });
-    if (isDone) cb.checked = true;
-    cb.addEventListener('change', async () => {
-      if (cb.checked) await markDone('todos', t.id);
-      else await markUndone('todos', t.id);
+  pOrder.forEach(pid => {
+    const p = projects.find(pr => pr.id === pid);
+    list.appendChild(el('div', { className: 'project-group-header', style: { marginTop: '12px' } }, p ? p.name : pid));
+    grouped[pid].forEach(t => {
+      const isDone = t.status === 'done';
+      const accentClass = t.priority === 'high' ? 'critical' : t.priority === 'low' ? 'info' : '';
+      const card = el('div', { className: `tracking-card ${accentClass} ${isDone ? 'done' : ''}` });
+
+      const cb = el('input', { type: 'checkbox', className: 'item-checkbox' });
+      if (isDone) cb.checked = true;
+      cb.addEventListener('change', async () => {
+        if (cb.checked) await markDone('todos', t.id);
+        else await markUndone('todos', t.id);
+      });
+
+      const topRow = el('div', { className: 'tracking-card-top' },
+        cb,
+        el('h4', null, t.title),
+        el('span', { className: `item-priority ${t.priority === 'high' ? 'priority-high' : t.priority === 'low' ? 'priority-low' : 'priority-medium'}` }, t.priority || 'medium')
+      );
+      card.appendChild(topRow);
+      list.appendChild(card);
     });
-
-    const projectLink = el('span', { className: 'attention-project item-meta-link' }, p ? p.name : t.projectId);
-    projectLink.addEventListener('click', (e) => { e.stopPropagation(); showProjectDetail(t.projectId); });
-
-    const topRow = el('div', { className: 'tracking-card-top' },
-      cb,
-      el('h4', null, t.title),
-      el('span', { className: `item-priority ${t.priority === 'high' ? 'priority-high' : t.priority === 'low' ? 'priority-low' : 'priority-medium'}` }, t.priority || 'medium')
-    );
-    card.append(topRow, projectLink);
-    list.appendChild(card);
   });
 }
 
@@ -1430,30 +1593,41 @@ function renderAllIssues(issues, projects) {
   const list = document.getElementById('all-issues-list');
   clearEl(list);
 
-  issues.forEach(i => {
-    const p = projects.find(pr => pr.id === i.projectId);
-    const isDone = i.status === 'resolved';
-    const accentClass = i.severity === 'high' ? 'critical' : i.severity === 'low' ? 'info' : '';
-    const card = el('div', { className: `tracking-card ${accentClass} ${isDone ? 'done' : ''}` });
+  const sorted = [...issues].sort((a, b) => {
+    const order = { high: 0, medium: 1, low: 2 };
+    if ((a.status === 'resolved') !== (b.status === 'resolved')) return a.status === 'resolved' ? 1 : -1;
+    return (order[a.severity] || 1) - (order[b.severity] || 1);
+  });
 
-    const cb = el('input', { type: 'checkbox', className: 'item-checkbox' });
-    if (isDone) cb.checked = true;
-    cb.addEventListener('change', async () => {
-      if (cb.checked) await markDone('issues', i.id);
-      else await markUndone('issues', i.id);
+  const grouped = {};
+  const pOrder = [];
+  sorted.forEach(i => {
+    if (!grouped[i.projectId]) { grouped[i.projectId] = []; pOrder.push(i.projectId); }
+    grouped[i.projectId].push(i);
+  });
+
+  pOrder.forEach(pid => {
+    const p = projects.find(pr => pr.id === pid);
+    list.appendChild(el('div', { className: 'project-group-header', style: { marginTop: '12px' } }, p ? p.name : pid));
+    grouped[pid].forEach(i => {
+      const isDone = i.status === 'resolved';
+      const accentClass = i.severity === 'high' ? 'critical' : i.severity === 'low' ? 'info' : '';
+      const card = el('div', { className: `tracking-card ${accentClass} ${isDone ? 'done' : ''}` });
+      const cb = el('input', { type: 'checkbox', className: 'item-checkbox' });
+      if (isDone) cb.checked = true;
+      cb.addEventListener('change', async () => {
+        if (cb.checked) await markDone('issues', i.id);
+        else await markUndone('issues', i.id);
+      });
+      const topRow = el('div', { className: 'tracking-card-top' },
+        cb,
+        el('h4', null, i.title),
+        el('span', { className: `item-priority ${i.severity === 'high' ? 'severity-high' : i.severity === 'low' ? 'severity-low' : 'severity-medium'}` }, i.severity || 'medium')
+      );
+      card.appendChild(topRow);
+      if (i.detail) card.appendChild(el('p', { style: { fontSize: '0.8rem', color: 'var(--text-muted)', marginTop: '4px', paddingLeft: '28px' } }, i.detail));
+      list.appendChild(card);
     });
-
-    const projectLink = el('span', { className: 'attention-project item-meta-link' }, p ? p.name : i.projectId);
-    projectLink.addEventListener('click', (e) => { e.stopPropagation(); showProjectDetail(i.projectId); });
-
-    const topRow = el('div', { className: 'tracking-card-top' },
-      cb,
-      el('h4', null, i.title),
-      el('span', { className: `item-priority ${i.severity === 'high' ? 'severity-high' : i.severity === 'low' ? 'severity-low' : 'severity-medium'}` }, i.severity || 'medium')
-    );
-    card.append(topRow, projectLink);
-    if (i.detail) card.appendChild(el('p', { style: { fontSize: '0.8rem', color: 'var(--text-muted)', marginTop: '4px' } }, i.detail));
-    list.appendChild(card);
   });
 }
 
@@ -1462,20 +1636,25 @@ function renderAllDecisions(decisions, projects) {
   const container = document.getElementById('all-decisions-list');
   clearEl(container);
 
+  const grouped = {};
+  const pOrder = [];
   decisions.forEach(d => {
-    const p = projects.find(pr => pr.id === d.projectId);
-    const card = el('div', { className: 'tracking-card info' });
+    if (!grouped[d.projectId]) { grouped[d.projectId] = []; pOrder.push(d.projectId); }
+    grouped[d.projectId].push(d);
+  });
 
-    const projectLink = el('span', { className: 'attention-project item-meta-link' }, p ? p.name : d.projectId);
-    projectLink.addEventListener('click', (e) => { e.stopPropagation(); showProjectDetail(d.projectId); });
-
-    card.append(
-      projectLink,
-      el('h4', null, d.title),
-      el('p', { style: { fontSize: '0.8rem', color: 'var(--text-muted)', fontStyle: 'italic', marginTop: '4px' } }, d.rationale || ''),
-      el('div', { className: 'decision-meta' }, `decided by ${d.decidedBy || '\u2014'}`)
-    );
-    container.appendChild(card);
+  pOrder.forEach(pid => {
+    const p = projects.find(pr => pr.id === pid);
+    container.appendChild(el('div', { className: 'project-group-header', style: { marginTop: '12px' } }, p ? p.name : pid));
+    grouped[pid].forEach(d => {
+      const card = el('div', { className: 'tracking-card info' });
+      card.append(
+        el('h4', null, d.title),
+        el('p', { style: { fontSize: '0.8rem', color: 'var(--text-muted)', fontStyle: 'italic', marginTop: '4px' } }, d.rationale || ''),
+        el('div', { className: 'decision-meta' }, `decided by ${d.decidedBy || '\u2014'}`)
+      );
+      container.appendChild(card);
+    });
   });
 }
 
@@ -1518,6 +1697,27 @@ function populateProjectSelects(projects) {
   const sel = document.getElementById('global-todo-project');
   clearEl(sel);
   projects.forEach(p => sel.appendChild(el('option', { value: p.id }, p.name)));
+}
+
+// ─── Refresh ─────────────────────────────────────────────────────────────────
+async function refreshProjects() {
+  const btn = document.getElementById('refresh-btn');
+  btn.textContent = 'Scanning...';
+  btn.disabled = true;
+  try {
+    const resp = await fetch('/api/refresh', { method: 'POST' });
+    const result = await resp.json();
+    if (result.ok) {
+      btn.textContent = `Done (${result.scanned} scanned)`;
+      setTimeout(() => location.reload(), 800);
+    } else {
+      btn.textContent = 'Error';
+      setTimeout(() => { btn.textContent = 'Refresh'; btn.disabled = false; }, 2000);
+    }
+  } catch {
+    btn.textContent = 'Server offline';
+    setTimeout(() => { btn.textContent = 'Refresh'; btn.disabled = false; }, 2000);
+  }
 }
 
 // ─── Boot ────────────────────────────────────────────────────────────────────

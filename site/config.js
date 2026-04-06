@@ -1,4 +1,4 @@
-{
+const APP_CONFIG = {
   "projects": {
     "agentic-kitchen": "../../active/agentic-kitchen",
     "cat-herding": "../../active/cat-herding",
@@ -66,4 +66,4 @@
     "mikefullerton-com",
     "myagenticprojects"
   ]
-}
+};

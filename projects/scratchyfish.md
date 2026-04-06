@@ -57,6 +57,6 @@ bundle exec jekyll build    # Outputs to _site/
 
 ## Key Links
 
-- **Path:** `/Users/mfullerton/projects/personal/scratchyfish.com/`
+- **Path:** `/Users/mfullerton/projects/other/scratchyfish.com/`
 - **Domain:** scratchyfish.com (GitHub Pages)
 - **Size:** 104MB (mostly images)

@@ -51,4 +51,4 @@ python -m scripts.word_builder.seed_db  # Rebuild DB
 
 ## Key Links
 
-- **Path:** `/Users/mfullerton/projects/personal/name-craft/`
+- **Path:** `/Users/mfullerton/projects/active/name-craft/`

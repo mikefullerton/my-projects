@@ -66,6 +66,6 @@ smbot actionable --open          # Reading list + dev recommendations
 
 ## Key Links
 
-- **Path:** `/Users/mfullerton/projects/personal/social-media-bot/`
-- **Tests:** `/Users/mfullerton/projects/personal/social-media-bot-tests/`
+- **Path:** `/Users/mfullerton/projects/active/social-media-bot/`
+- **Tests:** `/Users/mfullerton/projects/tests/social-media-bot-tests/`
 - **Related:** my-projects (unified data architecture spec)
