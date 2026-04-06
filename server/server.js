@@ -5,7 +5,7 @@ const { execFileSync } = require('child_process');
 
 const PORT = 3456;
 const ROOT = path.join(__dirname, '..');
-const SITE = path.join(ROOT, 'site');
+const SITE = path.join(ROOT, 'site', 'dist');
 const SCANNER = path.join(ROOT, 'scanner');
 
 const MIME = {
@@ -27,7 +27,7 @@ function parseSeedData(seedPath) {
   // Write a temp wrapper that loads it
   const tmpPath = path.join(ROOT, '.seed-loader-tmp.js');
   fs.writeFileSync(tmpPath, `globalThis.SEED_DATA = null;\n` +
-    fs.readFileSync(seedPath, 'utf8').replace('const SEED_DATA', 'globalThis.SEED_DATA') +
+    fs.readFileSync(seedPath, 'utf8').replace('export const SEED_DATA', 'globalThis.SEED_DATA') +
     `\nprocess.stdout.write(JSON.stringify(globalThis.SEED_DATA));\n`);
   try {
     const output = execFileSync('node', [tmpPath], { timeout: 5000 }).toString();
@@ -49,7 +49,7 @@ const server = http.createServer((req, res) => {
       const output = execFileSync('bash', [scriptPath], { cwd: ROOT, timeout: 30000 }).toString();
       const scanned = JSON.parse(output);
 
-      const seedPath = path.join(SITE, 'seed-data.js');
+      const seedPath = path.join(ROOT, 'site', 'src', 'lib', 'seed.js');
       const seedData = parseSeedData(seedPath);
 
       // Keep manual todos, rebuild auto-generated ones
@@ -103,17 +103,17 @@ const server = http.createServer((req, res) => {
 
       seedData.todos = [...manualTodos, ...autoTodos];
 
-      const newSeed = `/**\n * Seed data for the project management dashboard.\n * Auto-updated by server refresh.\n */\n\nconst SEED_DATA = ${JSON.stringify(seedData, null, 2)};\n`;
+      const newSeed = `/**\n * Seed data for the project management dashboard.\n * Auto-updated by server refresh.\n */\n\nexport const SEED_DATA = ${JSON.stringify(seedData, null, 2)};\n`;
       fs.writeFileSync(seedPath, newSeed);
 
-      // Bump seed version in index.html
-      const indexPath = path.join(SITE, 'index.html');
-      let indexSrc = fs.readFileSync(indexPath, 'utf8');
-      indexSrc = indexSrc.replace(
+      // Bump seed version in DataContext so localStorage re-seeds on reload
+      const ctxPath = path.join(ROOT, 'site', 'src', 'context', 'DataContext.jsx');
+      let ctxSrc = fs.readFileSync(ctxPath, 'utf8');
+      ctxSrc = ctxSrc.replace(
         /const SEED_VERSION = (\d+);/,
         (_, v) => `const SEED_VERSION = ${parseInt(v) + 1};`
       );
-      fs.writeFileSync(indexPath, indexSrc);
+      fs.writeFileSync(ctxPath, ctxSrc);
 
       res.writeHead(200, { 'Content-Type': 'application/json' });
       res.end(JSON.stringify({

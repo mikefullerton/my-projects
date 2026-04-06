@@ -3,7 +3,7 @@
  * Auto-updated by server refresh.
  */
 
-const SEED_DATA = {
+export const SEED_DATA = {
   "projects": [
     {
       "id": "cat-herding",
@@ -361,7 +361,7 @@ const SEED_DATA = {
       "path": "~/projects/personal/mysetup/",
       "branch": "main",
       "uncommitted": true,
-      "uncommittedDetail": "5 changed files",
+      "uncommittedDetail": "7 changed files",
       "openBranches": [
         "housekeeping-updates",
         "remove-deprecated"
@@ -370,7 +370,7 @@ const SEED_DATA = {
         "remove-deprecated": "Cleaning out 4.5MB of legacy code from deprecated/ directory",
         "housekeeping-updates": "Housekeeping and cleanup tasks"
       },
-      "latestWork": "chore: standardize worktree directory to .claude/worktrees/.remove extra stuff for now.Merge pull request #24 from mikefullerton/remove-config-repos.",
+      "latestWork": "remove extra stuff for now.Merge pull request #24 from mikefullerton/remove-config-repos.chore: remove claude-config and agentic-roadmaps from setup.",
       "runCmd": "./install.sh",
       "tags": [
         "automation",
@@ -379,9 +379,19 @@ const SEED_DATA = {
       ],
       "modifiedFiles": [
         {
+          "path": ".claude/CLAUDE.md",
+          "change": "modified",
+          "summary": "+1/-1 — changed: - **Always use worktrees** for feature/fix branches. Worktre"
+        },
+        {
           "path": ".claude/settings.local.json",
           "change": "modified",
           "summary": "+2/-1 — changed: \"Bash(gh pr:*)\","
+        },
+        {
+          "path": ".gitignore",
+          "change": "modified",
+          "summary": "+1/-1 — changed: .claude/worktrees/"
         },
         {
           "path": "README.md",
@@ -429,16 +439,12 @@ const SEED_DATA = {
         }
       ],
       "stagedCount": 0,
-      "modifiedCount": 5,
+      "modifiedCount": 7,
       "untrackedCount": 0,
       "deletedCount": 0,
       "aheadCount": 0,
       "behindCount": 0,
       "latestCommits": [
-        {
-          "hash": "c6fc9f9",
-          "message": "chore: standardize worktree directory to .claude/worktrees/"
-        },
         {
           "hash": "4e5b340",
           "message": "remove extra stuff for now"
@@ -454,6 +460,10 @@ const SEED_DATA = {
         {
           "hash": "c03e38b",
           "message": "Merge pull request #23 from mikefullerton/remove-claude-plugins"
+        },
+        {
+          "hash": "d83e6d0",
+          "message": "chore: remove Claude plugins installation from setup.md and install.sh"
         }
       ]
     },
@@ -551,9 +561,9 @@ const SEED_DATA = {
       "path": "~/projects/personal/social-media-bot/",
       "branch": "main",
       "uncommitted": true,
-      "uncommittedDetail": "11 changed files",
+      "uncommittedDetail": "12 changed files",
       "openBranches": [],
-      "latestWork": "chore: standardize worktree directory to .claude/worktrees/.docs: add README and Claude Code skills.feat: interview system and updated bot config.",
+      "latestWork": "docs: add README and Claude Code skills.feat: interview system and updated bot config.feat: per-run data storage with live HTML dashboard.",
       "runCmd": "smbot run",
       "tags": [
         "ai",
@@ -565,6 +575,11 @@ const SEED_DATA = {
           "path": ".claude/skills/start-run/SKILL.md",
           "change": "modified",
           "summary": "+3/-3 — changed: Read `~/Library/Mobile Documents/com~apple~CloudDocs/social-"
+        },
+        {
+          "path": ".gitignore",
+          "change": "modified",
+          "summary": "+1/-0 — added: .claude/worktrees/"
         },
         {
           "path": "README.md",
@@ -619,16 +634,12 @@ const SEED_DATA = {
       ],
       "branchDetails": [],
       "stagedCount": 0,
-      "modifiedCount": 9,
+      "modifiedCount": 10,
       "untrackedCount": 2,
       "deletedCount": 0,
       "aheadCount": 0,
       "behindCount": 0,
       "latestCommits": [
-        {
-          "hash": "6377a50",
-          "message": "chore: standardize worktree directory to .claude/worktrees/"
-        },
         {
           "hash": "1436d82",
           "message": "docs: add README and Claude Code skills"
@@ -644,6 +655,10 @@ const SEED_DATA = {
         {
           "hash": "10fb707",
           "message": "feat: deep activity pipeline — commit-by-commit analysis with topic research"
+        },
+        {
+          "hash": "83759e2",
+          "message": "fix: activity scanner recursive repo discovery, better filtering and grouping"
         }
       ]
     },
@@ -682,9 +697,9 @@ const SEED_DATA = {
       "path": "~/projects/personal/my-projects/",
       "branch": "main",
       "uncommitted": true,
-      "uncommittedDetail": "8 changed files",
+      "uncommittedDetail": "4 changed files",
       "openBranches": [],
-      "latestWork": "docs: add React conversion design spec.refactor: reorganize repo into site/, scanner/, server/ for web hosting.feat: project management dashboard with dev-team aesthetic.",
+      "latestWork": "refactor: reorganize repo into site/, scanner/, server/ for web hosting.feat: project management dashboard with dev-team aesthetic.",
       "runCmd": "open index.html",
       "tags": [
         "meta",
@@ -695,12 +710,12 @@ const SEED_DATA = {
         {
           "path": "site/index.html",
           "change": "modified",
-          "summary": "+1/-1 — changed: const SEED_VERSION = 14; // bump to re-seed after data chang"
+          "summary": "+1/-1 — changed: const SEED_VERSION = 13; // bump to re-seed after data chang"
         },
         {
           "path": "site/seed-data.js",
           "change": "modified",
-          "summary": "+264/-430 — changed: \"uncommittedDetail\": \"45 changed files\","
+          "summary": "+259/-226 — changed: \"uncommittedDetail\": \"45 changed files\","
         },
         {
           "path": "docs/requirements/",
@@ -708,43 +723,19 @@ const SEED_DATA = {
           "summary": "new directory (1 items)"
         },
         {
-          "path": "site/node_modules/",
+          "path": "docs/superpowers/",
           "change": "untracked",
-          "summary": "new directory (20 items)"
-        },
-        {
-          "path": "site/package-lock.json",
-          "change": "untracked",
-          "summary": "29KB — {"
-        },
-        {
-          "path": "site/package.json",
-          "change": "untracked",
-          "summary": "321B — {"
-        },
-        {
-          "path": "site/src/",
-          "change": "untracked",
-          "summary": "new directory (5 items)"
-        },
-        {
-          "path": "site/vite.config.js",
-          "change": "untracked",
-          "summary": "225B — import { defineConfig } from 'vite';"
+          "summary": "new directory (1 items)"
         }
       ],
       "branchDetails": [],
       "stagedCount": 0,
       "modifiedCount": 2,
-      "untrackedCount": 6,
+      "untrackedCount": 2,
       "deletedCount": 0,
-      "aheadCount": 1,
+      "aheadCount": 0,
       "behindCount": 0,
       "latestCommits": [
-        {
-          "hash": "b84cd1b",
-          "message": "docs: add React conversion design spec"
-        },
         {
           "hash": "30c9d95",
           "message": "refactor: reorganize repo into site/, scanner/, server/ for web hosting"
@@ -766,7 +757,7 @@ const SEED_DATA = {
       "path": "~/projects/agentic-cookbook/code-review-pipeline-test/",
       "branch": "feature/cost-optimization",
       "uncommitted": true,
-      "uncommittedDetail": "1 changed files",
+      "uncommittedDetail": "2 changed files",
       "openBranches": [
         "chore/wrapper-refs-main",
         "config/on-demand-reviews",
@@ -777,13 +768,18 @@ const SEED_DATA = {
         "feature/thorin-code-review",
         "main"
       ],
-      "latestWork": "chore: standardize worktree directory to .claude/worktrees/.docs: update dotfiles path from ~/.dotfiles to ~/projects/dotfiles.config: make Thorin code review on-demand only.",
+      "latestWork": "docs: update dotfiles path from ~/.dotfiles to ~/projects/dotfiles.config: make Thorin code review on-demand only.config: adopt combined review, make Anthropic on-demand.",
       "runCmd": "",
       "tags": [
         "agentic-cookbook",
         "testing"
       ],
       "modifiedFiles": [
+        {
+          "path": ".gitignore",
+          "change": "modified",
+          "summary": "+1/-0 — added: .claude/worktrees/"
+        },
         {
           "path": "CLAUDE.md",
           "change": "modified",
@@ -880,16 +876,12 @@ const SEED_DATA = {
         }
       ],
       "stagedCount": 0,
-      "modifiedCount": 1,
+      "modifiedCount": 2,
       "untrackedCount": 0,
       "deletedCount": 0,
-      "aheadCount": 4,
+      "aheadCount": 3,
       "behindCount": 0,
       "latestCommits": [
-        {
-          "hash": "18370ef",
-          "message": "chore: standardize worktree directory to .claude/worktrees/"
-        },
         {
           "hash": "55774a6",
           "message": "docs: update dotfiles path from ~/.dotfiles to ~/projects/dotfiles"
@@ -905,6 +897,10 @@ const SEED_DATA = {
         {
           "hash": "7aa7d26",
           "message": "config: make specialized reviews on-demand only (#71)"
+        },
+        {
+          "hash": "215eec0",
+          "message": "feat: add Anthropic code reviewer workflow (#70)"
         }
       ]
     },
@@ -983,35 +979,20 @@ const SEED_DATA = {
       ],
       "path": "~/projects/agentic-cookbook/cookbook/",
       "branch": "main",
-      "uncommitted": true,
-      "uncommittedDetail": "1 changed files",
-      "openBranches": [
-        "feature/rename-concoction-to-cookbook"
-      ],
+      "uncommitted": false,
+      "uncommittedDetail": "",
+      "openBranches": [],
       "latestWork": "Document worktree directory path in CLAUDE.md git workflow section.Reclassify recipes into ingredients and update sibling projects (#43).Add ingredient/recipe/concoction artifact hierarchy (#42).",
       "runCmd": "",
       "tags": [
         "agentic-cookbook",
         "documentation"
       ],
-      "modifiedFiles": [
-        {
-          "path": "docs/superpowers/specs/2026-04-06-rename-concoction-to-cookbook-design.md",
-          "change": "untracked",
-          "summary": "4KB — Rename Concoction to Project Cookbook"
-        }
-      ],
-      "branchDetails": [
-        {
-          "name": "feature/rename-concoction-to-cookbook",
-          "commits": [],
-          "summary": "no unique commits",
-          "commitCount": 0
-        }
-      ],
+      "modifiedFiles": [],
+      "branchDetails": [],
       "stagedCount": 0,
       "modifiedCount": 0,
-      "untrackedCount": 1,
+      "untrackedCount": 0,
       "deletedCount": 0,
       "aheadCount": 0,
       "behindCount": 0,
@@ -1132,17 +1113,22 @@ const SEED_DATA = {
       "path": "~/projects/agentic-cookbook/cookbook-web/",
       "branch": "main",
       "uncommitted": true,
-      "uncommittedDetail": "199 changed files",
+      "uncommittedDetail": "200 changed files",
       "openBranches": [
         "feature/add-site-design-rule"
       ],
-      "latestWork": "chore: standardize worktree directory to .claude/worktrees/.Add Open Graph and Twitter meta tags with branded OG image.Add Agentic Cookbook Family box with links to Dev Team and Agent Registry.",
+      "latestWork": "Add Open Graph and Twitter meta tags with branded OG image.Add Agentic Cookbook Family box with links to Dev Team and Agent Registry.Style hero blurb closer in italic serif for emphasis.",
       "runCmd": "",
       "tags": [
         "agentic-cookbook",
         "website"
       ],
       "modifiedFiles": [
+        {
+          "path": ".gitignore",
+          "change": "modified",
+          "summary": "+1/-0 — added: .claude/worktrees/"
+        },
         {
           "path": "cookbook/compliance/INDEX.md",
           "change": "modified",
@@ -1237,11 +1223,6 @@ const SEED_DATA = {
           "path": "cookbook/guidelines/language/python/dashboard-service-is-display-only.md",
           "change": "modified",
           "summary": "+3/-1 — changed: approved-by: \"approve-artifact v1.0.0\""
-        },
-        {
-          "path": "cookbook/guidelines/language/python/database.md",
-          "change": "modified",
-          "summary": "+3/-1 — changed: approved-by: \"approve-artifact v1.0.0\""
         }
       ],
       "branchDetails": [
@@ -1262,16 +1243,12 @@ const SEED_DATA = {
         }
       ],
       "stagedCount": 0,
-      "modifiedCount": 150,
+      "modifiedCount": 151,
       "untrackedCount": 22,
       "deletedCount": 27,
       "aheadCount": 0,
       "behindCount": 0,
       "latestCommits": [
-        {
-          "hash": "62c0e6c",
-          "message": "chore: standardize worktree directory to .claude/worktrees/"
-        },
         {
           "hash": "e189b33",
           "message": "Add Open Graph and Twitter meta tags with branded OG image"
@@ -1287,6 +1264,10 @@ const SEED_DATA = {
         {
           "hash": "848aee1",
           "message": "Style nav titles in gold accent, rename to The Agentic Cookbook, add selection bar"
+        },
+        {
+          "hash": "55c4d4d",
+          "message": "Fix broken fonts by switching from stale woff2 URLs to Google Fonts link tags"
         }
       ]
     },
@@ -1305,7 +1286,7 @@ const SEED_DATA = {
       "uncommitted": false,
       "uncommittedDetail": "",
       "openBranches": [],
-      "latestWork": "Add consulting-team terminology and pipeline to architecture docs.Add consulting-team documentation to specialist guide.Add consulting-team section to specialist spec.",
+      "latestWork": "Add consulting-teams directory with test fixture.Add consulting-team implementation plan.Add consulting-team pipeline feature design spec.",
       "runCmd": "",
       "tags": [
         "agentic-cookbook",
@@ -1322,24 +1303,24 @@ const SEED_DATA = {
       "behindCount": 0,
       "latestCommits": [
         {
-          "hash": "e088665",
-          "message": "Add consulting-team terminology and pipeline to architecture docs"
+          "hash": "17f0669",
+          "message": "Add consulting-teams directory with test fixture"
         },
         {
-          "hash": "b3d79ba",
-          "message": "Add consulting-team documentation to specialist guide"
+          "hash": "7480ef1",
+          "message": "Add consulting-team implementation plan"
         },
         {
-          "hash": "3e05a09",
-          "message": "Add consulting-team section to specialist spec"
+          "hash": "0b2fcda",
+          "message": "Add consulting-team pipeline feature design spec"
         },
         {
-          "hash": "f3bc3f6",
-          "message": "Add consulting-team file validation tests"
+          "hash": "cac5218",
+          "message": "Add database specialist design spec"
         },
         {
-          "hash": "23ba1c5",
-          "message": "Add consulting_annotations to team-result resource"
+          "hash": "7ba9bc9",
+          "message": "Update terminology and paths across planning docs and agents"
         }
       ]
     },
@@ -1435,28 +1416,30 @@ const SEED_DATA = {
       ],
       "path": "~/projects/agentic-cookbook/official-agent-registry/",
       "branch": "main",
-      "uncommitted": false,
-      "uncommittedDetail": "",
+      "uncommitted": true,
+      "uncommittedDetail": "1 changed files",
       "openBranches": [],
-      "latestWork": "chore: standardize worktree directory to .claude/worktrees/.docs: add generalized AI persona research and template.Add favicon and apple-touch-icon for browser tabs and iMessage previews.",
+      "latestWork": "docs: add generalized AI persona research and template.Add favicon and apple-touch-icon for browser tabs and iMessage previews.Add OG meta tags and preview image for link sharing in Messages.",
       "runCmd": "",
       "tags": [
         "agentic-cookbook",
         "infrastructure"
       ],
-      "modifiedFiles": [],
+      "modifiedFiles": [
+        {
+          "path": ".gitignore",
+          "change": "modified",
+          "summary": "+1/-0 — added: .claude/worktrees/"
+        }
+      ],
       "branchDetails": [],
       "stagedCount": 0,
-      "modifiedCount": 0,
+      "modifiedCount": 1,
       "untrackedCount": 0,
       "deletedCount": 0,
       "aheadCount": 0,
       "behindCount": 0,
       "latestCommits": [
-        {
-          "hash": "b123d23",
-          "message": "chore: standardize worktree directory to .claude/worktrees/"
-        },
         {
           "hash": "675811e",
           "message": "docs: add generalized AI persona research and template"
@@ -1472,6 +1455,10 @@ const SEED_DATA = {
         {
           "hash": "8983860",
           "message": "Fix Cookbook link to agentic-cookbook.com"
+        },
+        {
+          "hash": "6bda360",
+          "message": "Fix Dev Team link to devteam.agenticcookbook.com"
         }
       ]
     },
@@ -1487,15 +1474,20 @@ const SEED_DATA = {
       "path": "~/projects/agentic-cookbook/roadmaps/",
       "branch": "main",
       "uncommitted": true,
-      "uncommittedDetail": "4 changed files",
+      "uncommittedDetail": "5 changed files",
       "openBranches": [],
-      "latestWork": "chore: standardize worktree directory to .claude/worktrees/.chore: install agentic cookbook (rule, manifest, preferences).Merge pull request #51 from mikefullerton/feature/progress-format.",
+      "latestWork": "chore: install agentic cookbook (rule, manifest, preferences).Merge pull request #51 from mikefullerton/feature/progress-format.feat(implement-roadmap): standardize progress output format.",
       "runCmd": "",
       "tags": [
         "agentic-cookbook",
         "planning"
       ],
       "modifiedFiles": [
+        {
+          "path": ".gitignore",
+          "change": "modified",
+          "summary": "+1/-1 — changed: .claude/worktrees/"
+        },
         {
           "path": "CLAUDE.md",
           "change": "modified",
@@ -1519,16 +1511,12 @@ const SEED_DATA = {
       ],
       "branchDetails": [],
       "stagedCount": 0,
-      "modifiedCount": 3,
+      "modifiedCount": 4,
       "untrackedCount": 1,
       "deletedCount": 0,
       "aheadCount": 0,
       "behindCount": 0,
       "latestCommits": [
-        {
-          "hash": "2b98be2",
-          "message": "chore: standardize worktree directory to .claude/worktrees/"
-        },
         {
           "hash": "4e19c1e",
           "message": "chore: install agentic cookbook (rule, manifest, preferences)"
@@ -1544,6 +1532,10 @@ const SEED_DATA = {
         {
           "hash": "44273a5",
           "message": "chore: init progress format branch"
+        },
+        {
+          "hash": "dc658d7",
+          "message": "Merge pull request #50 from mikefullerton/feature/conformance-vectors"
         }
       ]
     },
@@ -1897,15 +1889,20 @@ const SEED_DATA = {
       "path": "~/projects/agentic-cookbook/tools/",
       "branch": "main",
       "uncommitted": true,
-      "uncommittedDetail": "5 changed files",
+      "uncommittedDetail": "6 changed files",
       "openBranches": [],
-      "latestWork": "chore: standardize worktree directory to .claude/worktrees/.Add cookbook-statusline.sh script from dev-team repo.Initial commit: tools repo with rules, skills, and project setup.",
+      "latestWork": "Add cookbook-statusline.sh script from dev-team repo.Initial commit: tools repo with rules, skills, and project setup.",
       "runCmd": "",
       "tags": [
         "agentic-cookbook",
         "tools"
       ],
       "modifiedFiles": [
+        {
+          "path": ".gitignore",
+          "change": "modified",
+          "summary": "+1/-0 — added: .claude/worktrees/"
+        },
         {
           "path": "skills/lint-agent/",
           "change": "untracked",
@@ -1934,16 +1931,12 @@ const SEED_DATA = {
       ],
       "branchDetails": [],
       "stagedCount": 0,
-      "modifiedCount": 0,
+      "modifiedCount": 1,
       "untrackedCount": 5,
       "deletedCount": 0,
       "aheadCount": 0,
       "behindCount": 0,
       "latestCommits": [
-        {
-          "hash": "60b97e1",
-          "message": "chore: standardize worktree directory to .claude/worktrees/"
-        },
         {
           "hash": "102490f",
           "message": "Add cookbook-statusline.sh script from dev-team repo"
@@ -1965,8 +1958,8 @@ const SEED_DATA = {
       ],
       "path": "~/projects/apps/catnip/",
       "branch": "main",
-      "uncommitted": false,
-      "uncommittedDetail": "",
+      "uncommitted": true,
+      "uncommittedDetail": "1 changed files",
       "openBranches": [
         "feature/catnipwebservice-step-4",
         "feature/catnipwebservice-step-5",
@@ -1977,14 +1970,20 @@ const SEED_DATA = {
         "feature/websocket-integration-step-11",
         "feature/websocket-step-8"
       ],
-      "latestWork": "chore: standardize worktree directory to .claude/worktrees/.chore: rename cat-herding → agentic-roadmaps in roadmap and demo script.refactor: rename runs to roadmaps across frontend, backend, and CLI.",
+      "latestWork": "chore: rename cat-herding → agentic-roadmaps in roadmap and demo script.refactor: rename runs to roadmaps across frontend, backend, and CLI.refactor: migrate 1 roadmaps to flat file format.",
       "runCmd": "",
       "tags": [
         "apps",
         "ios",
         "ai"
       ],
-      "modifiedFiles": [],
+      "modifiedFiles": [
+        {
+          "path": ".gitignore",
+          "change": "modified",
+          "summary": "+1/-0 — added: .claude/worktrees/"
+        }
+      ],
       "branchDetails": [
         {
           "name": "feature/catnipwebservice-step-4",
@@ -2079,16 +2078,12 @@ const SEED_DATA = {
         }
       ],
       "stagedCount": 0,
-      "modifiedCount": 0,
+      "modifiedCount": 1,
       "untrackedCount": 0,
       "deletedCount": 0,
       "aheadCount": 0,
       "behindCount": 0,
       "latestCommits": [
-        {
-          "hash": "0c6264a",
-          "message": "chore: standardize worktree directory to .claude/worktrees/"
-        },
         {
           "hash": "3894133",
           "message": "chore: rename cat-herding → agentic-roadmaps in roadmap and demo script"
@@ -2104,6 +2099,10 @@ const SEED_DATA = {
         {
           "hash": "5cb0120",
           "message": "refactor: migrate roadmaps to per-directory File Record structure"
+        },
+        {
+          "hash": "0ebecbf",
+          "message": "docs: add author and GUID metadata to all roadmap files"
         }
       ]
     },
@@ -2120,12 +2119,12 @@ const SEED_DATA = {
       "path": "~/projects/apps/catnip-terminal/",
       "branch": "feature/ai-session-summarization",
       "uncommitted": true,
-      "uncommittedDetail": "1 changed files",
+      "uncommittedDetail": "2 changed files",
       "openBranches": [
         "main",
         "worktree-appkit-conversion"
       ],
-      "latestWork": "chore: standardize worktree directory to .claude/worktrees/.feat: AI-powered session summarization with multi-provider support.fix: remove sidebar toggle button from settings window.",
+      "latestWork": "feat: AI-powered session summarization with multi-provider support.fix: remove sidebar toggle button from settings window.refactor: switch settings to sidebar layout per litterbox spec.",
       "runCmd": "",
       "tags": [
         "apps",
@@ -2133,6 +2132,11 @@ const SEED_DATA = {
         "macos"
       ],
       "modifiedFiles": [
+        {
+          "path": ".gitignore",
+          "change": "modified",
+          "summary": "+1/-0 — added: .claude/worktrees/"
+        },
         {
           "path": "CLAUDE.md",
           "change": "untracked",
@@ -2183,16 +2187,12 @@ const SEED_DATA = {
         }
       ],
       "stagedCount": 0,
-      "modifiedCount": 0,
+      "modifiedCount": 1,
       "untrackedCount": 1,
       "deletedCount": 0,
-      "aheadCount": 2,
+      "aheadCount": 1,
       "behindCount": 0,
       "latestCommits": [
-        {
-          "hash": "50cdef8",
-          "message": "chore: standardize worktree directory to .claude/worktrees/"
-        },
         {
           "hash": "a634235",
           "message": "feat: AI-powered session summarization with multi-provider support"
@@ -2208,6 +2208,10 @@ const SEED_DATA = {
         {
           "hash": "5de22f2",
           "message": "fix: apply litterbox specs for window frame persistence and titles"
+        },
+        {
+          "hash": "26a612e",
+          "message": "feat: initial Catnip Terminal project"
         }
       ]
     },
@@ -2225,17 +2229,22 @@ const SEED_DATA = {
       "path": "~/projects/apps/Hairball/",
       "branch": "main",
       "uncommitted": true,
-      "uncommittedDetail": "13 changed files",
+      "uncommittedDetail": "14 changed files",
       "openBranches": [
         "feature/HairballV1"
       ],
-      "latestWork": "chore: standardize worktree directory to .claude/worktrees/.Update CLAUDE.md: litterbox → agentic-cookbook.feat: add Help window, Discovery window, oslog logging, rename contexts to Hairballs.",
+      "latestWork": "Update CLAUDE.md: litterbox → agentic-cookbook.feat: add Help window, Discovery window, oslog logging, rename contexts to Hairballs.refactor: migrate 1 roadmaps to flat file format.",
       "runCmd": "",
       "tags": [
         "apps",
         "macos"
       ],
       "modifiedFiles": [
+        {
+          "path": ".gitignore",
+          "change": "modified",
+          "summary": "+1/-0 — added: .claude/worktrees/"
+        },
         {
           "path": "Info.plist",
           "change": "modified",
@@ -2311,16 +2320,12 @@ const SEED_DATA = {
         }
       ],
       "stagedCount": 0,
-      "modifiedCount": 9,
+      "modifiedCount": 10,
       "untrackedCount": 4,
       "deletedCount": 0,
-      "aheadCount": 0,
+      "aheadCount": 1,
       "behindCount": 0,
       "latestCommits": [
-        {
-          "hash": "4273eec",
-          "message": "chore: standardize worktree directory to .claude/worktrees/"
-        },
         {
           "hash": "b8857de",
           "message": "Update CLAUDE.md: litterbox → agentic-cookbook"
@@ -2336,6 +2341,10 @@ const SEED_DATA = {
         {
           "hash": "fc0de7b",
           "message": "Merge pull request #16 from mikefullerton/feature/HairballV1"
+        },
+        {
+          "hash": "4bb94e8",
+          "message": "docs: complete feature HairballV1 — all steps done"
         }
       ]
     },
@@ -2351,29 +2360,36 @@ const SEED_DATA = {
       ],
       "path": "~/projects/apps/scratching-post/",
       "branch": "main",
-      "uncommitted": false,
-      "uncommittedDetail": "",
+      "uncommitted": true,
+      "uncommittedDetail": "2 changed files",
       "openBranches": [],
-      "latestWork": "chore: standardize worktree directory to .claude/worktrees/.Update CLAUDE.md: litterbox → agentic-cookbook.fix: only update session summary on topic change, not every input.",
+      "latestWork": "Update CLAUDE.md: litterbox → agentic-cookbook.fix: only update session summary on topic change, not every input.feat: AI-powered session summarization with multi-provider support.",
       "runCmd": "",
       "tags": [
         "apps",
         "macos",
         "ide"
       ],
-      "modifiedFiles": [],
+      "modifiedFiles": [
+        {
+          "path": ".claude/worktrees/settings-window-step-1",
+          "change": "deleted",
+          "summary": "file removed"
+        },
+        {
+          "path": ".gitignore",
+          "change": "modified",
+          "summary": "+1/-0 — added: .claude/worktrees/"
+        }
+      ],
       "branchDetails": [],
-      "stagedCount": 0,
-      "modifiedCount": 0,
+      "stagedCount": 1,
+      "modifiedCount": 1,
       "untrackedCount": 0,
-      "deletedCount": 0,
-      "aheadCount": 0,
+      "deletedCount": 1,
+      "aheadCount": 1,
       "behindCount": 0,
       "latestCommits": [
-        {
-          "hash": "763cc12",
-          "message": "chore: standardize worktree directory to .claude/worktrees/"
-        },
         {
           "hash": "d48543a",
           "message": "Update CLAUDE.md: litterbox → agentic-cookbook"
@@ -2389,6 +2405,10 @@ const SEED_DATA = {
         {
           "hash": "df6ad28",
           "message": "feat: dynamic pane layout with arrangement picker"
+        },
+        {
+          "hash": "1243837",
+          "message": "feat: show IDE projects as sub-items in session list panel"
         }
       ]
     },
@@ -2492,29 +2512,31 @@ const SEED_DATA = {
       ],
       "path": "~/projects/apps/temporal-platform/",
       "branch": "main",
-      "uncommitted": false,
-      "uncommittedDetail": "",
+      "uncommitted": true,
+      "uncommittedDetail": "1 changed files",
       "openBranches": [],
-      "latestWork": "chore: standardize worktree directory to .claude/worktrees/.chore: rename cat-herding → agentic-roadmaps in shared project reference.Update CLAUDE.md: litterbox → agentic-cookbook.",
+      "latestWork": "chore: rename cat-herding → agentic-roadmaps in shared project reference.Update CLAUDE.md: litterbox → agentic-cookbook.fix: remove Swift .build artifacts and fix .gitignore.",
       "runCmd": "",
       "tags": [
         "apps",
         "specs",
         "cross-platform"
       ],
-      "modifiedFiles": [],
+      "modifiedFiles": [
+        {
+          "path": ".gitignore",
+          "change": "modified",
+          "summary": "+1/-0 — added: .claude/worktrees/"
+        }
+      ],
       "branchDetails": [],
       "stagedCount": 0,
-      "modifiedCount": 0,
+      "modifiedCount": 1,
       "untrackedCount": 0,
       "deletedCount": 0,
       "aheadCount": 0,
       "behindCount": 0,
       "latestCommits": [
-        {
-          "hash": "f600b40",
-          "message": "chore: standardize worktree directory to .claude/worktrees/"
-        },
         {
           "hash": "cf2749c",
           "message": "chore: rename cat-herding → agentic-roadmaps in shared project reference"
@@ -2530,6 +2552,10 @@ const SEED_DATA = {
         {
           "hash": "6cf7187",
           "message": "feat: add full-stack verification playbook"
+        },
+        {
+          "hash": "02456c0",
+          "message": "feat: add playbook template format"
         }
       ]
     },
@@ -2548,9 +2574,9 @@ const SEED_DATA = {
       "path": "~/projects/apps/Whippet/",
       "branch": "main",
       "uncommitted": true,
-      "uncommittedDetail": "4 changed files",
+      "uncommittedDetail": "6 changed files",
       "openBranches": [],
-      "latestWork": "chore: standardize worktree directory to .claude/worktrees/.Update CLAUDE.md: litterbox → agentic-cookbook.feat: AI session summarization, frontmost window tracking, minimal UI.",
+      "latestWork": "Update CLAUDE.md: litterbox → agentic-cookbook.feat: AI session summarization, frontmost window tracking, minimal UI.fix: snapshot app metadata on main thread, enumerate windows on background.",
       "runCmd": "",
       "tags": [
         "apps",
@@ -2558,6 +2584,16 @@ const SEED_DATA = {
         "ai"
       ],
       "modifiedFiles": [
+        {
+          "path": ".gitignore",
+          "change": "modified",
+          "summary": "+1/-0 — added: .claude/worktrees/"
+        },
+        {
+          "path": "CLAUDE.md",
+          "change": "modified",
+          "summary": "+1/-1 — changed: - Always use PRs and git worktrees; never commit directly to"
+        },
         {
           "path": "Roadmaps/repair.log",
           "change": "untracked",
@@ -2581,16 +2617,12 @@ const SEED_DATA = {
       ],
       "branchDetails": [],
       "stagedCount": 0,
-      "modifiedCount": 0,
+      "modifiedCount": 2,
       "untrackedCount": 4,
       "deletedCount": 0,
-      "aheadCount": 0,
+      "aheadCount": 1,
       "behindCount": 0,
       "latestCommits": [
-        {
-          "hash": "f0cdd3a",
-          "message": "chore: standardize worktree directory to .claude/worktrees/"
-        },
         {
           "hash": "eb5f062",
           "message": "Update CLAUDE.md: litterbox → agentic-cookbook"
@@ -2606,6 +2638,10 @@ const SEED_DATA = {
         {
           "hash": "1624c2d",
           "message": "docs: update CLAUDE.md with litterbox component spec instructions"
+        },
+        {
+          "hash": "e3926b8",
+          "message": "refactor: migrate 1 roadmaps to flat file format"
         }
       ]
     },
@@ -2620,21 +2656,27 @@ const SEED_DATA = {
       ],
       "path": "~/projects/paused-projects/QualityTime/",
       "branch": "feature/agent-wrappers",
-      "uncommitted": false,
-      "uncommittedDetail": "",
+      "uncommitted": true,
+      "uncommittedDetail": "1 changed files",
       "openBranches": [
         "feature/anthropic-review",
         "feature/thorin-code-review",
         "fix/on-demand-reviews",
         "main"
       ],
-      "latestWork": "chore: standardize worktree directory to .claude/worktrees/.Update CLAUDE.md: litterbox → agentic-cookbook.docs: update CLAUDE.md.",
+      "latestWork": "Update CLAUDE.md: litterbox → agentic-cookbook.docs: update CLAUDE.md.Merge remote-tracking branch 'origin/main' into feature/agent-wrappers.",
       "runCmd": "",
       "tags": [
         "paused",
         "productivity"
       ],
-      "modifiedFiles": [],
+      "modifiedFiles": [
+        {
+          "path": ".gitignore",
+          "change": "modified",
+          "summary": "+1/-0 — added: .claude/worktrees/"
+        }
+      ],
       "branchDetails": [
         {
           "name": "feature/anthropic-review",
@@ -2701,16 +2743,12 @@ const SEED_DATA = {
         }
       ],
       "stagedCount": 0,
-      "modifiedCount": 0,
+      "modifiedCount": 1,
       "untrackedCount": 0,
       "deletedCount": 0,
-      "aheadCount": 7,
+      "aheadCount": 6,
       "behindCount": 0,
       "latestCommits": [
-        {
-          "hash": "a62f072",
-          "message": "chore: standardize worktree directory to .claude/worktrees/"
-        },
         {
           "hash": "69c08b8",
           "message": "Update CLAUDE.md: litterbox → agentic-cookbook"
@@ -2726,6 +2764,10 @@ const SEED_DATA = {
         {
           "hash": "7cc8a18",
           "message": "feat: switch workflows to agent wrappers (#3)"
+        },
+        {
+          "hash": "aeac8d8",
+          "message": "chore: switch wrapper references to @main"
         }
       ]
     },
@@ -2740,43 +2782,45 @@ const SEED_DATA = {
       ],
       "path": "~/projects/paused-projects/search-helper/",
       "branch": "main",
-      "uncommitted": false,
-      "uncommittedDetail": "",
+      "uncommitted": true,
+      "uncommittedDetail": "1 changed files",
       "openBranches": [],
-      "latestWork": "chore: standardize worktree directory to .claude/worktrees/.Add deep linking URL scheme (browsingpal://) (#13).Add Links Tracker window for saving and browsing URLs (#11).",
+      "latestWork": "Add architecture and design decision docs.Add SwiftUI SearchTermsApp target (#1).Add Finder Sync Extension with host app.",
       "runCmd": "",
       "tags": [
         "paused",
         "macos"
       ],
-      "modifiedFiles": [],
+      "modifiedFiles": [
+        {
+          "path": ".gitignore",
+          "change": "modified",
+          "summary": "+1/-0 — added: .claude/worktrees/"
+        }
+      ],
       "branchDetails": [],
       "stagedCount": 0,
-      "modifiedCount": 0,
+      "modifiedCount": 1,
       "untrackedCount": 0,
       "deletedCount": 0,
       "aheadCount": 0,
       "behindCount": 0,
       "latestCommits": [
         {
-          "hash": "084634a",
-          "message": "chore: standardize worktree directory to .claude/worktrees/"
+          "hash": "21eccb2",
+          "message": "Add architecture and design decision docs"
         },
         {
-          "hash": "c99e7a2",
-          "message": "Add deep linking URL scheme (browsingpal://) (#13)"
+          "hash": "c723290",
+          "message": "Add SwiftUI SearchTermsApp target (#1)"
         },
         {
-          "hash": "3331cc9",
-          "message": "Add Links Tracker window for saving and browsing URLs (#11)"
+          "hash": "68e098f",
+          "message": "Add Finder Sync Extension with host app"
         },
         {
-          "hash": "c88fb95",
-          "message": "Move search terms into Settings tabs, remove SearchPal window (#12)"
-        },
-        {
-          "hash": "da1ea57",
-          "message": "Add browser switch setting, formed search autocomplete, and browser activation (#10)"
+          "hash": "48035cb",
+          "message": "Initial commit with .gitignore"
         }
       ]
     }
@@ -2871,6 +2915,14 @@ const SEED_DATA = {
       "assignee": "Mike"
     },
     {
+      "id": "auto-catnip-uncommitted",
+      "projectId": "catnip",
+      "title": "Commit 1 changed files",
+      "priority": "medium",
+      "status": "open",
+      "assignee": "Mike"
+    },
+    {
       "id": "auto-catnip-branches",
       "projectId": "catnip",
       "title": "Review/merge 8 open branches",
@@ -2881,7 +2933,7 @@ const SEED_DATA = {
     {
       "id": "auto-catnip-terminal-uncommitted",
       "projectId": "catnip-terminal",
-      "title": "Commit 1 changed files",
+      "title": "Commit 2 changed files",
       "priority": "medium",
       "status": "open",
       "assignee": "Mike"
@@ -2903,25 +2955,9 @@ const SEED_DATA = {
       "assignee": "Mike"
     },
     {
-      "id": "auto-cookbook-uncommitted",
-      "projectId": "cookbook",
-      "title": "Commit 1 changed files",
-      "priority": "medium",
-      "status": "open",
-      "assignee": "Mike"
-    },
-    {
-      "id": "auto-cookbook-branches",
-      "projectId": "cookbook",
-      "title": "Review/merge 1 open branch",
-      "priority": "low",
-      "status": "open",
-      "assignee": "Mike"
-    },
-    {
       "id": "auto-cookbook-web-uncommitted",
       "projectId": "cookbook-web",
-      "title": "Commit 199 changed files",
+      "title": "Commit 200 changed files",
       "priority": "medium",
       "status": "open",
       "assignee": "Mike"
@@ -2937,7 +2973,7 @@ const SEED_DATA = {
     {
       "id": "auto-hairball-uncommitted",
       "projectId": "hairball",
-      "title": "Commit 13 changed files",
+      "title": "Commit 14 changed files",
       "priority": "medium",
       "status": "open",
       "assignee": "Mike"
@@ -2953,7 +2989,7 @@ const SEED_DATA = {
     {
       "id": "auto-my-projects-uncommitted",
       "projectId": "my-projects",
-      "title": "Commit 8 changed files",
+      "title": "Commit 4 changed files",
       "priority": "medium",
       "status": "open",
       "assignee": "Mike"
@@ -2969,7 +3005,7 @@ const SEED_DATA = {
     {
       "id": "auto-mysetup-uncommitted",
       "projectId": "mysetup",
-      "title": "Commit 5 changed files",
+      "title": "Commit 7 changed files",
       "priority": "medium",
       "status": "open",
       "assignee": "Mike"
@@ -2983,9 +3019,25 @@ const SEED_DATA = {
       "assignee": "Mike"
     },
     {
+      "id": "auto-official-agent-registry-uncommitted",
+      "projectId": "official-agent-registry",
+      "title": "Commit 1 changed files",
+      "priority": "medium",
+      "status": "open",
+      "assignee": "Mike"
+    },
+    {
       "id": "auto-roadmaps-uncommitted",
       "projectId": "roadmaps",
-      "title": "Commit 4 changed files",
+      "title": "Commit 5 changed files",
+      "priority": "medium",
+      "status": "open",
+      "assignee": "Mike"
+    },
+    {
+      "id": "auto-scratching-post-uncommitted",
+      "projectId": "scratching-post",
+      "title": "Commit 2 changed files",
       "priority": "medium",
       "status": "open",
       "assignee": "Mike"
@@ -2993,7 +3045,7 @@ const SEED_DATA = {
     {
       "id": "auto-social-media-bot-uncommitted",
       "projectId": "social-media-bot",
-      "title": "Commit 11 changed files",
+      "title": "Commit 12 changed files",
       "priority": "medium",
       "status": "open",
       "assignee": "Mike"
@@ -3007,9 +3059,17 @@ const SEED_DATA = {
       "assignee": "Mike"
     },
     {
+      "id": "auto-temporal-platform-uncommitted",
+      "projectId": "temporal-platform",
+      "title": "Commit 1 changed files",
+      "priority": "medium",
+      "status": "open",
+      "assignee": "Mike"
+    },
+    {
       "id": "auto-agentic-tools-uncommitted",
       "projectId": "agentic-tools",
-      "title": "Commit 5 changed files",
+      "title": "Commit 6 changed files",
       "priority": "medium",
       "status": "open",
       "assignee": "Mike"
@@ -3017,7 +3077,15 @@ const SEED_DATA = {
     {
       "id": "auto-whippet-uncommitted",
       "projectId": "whippet",
-      "title": "Commit 4 changed files",
+      "title": "Commit 6 changed files",
+      "priority": "medium",
+      "status": "open",
+      "assignee": "Mike"
+    },
+    {
+      "id": "auto-qualitytime-uncommitted",
+      "projectId": "qualitytime",
+      "title": "Commit 1 changed files",
       "priority": "medium",
       "status": "open",
       "assignee": "Mike"
@@ -3027,6 +3095,14 @@ const SEED_DATA = {
       "projectId": "qualitytime",
       "title": "Review/merge 4 open branches",
       "priority": "low",
+      "status": "open",
+      "assignee": "Mike"
+    },
+    {
+      "id": "auto-search-helper-uncommitted",
+      "projectId": "search-helper",
+      "title": "Commit 1 changed files",
+      "priority": "medium",
       "status": "open",
       "assignee": "Mike"
     },
@@ -3041,7 +3117,7 @@ const SEED_DATA = {
     {
       "id": "auto-code-review-pipeline-test-uncommitted",
       "projectId": "code-review-pipeline-test",
-      "title": "Commit 1 changed files",
+      "title": "Commit 2 changed files",
       "priority": "medium",
       "status": "open",
       "assignee": "Mike"
