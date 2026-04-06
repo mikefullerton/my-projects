@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useDB } from '../context/DataContext.jsx';
+import { todoCardClass } from '../lib/theme.js';
 
 export default function TodosView({ todos, projects }) {
   const { db, refresh } = useDB();
@@ -74,7 +75,7 @@ export default function TodosView({ todos, projects }) {
               <div className="project-group-header" style={{ marginTop: '12px' }}>{p ? p.name : pid}</div>
               {grouped[pid].map(t => {
                 const isDone = t.status === 'done';
-                const accentClass = t.priority === 'high' ? 'critical' : t.priority === 'low' ? 'info' : '';
+                const accentClass = todoCardClass(t.priority);
                 return (
                   <div key={t.id} className={`tracking-card ${accentClass} ${isDone ? 'done' : ''}`}>
                     <div className="tracking-card-top">

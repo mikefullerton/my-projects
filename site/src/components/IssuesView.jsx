@@ -1,4 +1,5 @@
 import { useDB } from '../context/DataContext.jsx';
+import { issueCardClass } from '../lib/theme.js';
 
 export default function IssuesView({ issues, projects }) {
   const { db, refresh } = useDB();
@@ -42,7 +43,7 @@ export default function IssuesView({ issues, projects }) {
               <div className="project-group-header" style={{ marginTop: '12px' }}>{p ? p.name : pid}</div>
               {grouped[pid].map(i => {
                 const isDone = i.status === 'resolved';
-                const accentClass = i.severity === 'high' ? 'critical' : i.severity === 'low' ? 'info' : '';
+                const accentClass = issueCardClass(i.severity);
                 return (
                   <div key={i.id} className={`tracking-card ${accentClass} ${isDone ? 'done' : ''}`}>
                     <div className="tracking-card-top">

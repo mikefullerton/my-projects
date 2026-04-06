@@ -1,5 +1,6 @@
 import { groupProjects, formatGroupName } from '../hooks/useData.js';
 import { useDB } from '../context/DataContext.jsx';
+import { COLORS } from '../lib/theme.js';
 
 export default function Sidebar({ projects, todos, issues, concerns, decisions, currentView, onNavigate, onSelectProject, onRefresh }) {
   const { appConfig } = useDB();
@@ -26,7 +27,9 @@ export default function Sidebar({ projects, todos, issues, concerns, decisions, 
     );
   }
 
-  const attColor = (hasHighTodos || hasOpenIssues) ? 'nav-badge-red' : attentionCount > 0 ? 'nav-badge-yellow' : '';
+  const attColor = (hasHighTodos || hasOpenIssues) ? `nav-badge-${COLORS.navAttentionHigh}` : attentionCount > 0 ? `nav-badge-${COLORS.navAttentionLow}` : '';
+  const todoNavColor = todoCount > 0 ? `nav-badge-${COLORS.navTodos}` : '';
+  const issueNavColor = issueCount > 0 ? `nav-badge-${COLORS.navIssues}` : '';
 
   return (
     <nav>
@@ -54,19 +57,19 @@ export default function Sidebar({ projects, todos, issues, concerns, decisions, 
       </a>
       <a
         href="#all-todos"
-        className={`${currentView === 'all-todos' ? 'active' : ''} ${todoCount > 0 ? 'nav-badge-yellow' : ''}`}
+        className={`${currentView === 'all-todos' ? 'active' : ''} ${todoNavColor}`}
         id="nav-todos"
         onClick={e => { e.preventDefault(); onNavigate('all-todos'); }}
       >
-        All Todos{navBadge(todoCount, todoCount > 0 ? 'nav-badge-yellow' : '')}
+        All Todos{navBadge(todoCount, todoNavColor)}
       </a>
       <a
         href="#all-issues"
-        className={`${currentView === 'all-issues' ? 'active' : ''} ${issueCount > 0 ? 'nav-badge-red' : ''}`}
+        className={`${currentView === 'all-issues' ? 'active' : ''} ${issueNavColor}`}
         id="nav-issues"
         onClick={e => { e.preventDefault(); onNavigate('all-issues'); }}
       >
-        All Issues{navBadge(issueCount, issueCount > 0 ? 'nav-badge-red' : '')}
+        All Issues{navBadge(issueCount, issueNavColor)}
       </a>
       <a
         href="#all-decisions"
@@ -86,10 +89,14 @@ export default function Sidebar({ projects, todos, issues, concerns, decisions, 
               const pIssues = issues.filter(i => i.projectId === p.id && i.status !== 'resolved');
               const pConcerns = concerns.filter(c => c.projectId === p.id && c.status !== 'closed');
               const pDecisions = decisions.filter(d => d.projectId === p.id);
-              const pHasHighTodos = pTodos.some(t => t.priority === 'high');
+              const pHighTodos = pTodos.filter(t => t.priority === 'high');
+              const pHasHighTodos = pHighTodos.length > 0;
+              const pLowPrioTodosOnly = pTodos.length > 0 && !pHasHighTodos && pIssues.length === 0 && pConcerns.length === 0;
               const needsAttention = pHasHighTodos || pIssues.length > 0;
-              const hasItems = pTodos.length > 0 || pIssues.length > 0 || pConcerns.length > 0 || pDecisions.length > 0;
-              const badgeClass = needsAttention ? 'nav-badge-red' : hasItems ? 'nav-badge-yellow' : '';
+              const hasNonTodoItems = pIssues.length > 0 || pConcerns.length > 0 || pDecisions.length > 0;
+              const hasItems = pTodos.length > 0 || hasNonTodoItems;
+              const hasTodosOnly = pHasHighTodos && pIssues.length === 0 && pConcerns.length === 0;
+              const badgeClass = needsAttention ? `nav-badge-${COLORS.navAttentionHigh}` : hasTodosOnly ? `nav-badge-${COLORS.navTodos}` : pLowPrioTodosOnly ? '' : hasNonTodoItems ? `nav-badge-${COLORS.navAttentionLow}` : '';
 
               const counts = [
                 { label: 'todos', count: pTodos.length },
@@ -101,9 +108,7 @@ export default function Sidebar({ projects, todos, issues, concerns, decisions, 
               const summaryText = active.length > 0
                 ? active.map(c => `${c.count} ${c.label}`).join(', ')
                 : 'no issues';
-              const summaryClass = active.length === 0 ? 'clean' : needsAttention ? 'has-attention' : 'has-items';
-
-              const isActive = currentView === 'project-detail' && false; // project ID check would go here
+              const summaryClass = active.length === 0 ? 'clean' : needsAttention ? 'has-attention' : pLowPrioTodosOnly ? 'has-low-todos' : hasTodosOnly ? 'has-todos' : 'has-items';
 
               return (
                 <div key={p.id}>

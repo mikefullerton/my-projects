@@ -1,3 +1,5 @@
+import { COLORS } from '../lib/theme.js';
+
 export default function GitIndicators({ project }) {
   const p = project;
   const modCount = p.modifiedCount || 0;
@@ -9,13 +11,13 @@ export default function GitIndicators({ project }) {
   const branchCount = (p.openBranches || []).length;
 
   const pills = [];
-  if (stagedCount > 0) pills.push({ cls: 'indicator-green', text: `${stagedCount} staged` });
-  if (modCount > 0) pills.push({ cls: 'indicator-yellow', text: `${modCount} modified` });
-  if (untrackedCount > 0) pills.push({ cls: 'indicator-yellow', text: `${untrackedCount} untracked` });
-  if (deletedCount > 0) pills.push({ cls: 'indicator-red', text: `${deletedCount} deleted` });
-  if (aheadCount > 0) pills.push({ cls: 'indicator-blue', text: `${aheadCount} ahead` });
-  if (behindCount > 0) pills.push({ cls: 'indicator-yellow', text: `${behindCount} behind` });
-  if (branchCount > 0) pills.push({ cls: 'indicator-blue', text: `${branchCount} branch${branchCount > 1 ? 'es' : ''}` });
+  if (stagedCount > 0) pills.push({ cls: `indicator-${COLORS.gitStaged}`, text: `${stagedCount} staged` });
+  if (modCount > 0) pills.push({ cls: `indicator-${COLORS.gitModified}`, text: `${modCount} modified` });
+  if (untrackedCount > 0) pills.push({ cls: `indicator-${COLORS.gitUntracked}`, text: `${untrackedCount} untracked` });
+  if (deletedCount > 0) pills.push({ cls: `indicator-${COLORS.gitDeleted}`, text: `${deletedCount} deleted` });
+  if (aheadCount > 0) pills.push({ cls: `indicator-${COLORS.gitAhead}`, text: `${aheadCount} ahead` });
+  if (behindCount > 0) pills.push({ cls: `indicator-${COLORS.gitBehind}`, text: `${behindCount} behind` });
+  if (branchCount > 0) pills.push({ cls: `indicator-${COLORS.gitBranches}`, text: `${branchCount} branch${branchCount > 1 ? 'es' : ''}` });
 
   return (
     <>

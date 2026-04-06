@@ -1,3 +1,5 @@
+import { COLORS } from '../lib/theme.js';
+
 export default function AttentionView({ projects, todos, issues, concerns, onSelectProject }) {
   const cards = [];
 

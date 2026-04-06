@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import GitIndicators from './GitIndicators.jsx';
 import ItemList from './ItemList.jsx';
 import { useDB } from '../context/DataContext.jsx';
+import { COLORS } from '../lib/theme.js';
 
 const changeColors = {
   'modified': 'var(--yellow)', 'added': 'var(--green)', 'added+modified': 'var(--green)',
@@ -98,22 +99,22 @@ export default function ProjectDetail({ projectId }) {
           <span className="indicator-row-label">tracking:</span>
           <div className="card-indicators" style={{ margin: '0' }}>
             {openTodos.length > 0 && (
-              <span className={`indicator-pill ${todos.some(t => t.priority === 'high' && t.status !== 'done') ? 'indicator-red' : 'indicator-yellow'}`}>
+              <span className={`indicator-pill ${todos.some(t => t.priority === 'high' && t.status !== 'done') ? `indicator-${COLORS.todoPriorityHigh}` : `indicator-${COLORS.todo}`}`}>
                 {openTodos.length} todo{openTodos.length > 1 ? 's' : ''}
               </span>
             )}
             {openIssues.length > 0 && (
-              <span className="indicator-pill indicator-red">
+              <span className={`indicator-pill indicator-${COLORS.issue}`}>
                 {openIssues.length} issue{openIssues.length > 1 ? 's' : ''}
               </span>
             )}
             {openConcerns.length > 0 && (
-              <span className="indicator-pill indicator-yellow">
+              <span className={`indicator-pill indicator-${COLORS.concern}`}>
                 {openConcerns.length} concern{openConcerns.length > 1 ? 's' : ''}
               </span>
             )}
             {decisions.length > 0 && (
-              <span className="indicator-pill indicator-blue">
+              <span className={`indicator-pill indicator-${COLORS.decision}`}>
                 {decisions.length} decision{decisions.length > 1 ? 's' : ''}
               </span>
             )}

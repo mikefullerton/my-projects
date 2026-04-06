@@ -1,6 +1,7 @@
 import GitIndicators from './GitIndicators.jsx';
 import { groupProjects, formatGroupName } from '../hooks/useData.js';
 import { useDB } from '../context/DataContext.jsx';
+import { COLORS } from '../lib/theme.js';
 
 function ProjectCard({ project, todos, issues, onSelect }) {
   const p = project;
@@ -24,16 +25,16 @@ function ProjectCard({ project, todos, issues, onSelect }) {
       <div className="card-indicators">
         <GitIndicators project={p} />
         {highTodos.length > 0 && (
-          <span className="indicator-pill indicator-red">
+          <span className={`indicator-pill indicator-${COLORS.todoPriorityHigh}`}>
             {highTodos.length} high priority todo{highTodos.length > 1 ? 's' : ''}
           </span>
         )}
         {openIssues.length > 0 && (
-          <span className="indicator-pill indicator-red">
+          <span className={`indicator-pill indicator-${COLORS.issue}`}>
             {openIssues.length} open issue{openIssues.length > 1 ? 's' : ''}
           </span>
         )}
-        {isClean && <span className="indicator-pill indicator-green">clean</span>}
+        {isClean && <span className={`indicator-pill indicator-${COLORS.gitClean}`}>clean</span>}
       </div>
       {attentionItems.length > 0 && (
         <div className="card-attention-list">
