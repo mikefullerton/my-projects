@@ -1,23 +1,29 @@
 import { useState, useEffect } from 'react';
-import { useDB } from '../context/DataContext.jsx';
+import { useDB } from '../context/DataContext.tsx';
+import type { Project, Todo, Issue, Concern, Decision, Dependency, DashboardData, AppConfig } from '../types.ts';
 
-function getOrderedProjects(projects, appConfig) {
+function getOrderedProjects(projects: Project[], appConfig: AppConfig): Project[] {
   const order = appConfig.projectOrder || [];
   if (order.length === 0) return projects;
   return order
     .map(id => projects.find(p => p.id === id))
-    .filter(Boolean);
+    .filter((p): p is Project => p !== undefined);
 }
 
-export function getProjectGroup(projectId, appConfig) {
+export function getProjectGroup(projectId: string, appConfig: AppConfig): string {
   const path = (appConfig.projects || {})[projectId] || '';
   const parts = path.replace(/^\.\.\/\.\.\//,'').split('/');
   return parts.length > 1 ? parts[0] : 'other';
 }
 
-export function groupProjects(projects, appConfig) {
-  const groups = [];
-  const groupMap = {};
+export interface ProjectGroup {
+  name: string;
+  projects: Project[];
+}
+
+export function groupProjects(projects: Project[], appConfig: AppConfig): ProjectGroup[] {
+  const groups: string[] = [];
+  const groupMap: Record<string, Project[]> = {};
   projects.forEach(p => {
     const g = getProjectGroup(p.id, appConfig);
     if (!groupMap[g]) {
@@ -29,24 +35,24 @@ export function groupProjects(projects, appConfig) {
   return groups.map(name => ({ name, projects: groupMap[name] }));
 }
 
-export function formatGroupName(name) {
+export function formatGroupName(name: string): string {
   return name.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
 }
 
-export function useData() {
+export function useData(): DashboardData | null {
   const { db, refreshKey, appConfig } = useDB();
-  const [data, setData] = useState(null);
+  const [data, setData] = useState<DashboardData | null>(null);
 
   useEffect(() => {
     async function load() {
-      const allProjects = await db.getProjects();
+      const allProjects = await db.getProjects() as Project[];
       const projects = getOrderedProjects(allProjects, appConfig);
       const [todos, issues, concerns, decisions, dependencies] = await Promise.all([
-        db.list('todos'),
-        db.list('issues'),
-        db.list('concerns'),
-        db.list('decisions'),
-        db.list('dependencies'),
+        db.list('todos') as Promise<Todo[]>,
+        db.list('issues') as Promise<Issue[]>,
+        db.list('concerns') as Promise<Concern[]>,
+        db.list('decisions') as Promise<Decision[]>,
+        db.list('dependencies') as Promise<Dependency[]>,
       ]);
 
       const visibleIds = new Set(projects.map(p => p.id));
@@ -56,16 +62,6 @@ export function useData() {
       const vDecisions = decisions.filter(d => visibleIds.has(d.projectId));
       const vDependencies = dependencies.filter(d => visibleIds.has(d.projectId));
 
-      const stats = {
-        projectCount: projects.length,
-        openTodos: vTodos.filter(t => t.status !== 'done').length,
-        totalTodos: vTodos.length,
-        openIssues: vIssues.filter(i => i.status !== 'resolved').length,
-        totalIssues: vIssues.length,
-        activeConcerns: vConcerns.filter(c => c.status !== 'closed').length,
-        totalDecisions: vDecisions.length,
-      };
-
       setData({
         projects,
         todos: vTodos,
@@ -73,7 +69,15 @@ export function useData() {
         concerns: vConcerns,
         decisions: vDecisions,
         dependencies: vDependencies,
-        stats,
+        stats: {
+          projectCount: projects.length,
+          openTodos: vTodos.filter(t => t.status !== 'done').length,
+          totalTodos: vTodos.length,
+          openIssues: vIssues.filter(i => i.status !== 'resolved').length,
+          totalIssues: vIssues.length,
+          activeConcerns: vConcerns.filter(c => c.status !== 'closed').length,
+          totalDecisions: vDecisions.length,
+        },
       });
     }
     load();

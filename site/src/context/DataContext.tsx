@@ -1,13 +1,22 @@
-import { createContext, useContext, useState, useEffect, useCallback } from 'react';
-import { ProjectDB } from '../lib/db.js';
-import { SEED_DATA } from '../lib/seed.js';
-import { APP_CONFIG } from '../lib/config.js';
+import { createContext, useContext, useState, useEffect, useCallback, type ReactNode } from 'react';
+import { ProjectDB } from '../lib/db.ts';
+import { SEED_DATA } from '../lib/seed.ts';
+import { APP_CONFIG } from '../lib/config.ts';
+import type { AppConfig, SeedData } from '../types.ts';
 
 const SEED_VERSION = 44;
 
-const DataContext = createContext(null);
+interface DataContextValue {
+  db: ProjectDB;
+  refreshKey: number;
+  refresh: () => void;
+  reseed: (data: SeedData) => Promise<void>;
+  appConfig: AppConfig;
+}
 
-export function DataProvider({ children }) {
+const DataContext = createContext<DataContextValue | null>(null);
+
+export function DataProvider({ children }: { children: ReactNode }) {
   const [db] = useState(() => new ProjectDB());
   const [ready, setReady] = useState(false);
   const [refreshKey, setRefreshKey] = useState(0);
@@ -38,7 +47,7 @@ export function DataProvider({ children }) {
     setRefreshKey(k => k + 1);
   }, []);
 
-  const reseed = useCallback(async (newSeedData) => {
+  const reseed = useCallback(async (newSeedData: SeedData) => {
     await db.reset();
     await db.seed(newSeedData);
     for (const [id, path] of Object.entries(APP_CONFIG.projects || {})) {
@@ -60,6 +69,8 @@ export function DataProvider({ children }) {
   );
 }
 
-export function useDB() {
-  return useContext(DataContext);
+export function useDB(): DataContextValue {
+  const ctx = useContext(DataContext);
+  if (!ctx) throw new Error('useDB must be inside DataProvider');
+  return ctx;
 }
