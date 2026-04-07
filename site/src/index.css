@@ -393,7 +393,7 @@ nav .nav-project-item {
   padding: 8px 12px;
   z-index: 200;
   overflow: visible;
-  pointer-events: auto;
+  pointer-events: none;
 }
 .nav-popover::before {
   content: '';

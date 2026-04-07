@@ -168,8 +168,6 @@ export default function Sidebar({ projects, todos, issues, concerns, decisions, 
                     <div
                       className="nav-popover"
                       style={{ top: popoverPos.top, left: popoverPos.left, transform: 'translateY(-50%)' }}
-                      onMouseEnter={cancelClose}
-                      onMouseLeave={scheduleClose}
                     >
                       {gitParts.length > 0 && <div className="nav-popover-line">{gitParts.map((part, i) => <span key={i}>{i > 0 && sep}{part}</span>)}</div>}
                       {itemParts.length > 0 && <div className="nav-popover-line">{itemParts.map((part, i) => <span key={i}>{i > 0 && sep}{part}</span>)}</div>}
