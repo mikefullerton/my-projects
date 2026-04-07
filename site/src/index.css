@@ -425,6 +425,10 @@ nav .nav-project-item {
   color: var(--text-muted);
   line-height: 1.5;
 }
+.nav-popover-sep {
+  color: var(--accent);
+  margin: 0 6px;
+}
 
 nav .nav-dot {
   display: inline-block;

@@ -123,25 +123,24 @@ export default function Sidebar({ projects, todos, issues, concerns, decisions, 
               const pIssues = issues.filter(i => i.projectId === p.id && i.status !== 'resolved');
               const pConcerns = concerns.filter(c => c.projectId === p.id && c.status !== 'closed');
 
-              const gitStats = [];
               const dirty = (p.stagedCount || 0) + (p.modifiedCount || 0) + (p.untrackedCount || 0) + (p.deletedCount || 0);
-              if (dirty > 0) gitStats.push(`${dirty} files changed`);
               const branches = (p.openBranches || []).length;
-              if (branches > 0) gitStats.push(`${branches} branch${branches > 1 ? 'es' : ''}`);
-              if ((p.aheadCount || 0) > 0) gitStats.push(`${p.aheadCount} ahead`);
-              if ((p.behindCount || 0) > 0) gitStats.push(`${p.behindCount} behind`);
-              const gitInfo = !isRepoClean && p.branch
-                ? `git:(${p.branch}) ${gitStats.join(', ')}`
-                : '';
+              const gitParts: string[] = [];
+              if (!isRepoClean && p.branch) gitParts.push(`git:(${p.branch})`);
+              if (dirty > 0) gitParts.push(`${dirty} files changed`);
+              if (branches > 0) gitParts.push(`${branches} branch${branches > 1 ? 'es' : ''}`);
+              if ((p.aheadCount || 0) > 0) gitParts.push(`${p.aheadCount} ahead`);
+              if ((p.behindCount || 0) > 0) gitParts.push(`${p.behindCount} behind`);
 
-              const itemCounts = [
+              const itemParts = [
                 pTodos.length > 0 && `${pTodos.length} todo${pTodos.length > 1 ? 's' : ''}`,
                 pIssues.length > 0 && `${pIssues.length} issue${pIssues.length > 1 ? 's' : ''}`,
                 pConcerns.length > 0 && `${pConcerns.length} concern${pConcerns.length > 1 ? 's' : ''}`,
-              ].filter(Boolean);
-              const summaryText = itemCounts.length > 0 ? itemCounts.join(', ') : '';
+              ].filter(Boolean) as string[];
 
-              const hasPopover = gitInfo || summaryText;
+              const hasPopover = gitParts.length > 0 || itemParts.length > 0;
+
+              const sep = <span className="nav-popover-sep">|</span>;
 
               return (
                 <div
@@ -172,8 +171,8 @@ export default function Sidebar({ projects, todos, issues, concerns, decisions, 
                       onMouseEnter={cancelClose}
                       onMouseLeave={scheduleClose}
                     >
-                      {gitInfo && <div className="nav-popover-line">{gitInfo}</div>}
-                      {summaryText && <div className="nav-popover-line">{summaryText}</div>}
+                      {gitParts.length > 0 && <div className="nav-popover-line">{gitParts.map((part, i) => <span key={i}>{i > 0 && sep}{part}</span>)}</div>}
+                      {itemParts.length > 0 && <div className="nav-popover-line">{itemParts.map((part, i) => <span key={i}>{i > 0 && sep}{part}</span>)}</div>}
                     </div>,
                     document.body
                   )}
