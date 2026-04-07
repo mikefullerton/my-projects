@@ -1,4 +1,10 @@
-export default function StatsBar({ stats }) {
+import type { DashboardStats } from '../types.ts';
+
+interface StatsBarProps {
+  stats: DashboardStats;
+}
+
+export default function StatsBar({ stats }: StatsBarProps) {
   const cards = [
     { val: stats.projectCount, label: 'Projects', cls: 'accent' },
     { val: stats.openTodos, label: 'Open Todos', cls: stats.openTodos > 0 ? 'red' : 'green' },

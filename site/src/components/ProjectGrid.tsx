@@ -1,9 +1,17 @@
-import GitIndicators from './GitIndicators.jsx';
-import { groupProjects, formatGroupName } from '../hooks/useData.js';
-import { useDB } from '../context/DataContext.jsx';
-import { COLORS } from '../lib/theme.js';
+import GitIndicators from './GitIndicators.tsx';
+import { groupProjects, formatGroupName } from '../hooks/useData.ts';
+import { useDB } from '../context/DataContext.tsx';
+import { COLORS } from '../lib/theme.ts';
+import type { Project, Todo, Issue } from '../types.ts';
 
-function ProjectCard({ project, todos, issues, onSelect }) {
+interface ProjectCardProps {
+  project: Project;
+  todos: Todo[];
+  issues: Issue[];
+  onSelect: (id: string) => void;
+}
+
+function ProjectCard({ project, todos, issues, onSelect }: ProjectCardProps) {
   const p = project;
   const highTodos = (todos || []).filter(t => t.projectId === p.id && t.priority === 'high' && t.status !== 'done');
   const openIssues = (issues || []).filter(i => i.projectId === p.id && i.status !== 'resolved');
@@ -49,7 +57,14 @@ function ProjectCard({ project, todos, issues, onSelect }) {
   );
 }
 
-export default function ProjectGrid({ projects, todos, issues, onSelectProject }) {
+interface ProjectGridProps {
+  projects: Project[];
+  todos: Todo[];
+  issues: Issue[];
+  onSelectProject: (id: string) => void;
+}
+
+export default function ProjectGrid({ projects, todos, issues, onSelectProject }: ProjectGridProps) {
   const { appConfig } = useDB();
   const groups = groupProjects(projects, appConfig);
 

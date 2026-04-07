@@ -1,11 +1,25 @@
 import { useState, useRef, useCallback } from 'react';
-import { groupProjects, formatGroupName } from '../hooks/useData.js';
-import { useDB } from '../context/DataContext.jsx';
-import { COLORS } from '../lib/theme.js';
+import { groupProjects, formatGroupName } from '../hooks/useData.ts';
+import { useDB } from '../context/DataContext.tsx';
+import { COLORS } from '../lib/theme.ts';
+import type { Project, Todo, Issue, Concern, Decision } from '../types.ts';
 
-export default function Sidebar({ projects, todos, issues, concerns, decisions, currentView, onNavigate, onSelectProject, onRefresh, refreshing }) {
-  const [hoveredProject, setHoveredProject] = useState(null);
-  const closeTimer = useRef(null);
+interface SidebarProps {
+  projects: Project[];
+  todos: Todo[];
+  issues: Issue[];
+  concerns: Concern[];
+  decisions: Decision[];
+  currentView: string;
+  onNavigate: (view: string) => void;
+  onSelectProject: (id: string) => void;
+  onRefresh: () => void;
+  refreshing: boolean;
+}
+
+export default function Sidebar({ projects, todos, issues, concerns, decisions, currentView, onNavigate, onSelectProject, onRefresh, refreshing }: SidebarProps) {
+  const [hoveredProject, setHoveredProject] = useState<string | null>(null);
+  const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const scheduleClose = useCallback(() => {
     closeTimer.current = setTimeout(() => setHoveredProject(null), 200);
   }, []);
@@ -27,7 +41,7 @@ export default function Sidebar({ projects, todos, issues, concerns, decisions, 
   const hasHighTodos = todos.some(t => t.priority === 'high' && t.status !== 'done');
   const hasOpenIssues = issues.some(i => i.status !== 'resolved');
 
-  function navBadge(count, colorClass) {
+  function navBadge(count: number, colorClass?: string) {
     if (count === 0) return null;
     return (
       <>

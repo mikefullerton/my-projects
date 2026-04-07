@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { DataProvider } from './context/DataContext.jsx';
-import App from './App.jsx';
+import { DataProvider } from './context/DataContext.tsx';
+import App from './App.tsx';
 import './index.css';
 
-ReactDOM.createRoot(document.getElementById('root')).render(
+ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <DataProvider>
       <App />

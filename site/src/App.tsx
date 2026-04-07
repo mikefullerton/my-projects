@@ -1,28 +1,29 @@
 import { useState, useCallback } from 'react';
-import { useData } from './hooks/useData.js';
-import { useDB } from './context/DataContext.jsx';
-import Sidebar from './components/Sidebar.jsx';
-import StatsBar from './components/StatsBar.jsx';
-import ProjectGrid from './components/ProjectGrid.jsx';
-import ProjectDetail from './components/ProjectDetail.jsx';
-import AttentionView from './components/AttentionView.jsx';
-import TodosView from './components/TodosView.jsx';
-import IssuesView from './components/IssuesView.jsx';
-import DecisionsView from './components/DecisionsView.jsx';
+import { useData } from './hooks/useData.ts';
+import { useDB } from './context/DataContext.tsx';
+import Sidebar from './components/Sidebar.tsx';
+import StatsBar from './components/StatsBar.tsx';
+import ProjectGrid from './components/ProjectGrid.tsx';
+import ProjectDetail from './components/ProjectDetail.tsx';
+import AttentionView from './components/AttentionView.tsx';
+import TodosView from './components/TodosView.tsx';
+import IssuesView from './components/IssuesView.tsx';
+import DecisionsView from './components/DecisionsView.tsx';
+import type { SeedData } from './types.ts';
 
 export default function App() {
   const data = useData();
   const { reseed } = useDB();
-  const [currentView, setCurrentView] = useState('dashboard');
-  const [currentProjectId, setCurrentProjectId] = useState(null);
+  const [currentView, setCurrentView] = useState<string>('dashboard');
+  const [currentProjectId, setCurrentProjectId] = useState<string | null>(null);
   const [refreshing, setRefreshing] = useState(false);
 
-  const navigate = useCallback((view) => {
+  const navigate = useCallback((view: string) => {
     setCurrentView(view);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, []);
 
-  const selectProject = useCallback((projectId) => {
+  const selectProject = useCallback((projectId: string) => {
     setCurrentProjectId(projectId);
     setCurrentView('project-detail');
     window.scrollTo({ top: 0 });
@@ -34,7 +35,7 @@ export default function App() {
       const resp = await fetch('/api/refresh', { method: 'POST' });
       const result = await resp.json();
       if (result.ok && result.seedData) {
-        await reseed(result.seedData);
+        await reseed(result.seedData as SeedData);
       }
     } catch {
       // silently fail
@@ -62,7 +63,6 @@ export default function App() {
         refreshing={refreshing}
       />
       <main>
-        {/* Dashboard view */}
         {currentView === 'dashboard' && (
           <>
             <div className="section" data-section="dashboard" id="dashboard">
@@ -82,7 +82,6 @@ export default function App() {
           </>
         )}
 
-        {/* Attention view */}
         {currentView === 'attention' && (
           <AttentionView
             projects={projects}
@@ -93,7 +92,6 @@ export default function App() {
           />
         )}
 
-        {/* Projects view */}
         {currentView === 'projects' && (
           <ProjectGrid
             projects={projects}
@@ -103,22 +101,18 @@ export default function App() {
           />
         )}
 
-        {/* Project detail view */}
         {currentView === 'project-detail' && currentProjectId && (
           <ProjectDetail projectId={currentProjectId} />
         )}
 
-        {/* All Todos view */}
         {currentView === 'all-todos' && (
           <TodosView todos={todos} projects={projects} />
         )}
 
-        {/* All Issues view */}
         {currentView === 'all-issues' && (
           <IssuesView issues={issues} projects={projects} />
         )}
 
-        {/* All Decisions view */}
         {currentView === 'all-decisions' && (
           <DecisionsView decisions={decisions} projects={projects} />
         )}

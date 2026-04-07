@@ -1,6 +1,12 @@
-import { useDB } from '../context/DataContext.jsx';
+import { useDB } from '../context/DataContext.tsx';
+import type { Row } from '../lib/db.ts';
 
-export default function ItemList({ items, type }) {
+interface ItemListProps {
+  items: Row[];
+  type: 'todo' | 'issue' | 'concern';
+}
+
+export default function ItemList({ items, type }: ItemListProps) {
   const { db, refresh } = useDB();
 
   if (!items.length) {

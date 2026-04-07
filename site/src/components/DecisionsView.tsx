@@ -1,6 +1,13 @@
-export default function DecisionsView({ decisions, projects }) {
-  const grouped = {};
-  const pOrder = [];
+import type { Project, Decision } from '../types.ts';
+
+interface DecisionsViewProps {
+  decisions: Decision[];
+  projects: Project[];
+}
+
+export default function DecisionsView({ decisions, projects }: DecisionsViewProps) {
+  const grouped: Record<string, Decision[]> = {};
+  const pOrder: string[] = [];
   decisions.forEach(d => {
     if (!grouped[d.projectId]) { grouped[d.projectId] = []; pOrder.push(d.projectId); }
     grouped[d.projectId].push(d);

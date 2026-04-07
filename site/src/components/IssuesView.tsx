@@ -1,7 +1,13 @@
-import { useDB } from '../context/DataContext.jsx';
-import { issueCardClass } from '../lib/theme.js';
+import { useDB } from '../context/DataContext.tsx';
+import { issueCardClass } from '../lib/theme.ts';
+import type { Project, Issue } from '../types.ts';
 
-export default function IssuesView({ issues, projects }) {
+interface IssuesViewProps {
+  issues: Issue[];
+  projects: Project[];
+}
+
+export default function IssuesView({ issues, projects }: IssuesViewProps) {
   const { db, refresh } = useDB();
 
   const open = issues.filter(i => i.status !== 'resolved');

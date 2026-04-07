@@ -1,21 +1,26 @@
 import { useState, useEffect } from 'react';
-import GitIndicators from './GitIndicators.jsx';
-import ItemList from './ItemList.jsx';
-import { useDB } from '../context/DataContext.jsx';
-import { COLORS } from '../lib/theme.js';
+import GitIndicators from './GitIndicators.tsx';
+import ItemList from './ItemList.tsx';
+import { useDB } from '../context/DataContext.tsx';
+import { COLORS } from '../lib/theme.ts';
+import type { Project, Todo, Issue, Concern, Decision } from '../types.ts';
 
-const changeColors = {
+const changeColors: Record<string, string> = {
   'modified': 'var(--yellow)', 'added': 'var(--green)', 'added+modified': 'var(--green)',
   'deleted': 'var(--red)', 'untracked': 'var(--text-dim)', 'renamed': 'var(--blue)', 'conflict': 'var(--red)',
 };
 
-export default function ProjectDetail({ projectId }) {
+interface ProjectDetailProps {
+  projectId: string;
+}
+
+export default function ProjectDetail({ projectId }: ProjectDetailProps) {
   const { db, refresh, refreshKey } = useDB();
-  const [project, setProject] = useState(null);
-  const [todos, setTodos] = useState([]);
-  const [issues, setIssues] = useState([]);
-  const [concerns, setConcerns] = useState([]);
-  const [decisions, setDecisions] = useState([]);
+  const [project, setProject] = useState<Project | null>(null);
+  const [todos, setTodos] = useState<Todo[]>([]);
+  const [issues, setIssues] = useState<Issue[]>([]);
+  const [concerns, setConcerns] = useState<Concern[]>([]);
+  const [decisions, setDecisions] = useState<Decision[]>([]);
   const [showAddForm, setShowAddForm] = useState(false);
   const [newTitle, setNewTitle] = useState('');
   const [newPriority, setNewPriority] = useState('medium');

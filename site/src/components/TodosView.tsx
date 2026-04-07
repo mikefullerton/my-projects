@@ -1,8 +1,14 @@
 import { useState } from 'react';
-import { useDB } from '../context/DataContext.jsx';
-import { todoCardClass } from '../lib/theme.js';
+import { useDB } from '../context/DataContext.tsx';
+import { todoCardClass } from '../lib/theme.ts';
+import type { Project, Todo } from '../types.ts';
 
-export default function TodosView({ todos, projects }) {
+interface TodosViewProps {
+  todos: Todo[];
+  projects: Project[];
+}
+
+export default function TodosView({ todos, projects }: TodosViewProps) {
   const { db, refresh } = useDB();
   const [showForm, setShowForm] = useState(false);
   const [formProject, setFormProject] = useState(projects[0]?.id || '');

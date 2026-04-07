@@ -1,6 +1,11 @@
-import { COLORS } from '../lib/theme.js';
+import { COLORS } from '../lib/theme.ts';
+import type { Project } from '../types.ts';
 
-export default function GitIndicators({ project }) {
+interface GitIndicatorsProps {
+  project: Project;
+}
+
+export default function GitIndicators({ project }: GitIndicatorsProps) {
   const p = project;
   const modCount = p.modifiedCount || 0;
   const stagedCount = p.stagedCount || 0;

@@ -1,7 +1,24 @@
-import { COLORS } from '../lib/theme.js';
+import { COLORS } from '../lib/theme.ts';
+import type { Project, Todo, Issue, Concern } from '../types.ts';
 
-export default function AttentionView({ projects, todos, issues, concerns, onSelectProject }) {
-  const cards = [];
+interface AttentionViewProps {
+  projects: Project[];
+  todos: Todo[];
+  issues: Issue[];
+  concerns: Concern[];
+  onSelectProject: (id: string) => void;
+}
+
+interface AttentionCard {
+  type: 'critical' | 'warning' | 'info';
+  projectId: string;
+  project: string;
+  title: string;
+  detail?: string;
+}
+
+export default function AttentionView({ projects, todos, issues, concerns, onSelectProject }: AttentionViewProps) {
+  const cards: AttentionCard[] = [];
 
   projects.filter(p => p.uncommitted).forEach(p => {
     cards.push({ type: 'warning', projectId: p.id, project: p.name, title: 'Uncommitted changes', detail: p.uncommittedDetail });
