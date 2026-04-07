@@ -70,13 +70,65 @@ grep -E '^\s+"[^"]+"\s*:\s*"[^"]+"\s*,?\s*$' "$CONFIG" | \
     # Modified files with change type and diff summary (cap at 20)
     modified_json=$(python3 "$SCRIPT_DIR/scan-modified.py" 2>/dev/null)
 
+    # Long-lived branches that don't count as "dirty"
+    BRANCH_WHITELIST="gh-pages"
+
     # Open branches (excluding current) — names only for backward compat
     branches_json="[]"
     branches_detail_json="[]"
-    other_branches=$(git branch --no-color 2>/dev/null | grep -v '^\*' | sed 's/^[[:space:]]*//' | sed 's/^+ //' | head -10)
-    if [ -n "$other_branches" ]; then
-      branches_json=$(echo "$other_branches" | python3 -c "import json,sys; print(json.dumps([l.strip() for l in sys.stdin if l.strip()]))")
-      branches_detail_json=$(echo "$other_branches" | python3 "$SCRIPT_DIR/scan-branches.py" 2>/dev/null)
+    other_branches_raw=$(git branch --no-color 2>/dev/null | grep -v '^\*' | sed 's/^[[:space:]]*//' | sed 's/^+ //' | head -10)
+    # Filter whitelisted branches from local list
+    other_branches=""
+    if [ -n "$other_branches_raw" ]; then
+      while IFS= read -r lb; do
+        skip=false
+        for wb in $BRANCH_WHITELIST; do
+          [ "$lb" = "$wb" ] && skip=true && break
+        done
+        [ "$skip" = false ] && other_branches="$other_branches$lb"$'\n'
+      done <<< "$other_branches_raw"
+      other_branches=$(echo "$other_branches" | sed '/^$/d')
+    fi
+
+    # Remote-only branches (exist on remote but not locally, excluding HEAD and whitelisted)
+    git fetch --all --prune 2>/dev/null || true
+    remote_only=""
+    all_remote=$(git branch -r --no-color 2>/dev/null | grep -v 'HEAD' | sed 's|^[[:space:]]*[^/]*/||' | grep -v '^main$' | grep -v '^master$' | sort -u)
+    all_local=$(git branch --no-color 2>/dev/null | sed 's/^[* +]*//' | sed 's/^[[:space:]]*//' | sort)
+    if [ -n "$all_remote" ]; then
+      remote_only=$(comm -23 <(echo "$all_remote") <(echo "$all_local") | head -10)
+      # Filter out whitelisted branches
+      if [ -n "$remote_only" ]; then
+        filtered=""
+        while IFS= read -r rb; do
+          skip=false
+          for wb in $BRANCH_WHITELIST; do
+            [ "$rb" = "$wb" ] && skip=true && break
+          done
+          [ "$skip" = false ] && filtered="$filtered$rb"$'\n'
+        done <<< "$remote_only"
+        remote_only=$(echo "$filtered" | sed '/^$/d')
+      fi
+    fi
+
+    # Combine local other branches + remote-only branches
+    all_other_branches=""
+    [ -n "$other_branches" ] && all_other_branches="$other_branches"
+    if [ -n "$remote_only" ]; then
+      remote_prefixed=$(echo "$remote_only" | sed 's/^/remote: /')
+      if [ -n "$all_other_branches" ]; then
+        all_other_branches="$all_other_branches"$'\n'"$remote_prefixed"
+      else
+        all_other_branches="$remote_prefixed"
+      fi
+    fi
+
+    if [ -n "$all_other_branches" ]; then
+      branches_json=$(echo "$all_other_branches" | python3 -c "import json,sys; print(json.dumps([l.strip() for l in sys.stdin if l.strip()]))")
+      # Only pass local branches for detailed commit analysis
+      if [ -n "$other_branches" ]; then
+        branches_detail_json=$(echo "$other_branches" | python3 "$SCRIPT_DIR/scan-branches.py" 2>/dev/null)
+      fi
     fi
 
     # Recent work (last 3 commits)
