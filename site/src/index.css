@@ -142,8 +142,8 @@ main {
 
 /* ─── Stats Bar ───────────────────────────────────────────────────── */
 .stats-bar {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  display: flex;
+  justify-content: center;
   gap: 1px;
   background: var(--border);
   border: 1px solid var(--border);
