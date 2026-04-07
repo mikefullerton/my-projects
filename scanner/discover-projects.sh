@@ -26,6 +26,9 @@ for category in sorted(os.listdir(projects_root)):
         repo_path = os.path.join(category_path, dirname)
         if not os.path.isdir(os.path.join(repo_path, '.git')):
             continue
+        # Skip test folders (e.g. cookbook-tests, roadmaps-tests)
+        if category == 'tests' or dirname.endswith('-tests'):
+            continue
         relpath = f"../../{category}/{dirname}"
         # Generate id: lowercase, replace dots/spaces with dashes
         pid = dirname.lower().replace(' ', '-')
@@ -83,6 +86,10 @@ for pid, path in discovered.items():
 
 for pid, path in current_projects.items():
     if pid not in new_projects:
+        # Skip test repos
+        if pid.endswith('-tests') or pid.endswith('-test') or '/tests/' in path:
+            removed.append(f"  removed: {pid} ({path})")
+            continue
         # Check if the path still exists on disk
         abs_path = os.path.normpath(os.path.join(base_dir, path))
         if os.path.isdir(abs_path):
