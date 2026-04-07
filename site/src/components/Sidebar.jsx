@@ -1,8 +1,19 @@
+import { useState, useRef, useCallback } from 'react';
 import { groupProjects, formatGroupName } from '../hooks/useData.js';
 import { useDB } from '../context/DataContext.jsx';
 import { COLORS } from '../lib/theme.js';
 
 export default function Sidebar({ projects, todos, issues, concerns, decisions, currentView, onNavigate, onSelectProject, onRefresh, refreshing }) {
+  const [hoveredProject, setHoveredProject] = useState(null);
+  const closeTimer = useRef(null);
+
+  const scheduleClose = useCallback(() => {
+    closeTimer.current = setTimeout(() => setHoveredProject(null), 200);
+  }, []);
+
+  const cancelClose = useCallback(() => {
+    if (closeTimer.current) clearTimeout(closeTimer.current);
+  }, []);
   const { appConfig } = useDB();
   const groups = groupProjects(projects, appConfig);
 
@@ -129,20 +140,35 @@ export default function Sidebar({ projects, todos, issues, concerns, decisions, 
                 ? activeCounts.map(c => `${c.count} ${c.label}`).join(', ')
                 : 'no issues';
 
+              const popoverLines = [];
+              if (gitInfo) popoverLines.push(gitInfo.trim());
+              if (summaryText !== 'no issues') popoverLines.push(summaryText);
+
               return (
-                <div key={p.id}>
+                <div
+                  key={p.id}
+                  className="nav-project-item"
+                  onMouseEnter={() => { cancelClose(); setHoveredProject(p.id); }}
+                  onMouseLeave={scheduleClose}
+                >
                   <a
                     href={`#project-${p.id}`}
                     onClick={e => { e.preventDefault(); onSelectProject(p.id); }}
                   >
                     <span className={`nav-repo-dot ${repoDotClass}`} />
                     {p.name}
-                    {gitInfo && <span className="nav-git-info">{gitInfo}</span>}
                   </a>
-                  <div
-                    className="nav-sub-summary"
-                    onClick={() => onSelectProject(p.id)}
-                  >{summaryText}</div>
+                  {popoverLines.length > 0 && hoveredProject === p.id && (
+                    <div
+                      className="nav-popover open"
+                      onMouseEnter={cancelClose}
+                      onMouseLeave={scheduleClose}
+                    >
+                      {popoverLines.map((line, i) => (
+                        <div key={i} className="nav-popover-line">{line}</div>
+                      ))}
+                    </div>
+                  )}
                 </div>
               );
             })}
