@@ -34,11 +34,11 @@ export default function ProjectDetail({ projectId }: ProjectDetailProps) {
         db.getConcerns(projectId),
         db.getDecisions(projectId),
       ]);
-      setProject(p);
-      setTodos(t);
-      setIssues(i);
-      setConcerns(c);
-      setDecisions(d);
+      setProject(p as Project | null);
+      setTodos(t as Todo[]);
+      setIssues(i as Issue[]);
+      setConcerns(c as Concern[]);
+      setDecisions(d as Decision[]);
     }
     load();
   }, [db, projectId, refreshKey]);

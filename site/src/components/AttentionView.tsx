@@ -35,8 +35,8 @@ export default function AttentionView({ projects, todos, issues, concerns, onSel
   const typeOrder = { critical: 0, warning: 1, info: 2 };
   cards.sort((a, b) => (typeOrder[a.type] || 1) - (typeOrder[b.type] || 1));
 
-  const grouped = {};
-  const projectOrder = [];
+  const grouped: Record<string, AttentionCard[]> = {};
+  const projectOrder: string[] = [];
   cards.forEach(c => {
     if (!grouped[c.projectId]) { grouped[c.projectId] = []; projectOrder.push(c.projectId); }
     grouped[c.projectId].push(c);

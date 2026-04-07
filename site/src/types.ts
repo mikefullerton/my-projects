@@ -67,7 +67,7 @@ export interface Concern {
   projectId: string;
   title: string;
   detail?: string;
-  status: 'open' | 'closed';
+  status: 'open' | 'closed' | 'monitoring';
   raiser?: string;
 }
 
@@ -83,8 +83,11 @@ export interface Decision {
 export interface Dependency {
   id: string;
   projectId: string;
-  dependsOn: string;
+  dependsOn?: string;
   type?: string;
+  title?: string;
+  status?: string;
+  detail?: string;
 }
 
 export interface SeedData {

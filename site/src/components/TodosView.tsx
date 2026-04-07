@@ -23,19 +23,19 @@ export default function TodosView({ todos, projects }: TodosViewProps) {
     return (order[a.priority] || 1) - (order[b.priority] || 1);
   });
 
-  const grouped = {};
-  const pOrder = [];
+  const grouped: Record<string, Todo[]> = {};
+  const pOrder: string[] = [];
   sorted.forEach(t => {
     if (!grouped[t.projectId]) { grouped[t.projectId] = []; pOrder.push(t.projectId); }
     grouped[t.projectId].push(t);
   });
 
-  async function markDone(id) {
+  async function markDone(id: string) {
     const item = await db.getById('todos', id);
     if (item) { item.status = 'done'; await db.save('todos', item); refresh(); }
   }
 
-  async function markUndone(id) {
+  async function markUndone(id: string) {
     const item = await db.getById('todos', id);
     if (item) { item.status = 'open'; await db.save('todos', item); refresh(); }
   }

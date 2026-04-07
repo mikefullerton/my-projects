@@ -1,5 +1,5 @@
 import { useDB } from '../context/DataContext.tsx';
-import type { Row } from '../lib/db.ts';
+import type { Row, TableName } from '../lib/db.ts';
 
 interface ItemListProps {
   items: Row[];
@@ -14,9 +14,9 @@ export default function ItemList({ items, type }: ItemListProps) {
   }
 
   const priorityField = type === 'issue' ? 'severity' : 'priority';
-  const table = type + 's';
+  const table = (type + 's') as TableName;
 
-  async function markDone(id) {
+  async function markDone(id: string) {
     const item = await db.getById(table, id);
     if (item) {
       item.status = table === 'issues' ? 'resolved' : table === 'concerns' ? 'closed' : 'done';
@@ -25,7 +25,7 @@ export default function ItemList({ items, type }: ItemListProps) {
     }
   }
 
-  async function markUndone(id) {
+  async function markUndone(id: string) {
     const item = await db.getById(table, id);
     if (item) {
       item.status = 'open';

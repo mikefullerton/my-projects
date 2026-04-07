@@ -18,19 +18,19 @@ export default function IssuesView({ issues, projects }: IssuesViewProps) {
     return (order[a.severity] || 1) - (order[b.severity] || 1);
   });
 
-  const grouped = {};
-  const pOrder = [];
+  const grouped: Record<string, Issue[]> = {};
+  const pOrder: string[] = [];
   sorted.forEach(i => {
     if (!grouped[i.projectId]) { grouped[i.projectId] = []; pOrder.push(i.projectId); }
     grouped[i.projectId].push(i);
   });
 
-  async function markDone(id) {
+  async function markDone(id: string) {
     const item = await db.getById('issues', id);
     if (item) { item.status = 'resolved'; await db.save('issues', item); refresh(); }
   }
 
-  async function markUndone(id) {
+  async function markUndone(id: string) {
     const item = await db.getById('issues', id);
     if (item) { item.status = 'open'; await db.save('issues', item); refresh(); }
   }

@@ -172,10 +172,11 @@ class ProjectDB {
   }
 
   // ── Seed / Reset ────────────────────────────────────────────────────────
-  async seed(data: Record<string, Row[]>) {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  async seed(data: Record<string, any>) {
     for (const table of TABLES) {
       if (data[table]) {
-        for (const record of data[table]) {
+        for (const record of data[table] as Row[]) {
           await this.save(table, record);
         }
       }
