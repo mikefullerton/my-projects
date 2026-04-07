@@ -126,7 +126,7 @@ export default function Sidebar({ projects, todos, issues, concerns, decisions, 
               const dirty = (p.stagedCount || 0) + (p.modifiedCount || 0) + (p.untrackedCount || 0) + (p.deletedCount || 0);
               const branches = (p.openBranches || []).length;
               const gitParts: string[] = [];
-              if (!isRepoClean && p.branch) gitParts.push(`git:(${p.branch})`);
+              // branch name omitted from popover intentionally
               if (dirty > 0) gitParts.push(`${dirty} files changed`);
               if (branches > 0) gitParts.push(`${branches} branch${branches > 1 ? 'es' : ''}`);
               if ((p.aheadCount || 0) > 0) gitParts.push(`${p.aheadCount} ahead`);
@@ -138,7 +138,7 @@ export default function Sidebar({ projects, todos, issues, concerns, decisions, 
                 pConcerns.length > 0 && `${pConcerns.length} concern${pConcerns.length > 1 ? 's' : ''}`,
               ].filter(Boolean) as string[];
 
-              const hasPopover = gitParts.length > 0 || itemParts.length > 0;
+              const hasPopover = true;
 
               const sep = <span className="nav-popover-sep">|</span>;
 
@@ -171,6 +171,7 @@ export default function Sidebar({ projects, todos, issues, concerns, decisions, 
                     >
                       {gitParts.length > 0 && <div className="nav-popover-line">{gitParts.map((part, i) => <span key={i}>{i > 0 && sep}{part}</span>)}</div>}
                       {itemParts.length > 0 && <div className="nav-popover-line">{itemParts.map((part, i) => <span key={i}>{i > 0 && sep}{part}</span>)}</div>}
+                      {gitParts.length === 0 && itemParts.length === 0 && <div className="nav-popover-line">No issues</div>}
                     </div>,
                     document.body
                   )}
