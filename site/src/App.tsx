@@ -64,24 +64,54 @@ export default function App() {
         refreshing={refreshing}
       />
       <main>
-        {currentView === 'dashboard' && (
-          <>
-            <div className="section" data-section="dashboard" id="dashboard">
-              <div className="page-header">
-                <h1><span>Project</span> Hub</h1>
-                <div className="title-rule"></div>
-                <p>Personal project management &mdash; {projects.length} projects across plugins, AI tools, web apps, and automation.</p>
+        {currentView === 'dashboard' && (() => {
+          const dirtyProjects = projects.filter(p => p.uncommitted || (p.openBranches || []).length > 0 || (p.aheadCount || 0) > 0 || (p.behindCount || 0) > 0);
+          return (
+            <>
+              <div className="section" data-section="dashboard" id="dashboard">
+                <div className="page-header">
+                  <h1><span>Project</span> Hub</h1>
+                  <div className="title-rule"></div>
+                  <p>Personal project management &mdash; {projects.length} projects across plugins, AI tools, web apps, and automation.</p>
+                </div>
+                <StatsBar stats={stats} />
+                {dirtyProjects.length > 0 ? (
+                  <div className="dirty-repos-section">
+                    <h2 className="dirty-repos-title">Repos Needing Attention ({dirtyProjects.length})</h2>
+                    <div className="dirty-repos-list">
+                      {dirtyProjects.map(p => {
+                        const details: string[] = [];
+                        const dirty = (p.stagedCount || 0) + (p.modifiedCount || 0) + (p.untrackedCount || 0) + (p.deletedCount || 0);
+                        if (dirty > 0) details.push(`${dirty} files changed`);
+                        const branches = (p.openBranches || []).length;
+                        if (branches > 0) details.push(`${branches} branch${branches > 1 ? 'es' : ''}`);
+                        if ((p.aheadCount || 0) > 0) details.push(`${p.aheadCount} ahead`);
+                        if ((p.behindCount || 0) > 0) details.push(`${p.behindCount} behind`);
+                        return (
+                          <div key={p.id} className="dirty-repo-item" onClick={() => selectProject(p.id)}>
+                            <span className="dirty-repo-name">{p.id}</span>
+                            <span className="dirty-repo-detail">{details.join(' | ')}</span>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                ) : (
+                  <div className="all-clean-section">
+                    <div className="all-clean-check">&#10003;</div>
+                    <div className="all-clean-text">All repos clean</div>
+                  </div>
+                )}
               </div>
-              <StatsBar stats={stats} />
-            </div>
-            <ProjectGrid
-              projects={projects}
-              todos={todos}
-              issues={issues}
-              onSelectProject={selectProject}
-            />
-          </>
-        )}
+              <ProjectGrid
+                projects={projects}
+                todos={todos}
+                issues={issues}
+                onSelectProject={selectProject}
+              />
+            </>
+          );
+        })()}
 
         {currentView === 'attention' && (
           <AttentionView
