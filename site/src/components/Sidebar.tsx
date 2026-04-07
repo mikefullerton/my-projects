@@ -162,7 +162,7 @@ export default function Sidebar({ projects, todos, issues, concerns, decisions, 
                     onClick={e => { e.preventDefault(); onSelectProject(p.id); }}
                   >
                     <span className={`nav-repo-dot ${repoDotClass}`} />
-                    <span className="nav-project-name">{p.name}</span>
+                    <span className="nav-project-name">{p.id}</span>
                   </a>
                   {hasPopover && hoveredProject === p.id && createPortal(
                     <div

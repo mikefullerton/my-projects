@@ -68,7 +68,7 @@ const server = http.createServer((req, res) => {
           let proj = seedData.projects.find(p => p.id === id);
           if (!proj) {
             // New project discovered — create entry
-            const name = id.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+            const name = id;
             proj = { id, name, tagline: '', status: 'active', techStack: [], openBranches: [], latestCommits: [] };
             seedData.projects.push(proj);
           }
