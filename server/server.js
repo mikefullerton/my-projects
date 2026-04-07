@@ -44,8 +44,8 @@ const server = http.createServer((req, res) => {
 
   // API: refresh all projects (async — does not block server)
   if (req.url === '/api/refresh' && req.method === 'POST') {
-    const scriptPath = path.join(SCANNER, 'scan-projects.sh');
-    execFile('bash', [scriptPath], { cwd: ROOT, timeout: 60000 }, (err, stdout) => {
+    const scriptPath = path.join(SCANNER, 'scanner.py');
+    execFile('python3', [scriptPath], { cwd: ROOT, timeout: 120000 }, (err, stdout) => {
       try {
         if (err) throw err;
         const scanned = JSON.parse(stdout);
