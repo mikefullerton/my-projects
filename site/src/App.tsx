@@ -103,12 +103,7 @@ export default function App() {
                   </div>
                 )}
               </div>
-              <ProjectGrid
-                projects={projects}
-                todos={todos}
-                issues={issues}
-                onSelectProject={selectProject}
-              />
+              {/* ProjectGrid removed from dashboard */}
             </>
           );
         })()}
