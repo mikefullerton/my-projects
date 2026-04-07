@@ -19,7 +19,7 @@ interface SidebarProps {
 }
 
 export default function Sidebar({ projects, todos, issues, concerns, decisions, currentView, onNavigate, onSelectProject, onRefresh, refreshing }: SidebarProps) {
-  const [hoveredProject, setHoveredProject] = useState<string | null>(null);
+  const [hoveredItem, setHoveredProject] = useState<string | null>(null);
   const [popoverPos, setPopoverPos] = useState<{ top: number; left: number }>({ top: 0, left: 0 });
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const scheduleClose = useCallback(() => {
@@ -75,38 +75,50 @@ export default function Sidebar({ projects, todos, issues, concerns, decisions, 
       >Dashboard</a>
 
       <div className="nav-section">Tracking</div>
-      <a
-        href="#attention"
-        className={`${currentView === 'attention' ? 'active' : ''} ${attColor}`}
-        id="nav-attention"
-        onClick={e => { e.preventDefault(); onNavigate('attention'); }}
-      >
-        Needs Attention{navBadge(attentionCount, attColor)}
-      </a>
-      <a
-        href="#all-todos"
-        className={`${currentView === 'all-todos' ? 'active' : ''} ${todoNavColor}`}
-        id="nav-todos"
-        onClick={e => { e.preventDefault(); onNavigate('all-todos'); }}
-      >
-        All Todos{navBadge(todoCount, todoNavColor)}
-      </a>
-      <a
-        href="#all-issues"
-        className={`${currentView === 'all-issues' ? 'active' : ''} ${issueNavColor}`}
-        id="nav-issues"
-        onClick={e => { e.preventDefault(); onNavigate('all-issues'); }}
-      >
-        All Issues{navBadge(issueCount, issueNavColor)}
-      </a>
-      <a
-        href="#all-decisions"
-        className={currentView === 'all-decisions' ? 'active' : ''}
-        id="nav-decisions"
-        onClick={e => { e.preventDefault(); onNavigate('all-decisions'); }}
-      >
-        All Decisions{navBadge(decisionCount)}
-      </a>
+      {[
+        { id: 'nav-attention', view: 'attention', label: 'Needs Attention', count: attentionCount, dotClass: attColor ? `nav-dot-${(hasHighTodos || hasOpenIssues) ? 'red' : 'yellow'}` : 'nav-dot-green',
+          popoverText: `${projects.filter(p => p.uncommitted).length} uncommitted | ${todos.filter(t => t.priority === 'high' && t.status !== 'done').length} high todos | ${issues.filter(i => i.status !== 'resolved').length} open issues` },
+        { id: 'nav-todos', view: 'all-todos', label: 'All Todos', count: todoCount, dotClass: todoCount > 0 ? 'nav-dot-blue' : 'nav-dot-green',
+          popoverText: `${todos.filter(t => t.priority === 'high' && t.status !== 'done').length} high | ${todos.filter(t => t.priority === 'medium' && t.status !== 'done').length} medium | ${todos.filter(t => t.priority === 'low' && t.status !== 'done').length} low` },
+        { id: 'nav-issues', view: 'all-issues', label: 'All Issues', count: issueCount, dotClass: issueCount > 0 ? 'nav-dot-red' : 'nav-dot-green',
+          popoverText: issueCount > 0 ? `${issueCount} unresolved` : 'No issues' },
+        { id: 'nav-decisions', view: 'all-decisions', label: 'All Decisions', count: decisionCount, dotClass: 'nav-dot-green',
+          popoverText: decisionCount > 0 ? `${decisionCount} decision${decisionCount !== 1 ? 's' : ''} logged` : 'No decisions' },
+      ].map(item => (
+        <div
+          key={item.id}
+          className="nav-project-item"
+          onMouseEnter={(e) => {
+            if (closeTimer.current) clearTimeout(closeTimer.current);
+            closeTimer.current = null;
+            const nameSpan = e.currentTarget.querySelector('.nav-project-name');
+            const rect = nameSpan ? nameSpan.getBoundingClientRect() : e.currentTarget.getBoundingClientRect();
+            const centerY = rect.top + rect.height / 2;
+            setPopoverPos({ top: centerY, left: rect.right + 12 });
+            setHoveredItem(item.id);
+          }}
+          onMouseLeave={scheduleClose}
+        >
+          <a
+            href={`#${item.view}`}
+            className={currentView === item.view ? 'active' : ''}
+            id={item.id}
+            onClick={e => { e.preventDefault(); onNavigate(item.view); }}
+          >
+            <span className={`nav-repo-dot ${item.dotClass}`} />
+            <span className="nav-project-name">{item.label}</span>
+          </a>
+          {hoveredItem === item.id && createPortal(
+            <div
+              className="nav-popover"
+              style={{ top: popoverPos.top, left: popoverPos.left, transform: 'translateY(-50%)' }}
+            >
+              <div className="nav-popover-line">{item.popoverText}</div>
+            </div>,
+            document.body
+          )}
+        </div>
+      ))}
 
       <div id="nav-projects">
         {groups.map(g => (
@@ -164,7 +176,7 @@ export default function Sidebar({ projects, todos, issues, concerns, decisions, 
                     <span className={`nav-repo-dot ${repoDotClass}`} />
                     <span className="nav-project-name">{p.id}</span>
                   </a>
-                  {hasPopover && hoveredProject === p.id && createPortal(
+                  {hasPopover && hoveredItem === p.id && createPortal(
                     <div
                       className="nav-popover"
                       style={{ top: popoverPos.top, left: popoverPos.left, transform: 'translateY(-50%)' }}
