@@ -3,7 +3,7 @@ import { ProjectDB } from '../lib/db.js';
 import { SEED_DATA } from '../lib/seed.js';
 import { APP_CONFIG } from '../lib/config.js';
 
-const SEED_VERSION = 12;
+const SEED_VERSION = 15;
 
 const DataContext = createContext(null);
 
