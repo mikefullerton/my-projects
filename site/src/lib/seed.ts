@@ -3,7 +3,9 @@
  * Auto-updated by server refresh.
  */
 
-export const SEED_DATA = {
+import type { SeedData } from '../types.ts';
+
+export const SEED_DATA: SeedData = {
   "projects": [
     {
       "id": "cat-herding",

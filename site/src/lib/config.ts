@@ -1,4 +1,6 @@
-export const APP_CONFIG = {
+import type { AppConfig } from '../types.ts';
+
+export const APP_CONFIG: AppConfig = {
   "projects": {
     "agentic-auth-service": "../../active/agentic-auth-service",
     "agentic-kitchen": "../../active/agentic-kitchen",
