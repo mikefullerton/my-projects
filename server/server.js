@@ -58,7 +58,7 @@ const server = http.createServer((req, res) => {
         const autoTodos = [];
 
         // Remove projects no longer in config
-        const configPath = path.join(ROOT, 'site', 'src', 'lib', 'config.js');
+        const configPath = path.join(ROOT, 'site', 'src', 'lib', 'config.ts');
         const configSrc = fs.readFileSync(configPath, 'utf8');
         const configIds = new Set([...configSrc.matchAll(/"([^"]+)"\s*:\s*"[^"]+"/g)].map(m => m[1]));
         seedData.projects = seedData.projects.filter(p => configIds.has(p.id));
