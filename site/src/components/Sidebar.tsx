@@ -150,7 +150,7 @@ export default function Sidebar({ projects, todos, issues, concerns, decisions, 
                   onMouseEnter={(e) => {
                     cancelClose();
                     const rect = e.currentTarget.getBoundingClientRect();
-                    setPopoverPos({ top: rect.top, left: rect.right + 8 });
+                    setPopoverPos({ top: rect.top - 8, left: rect.left });
                     setHoveredProject(p.id);
                   }}
                   onMouseLeave={scheduleClose}
@@ -165,7 +165,7 @@ export default function Sidebar({ projects, todos, issues, concerns, decisions, 
                   {hasPopover && hoveredProject === p.id && createPortal(
                     <div
                       className="nav-popover"
-                      style={{ top: popoverPos.top, left: popoverPos.left }}
+                      style={{ top: popoverPos.top, left: popoverPos.left, transform: 'translateY(-100%)' }}
                       onMouseEnter={cancelClose}
                       onMouseLeave={scheduleClose}
                     >
