@@ -4,7 +4,7 @@ import { SEED_DATA } from '../lib/seed.ts';
 import { APP_CONFIG } from '../lib/config.ts';
 import type { AppConfig, SeedData } from '../types.ts';
 
-const SEED_VERSION = 45;
+const SEED_VERSION = 46;
 
 interface DataContextValue {
   db: ProjectDB;

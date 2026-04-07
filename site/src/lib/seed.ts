@@ -301,36 +301,33 @@ export const SEED_DATA: SeedData = {
       ],
       "path": "~/projects/personal/my-projects/",
       "branch": "main",
-      "uncommitted": true,
-      "uncommittedDetail": "2 changed files",
+      "uncommitted": false,
+      "uncommittedDetail": "",
       "openBranches": [],
-      "latestWork": "fix: popovers only show when cursor is over the name text. fix: broken popovers (mismatched setter name) and project selection. fix: restore popover hover to nav-project-item, add active state",
+      "latestWork": "chore: refresh seed data and bump seed version. fix: server seed parser handles TypeScript syntax, comment out tracking nav. fix: popovers only show when cursor is over the name text",
       "runCmd": "open index.html",
       "tags": [
         "meta",
         "documentation",
         "architecture"
       ],
-      "modifiedFiles": [
-        {
-          "path": "erver/server.js",
-          "change": "modified",
-          "summary": ""
-        },
-        {
-          "path": "site/src/components/Sidebar.tsx",
-          "change": "modified",
-          "summary": "+3/-49 — changed: {/* Tracking section temporarily disabled"
-        }
-      ],
+      "modifiedFiles": [],
       "branchDetails": [],
-      "stagedCount": 1,
-      "modifiedCount": 1,
+      "stagedCount": 0,
+      "modifiedCount": 0,
       "untrackedCount": 0,
       "deletedCount": 0,
       "aheadCount": 0,
       "behindCount": 0,
       "latestCommits": [
+        {
+          "hash": "bdd2518",
+          "message": "chore: refresh seed data and bump seed version"
+        },
+        {
+          "hash": "ca47df1",
+          "message": "fix: server seed parser handles TypeScript syntax, comment out tracking nav"
+        },
         {
           "hash": "7e4d379",
           "message": "fix: popovers only show when cursor is over the name text"
@@ -342,14 +339,6 @@ export const SEED_DATA: SeedData = {
         {
           "hash": "0d37aec",
           "message": "fix: restore popover hover to nav-project-item, add active state"
-        },
-        {
-          "hash": "c45f6f4",
-          "message": "fix: popover only triggers on hover over name text, not full row"
-        },
-        {
-          "hash": "f6340ce",
-          "message": "feat: tracking nav uses dot + name + popover layout like projects"
         }
       ],
       "syncNote": ""
@@ -1673,14 +1662,6 @@ export const SEED_DATA: SeedData = {
       "projectId": "scratchyfish",
       "title": "Commit .gitignore change",
       "priority": "low",
-      "status": "open",
-      "assignee": "Mike"
-    },
-    {
-      "id": "auto-my-projects-uncommitted",
-      "projectId": "my-projects",
-      "title": "Commit 2 changed files",
-      "priority": "medium",
       "status": "open",
       "assignee": "Mike"
     }
