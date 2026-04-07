@@ -100,23 +100,20 @@ export default function Sidebar({ projects, todos, issues, concerns, decisions, 
               const hasTodosOnly = pHasHighTodos && pIssues.length === 0 && pConcerns.length === 0;
               const badgeClass = needsAttention ? `nav-badge-${COLORS.navAttentionHigh}` : hasTodosOnly ? `nav-badge-${COLORS.navTodos}` : pLowPrioTodosOnly ? '' : hasNonTodoItems ? `nav-badge-${COLORS.navAttentionLow}` : '';
 
-              const counts = [
-                { label: 'todos', count: pTodos.length },
-                { label: 'issues', count: pIssues.length },
-                { label: 'concerns', count: pConcerns.length },
-                { label: 'decisions', count: pDecisions.length },
-              ];
-              const active = counts.filter(c => c.count > 0);
-              const summaryText = active.length > 0
-                ? active.map(c => `${c.count} ${c.label}`).join(', ')
-                : 'no issues';
-              const summaryClass = active.length === 0 ? 'clean' : needsAttention ? 'has-attention' : pLowPrioTodosOnly ? 'has-low-todos' : hasTodosOnly ? 'has-todos' : 'has-items';
-
               const isRepoClean = !p.uncommitted
                 && (p.openBranches || []).length === 0
                 && (p.aheadCount || 0) === 0
                 && (p.behindCount || 0) === 0;
               const repoDotClass = isRepoClean ? 'nav-dot-green' : 'nav-dot-red';
+
+              // Build git status summary like: "3 files changed, 2 branches, 1 ahead"
+              const gitStats = [];
+              const dirty = (p.stagedCount || 0) + (p.modifiedCount || 0) + (p.untrackedCount || 0) + (p.deletedCount || 0);
+              if (dirty > 0) gitStats.push(`${dirty} changed`);
+              const branches = (p.openBranches || []).length;
+              if (branches > 0) gitStats.push(`${branches} branch${branches > 1 ? 'es' : ''}`);
+              if ((p.aheadCount || 0) > 0) gitStats.push(`${p.aheadCount} ahead`);
+              if ((p.behindCount || 0) > 0) gitStats.push(`${p.behindCount} behind`);
 
               return (
                 <div key={p.id}>
@@ -129,10 +126,12 @@ export default function Sidebar({ projects, todos, issues, concerns, decisions, 
                     {p.name}
                     {badgeClass && <span className={`nav-dot ${badgeClass}`} />}
                   </a>
-                  <div
-                    className={`nav-sub-summary ${summaryClass}`}
-                    onClick={() => onSelectProject(p.id)}
-                  >{summaryText}</div>
+                  {!isRepoClean && gitStats.length > 0 && (
+                    <div
+                      className="nav-git-status"
+                      onClick={() => onSelectProject(p.id)}
+                    >{gitStats.join(', ')}</div>
+                  )}
                 </div>
               );
             })}
