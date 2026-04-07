@@ -177,6 +177,10 @@ main {
 .stat-card.red .stat-value { color: var(--red); }
 .stat-card.green .stat-value { color: var(--green); }
 .stat-card.blue .stat-value { color: var(--blue); }
+.stat-check {
+  color: var(--green);
+  margin-right: 8px;
+}
 
 .dirty-repos-section { margin-top: 32px; }
 .dirty-repos-title {

@@ -74,7 +74,7 @@ export default function App() {
                   <div className="title-rule"></div>
                   <p>Personal project management &mdash; {projects.length} projects across plugins, AI tools, web apps, and automation.</p>
                 </div>
-                <StatsBar stats={stats} />
+                <StatsBar stats={stats} dirtyCount={dirtyProjects.length} />
                 {dirtyProjects.length > 0 ? (
                   <div className="dirty-repos-section">
                     <h2 className="dirty-repos-title">Repos Needing Attention ({dirtyProjects.length})</h2>
@@ -96,12 +96,7 @@ export default function App() {
                       })}
                     </div>
                   </div>
-                ) : (
-                  <div className="all-clean-section">
-                    <div className="all-clean-check">&#10003;</div>
-                    <div className="all-clean-text">All repos clean</div>
-                  </div>
-                )}
+                ) : null}
               </div>
               {/* ProjectGrid removed from dashboard */}
             </>
