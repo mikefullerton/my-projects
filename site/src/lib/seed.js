@@ -20,14 +20,14 @@ export const SEED_DATA = {
       "path": "~/projects/personal/cat-herding/",
       "branch": "main",
       "uncommitted": true,
-      "uncommittedDetail": "3 changed files",
+      "uncommittedDetail": "1 changed files",
       "openBranches": [
         "feature/yolo-install-uninstall"
       ],
       "branchSummaries": {
         "feature/yolo-install-uninstall": "Adding install/uninstall commands for YOLO plugin"
       },
-      "latestWork": "feat(repo-tools): show all-repo status chart, skip -tests dirs.chore: simplify git workflow rule to commit-and-push.Add site-manager add/deploy fix plan and spec docs.",
+      "latestWork": "feat(repo-tools): add needs-push, needs-pull, branches to status chart.feat(repo-tools): show all-repo status chart, skip -tests dirs.chore: simplify git workflow rule to commit-and-push.",
       "runCmd": "claude --plugin-dir ./plugins/webinitor",
       "tags": [
         "plugins",
@@ -35,16 +35,6 @@ export const SEED_DATA = {
         "scaffolding"
       ],
       "modifiedFiles": [
-        {
-          "path": "plugins/repo-tools/skills/repo-tools/SKILL.md",
-          "change": "modified",
-          "summary": "+7/-4 — changed: active/cat-herding            5 uncommitted files, 2 inactiv"
-        },
-        {
-          "path": "plugins/repo-tools/skills/repo-tools/references/clean.py",
-          "change": "modified",
-          "summary": "+28/-0 — added: def scan_needs_pull(repo, cur):"
-        },
         {
           "path": "cli/site-manager/build/",
           "change": "untracked",
@@ -81,12 +71,16 @@ export const SEED_DATA = {
         }
       ],
       "stagedCount": 0,
-      "modifiedCount": 2,
+      "modifiedCount": 0,
       "untrackedCount": 1,
       "deletedCount": 0,
       "aheadCount": 0,
       "behindCount": 0,
       "latestCommits": [
+        {
+          "hash": "b7ea2e7",
+          "message": "feat(repo-tools): add needs-push, needs-pull, branches to status chart"
+        },
         {
           "hash": "42f0a72",
           "message": "feat(repo-tools): show all-repo status chart, skip -tests dirs"
@@ -102,10 +96,6 @@ export const SEED_DATA = {
         {
           "hash": "ad30fab",
           "message": "Update repo-tools and custom-status-line plugins"
-        },
-        {
-          "hash": "c3b7562",
-          "message": "docs: update plugin.json to v1.4.0 and add site-manager add to skills table"
         }
       ]
     },
@@ -354,56 +344,29 @@ export const SEED_DATA = {
       ],
       "path": "~/projects/personal/my-projects/",
       "branch": "main",
-      "uncommitted": true,
-      "uncommittedDetail": "6 changed files",
+      "uncommitted": false,
+      "uncommittedDetail": "",
       "openBranches": [],
-      "latestWork": "fix: scanner does full sync — no hardcoded paths or special entries.fix: refresh creates new projects and removes stale ones from seed data.feat: exclude test repos from discovery and dashboard.",
+      "latestWork": "fix: scanner was reading stale pre-React config.js.fix: scanner does full sync — no hardcoded paths or special entries.fix: refresh creates new projects and removes stale ones from seed data.",
       "runCmd": "open index.html",
       "tags": [
         "meta",
         "documentation",
         "architecture"
       ],
-      "modifiedFiles": [
-        {
-          "path": "scanner/scan-projects.sh",
-          "change": "modified",
-          "summary": "+2/-1 — changed: CONFIG=\"$SITE_DIR/src/lib/config.js\""
-        },
-        {
-          "path": "site/config.js",
-          "change": "deleted",
-          "summary": "file removed"
-        },
-        {
-          "path": "site/db.js",
-          "change": "deleted",
-          "summary": "file removed"
-        },
-        {
-          "path": "site/seed-data.js",
-          "change": "deleted",
-          "summary": "file removed"
-        },
-        {
-          "path": "site/src/context/DataContext.jsx",
-          "change": "modified",
-          "summary": "+1/-1 — changed: const SEED_VERSION = 36;"
-        },
-        {
-          "path": "site/src/lib/seed.js",
-          "change": "modified",
-          "summary": "+22/-47 — changed: \"uncommittedDetail\": \"1 changed files\","
-        }
-      ],
+      "modifiedFiles": [],
       "branchDetails": [],
-      "stagedCount": 3,
-      "modifiedCount": 3,
+      "stagedCount": 0,
+      "modifiedCount": 0,
       "untrackedCount": 0,
-      "deletedCount": 3,
+      "deletedCount": 0,
       "aheadCount": 0,
       "behindCount": 0,
       "latestCommits": [
+        {
+          "hash": "aa7ad50",
+          "message": "fix: scanner was reading stale pre-React config.js"
+        },
         {
           "hash": "905f39e",
           "message": "fix: scanner does full sync — no hardcoded paths or special entries"
@@ -419,10 +382,6 @@ export const SEED_DATA = {
         {
           "hash": "5768347",
           "message": "feat: auto-discover new/moved/removed projects before scanning"
-        },
-        {
-          "hash": "49006b4",
-          "message": "feat: restore issues summary under project names in nav"
         }
       ]
     },
@@ -2144,7 +2103,7 @@ export const SEED_DATA = {
     {
       "id": "auto-cat-herding-uncommitted",
       "projectId": "cat-herding",
-      "title": "Commit 3 changed files",
+      "title": "Commit 1 changed files",
       "priority": "medium",
       "status": "open",
       "assignee": "Mike"
@@ -2210,14 +2169,6 @@ export const SEED_DATA = {
       "projectId": "mikeisdrumming",
       "title": "Review/merge 1 open branch",
       "priority": "low",
-      "status": "open",
-      "assignee": "Mike"
-    },
-    {
-      "id": "auto-my-projects-uncommitted",
-      "projectId": "my-projects",
-      "title": "Commit 6 changed files",
-      "priority": "medium",
       "status": "open",
       "assignee": "Mike"
     },
