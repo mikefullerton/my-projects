@@ -415,18 +415,11 @@ nav .nav-repo-dot {
 nav .nav-repo-dot.nav-dot-green { background: var(--green); }
 nav .nav-repo-dot.nav-dot-red { background: var(--red); }
 
-nav .nav-git-status {
-  display: block;
-  padding: 0 16px 4px 42px;
+nav .nav-git-info {
   font-family: var(--mono);
-  font-size: 0.5rem;
-  color: var(--red);
-  opacity: 0.7;
-  cursor: pointer;
-  transition: opacity 0.2s;
+  font-size: 0.55rem;
+  color: var(--text-dim);
 }
-
-nav .nav-git-status:hover { opacity: 1; }
 
 nav .nav-dot.nav-badge-yellow { background: var(--yellow); }
 nav .nav-dot.nav-badge-red { background: var(--red); }

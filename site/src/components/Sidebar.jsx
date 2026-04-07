@@ -106,32 +106,28 @@ export default function Sidebar({ projects, todos, issues, concerns, decisions, 
                 && (p.behindCount || 0) === 0;
               const repoDotClass = isRepoClean ? 'nav-dot-green' : 'nav-dot-red';
 
-              // Build git status summary like: "3 files changed, 2 branches, 1 ahead"
+              // Build git status like statusline: git:(branch) | [3 files changed, 2 ahead]
               const gitStats = [];
               const dirty = (p.stagedCount || 0) + (p.modifiedCount || 0) + (p.untrackedCount || 0) + (p.deletedCount || 0);
-              if (dirty > 0) gitStats.push(`${dirty} changed`);
+              if (dirty > 0) gitStats.push(`${dirty} files changed`);
               const branches = (p.openBranches || []).length;
               if (branches > 0) gitStats.push(`${branches} branch${branches > 1 ? 'es' : ''}`);
               if ((p.aheadCount || 0) > 0) gitStats.push(`${p.aheadCount} ahead`);
               if ((p.behindCount || 0) > 0) gitStats.push(`${p.behindCount} behind`);
+              const gitInfo = !isRepoClean && p.branch
+                ? ` git:(${p.branch}) [${gitStats.length > 0 ? gitStats.join(', ') : 'up to date'}]`
+                : '';
 
               return (
                 <div key={p.id}>
                   <a
                     href={`#project-${p.id}`}
-                    className={badgeClass}
                     onClick={e => { e.preventDefault(); onSelectProject(p.id); }}
                   >
                     <span className={`nav-repo-dot ${repoDotClass}`} />
                     {p.name}
-                    {badgeClass && <span className={`nav-dot ${badgeClass}`} />}
+                    {gitInfo && <span className="nav-git-info">{gitInfo}</span>}
                   </a>
-                  {!isRepoClean && gitStats.length > 0 && (
-                    <div
-                      className="nav-git-status"
-                      onClick={() => onSelectProject(p.id)}
-                    >{gitStats.join(', ')}</div>
-                  )}
                 </div>
               );
             })}
