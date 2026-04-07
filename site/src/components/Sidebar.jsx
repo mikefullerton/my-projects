@@ -118,6 +118,17 @@ export default function Sidebar({ projects, todos, issues, concerns, decisions, 
                 ? ` git:(${p.branch}) [${gitStats.length > 0 ? gitStats.join(', ') : 'up to date'}]`
                 : '';
 
+              const counts = [
+                { label: 'todos', count: pTodos.length },
+                { label: 'issues', count: pIssues.length },
+                { label: 'concerns', count: pConcerns.length },
+                { label: 'decisions', count: pDecisions.length },
+              ];
+              const activeCounts = counts.filter(c => c.count > 0);
+              const summaryText = activeCounts.length > 0
+                ? activeCounts.map(c => `${c.count} ${c.label}`).join(', ')
+                : 'no issues';
+
               return (
                 <div key={p.id}>
                   <a
@@ -128,6 +139,10 @@ export default function Sidebar({ projects, todos, issues, concerns, decisions, 
                     {p.name}
                     {gitInfo && <span className="nav-git-info">{gitInfo}</span>}
                   </a>
+                  <div
+                    className="nav-sub-summary"
+                    onClick={() => onSelectProject(p.id)}
+                  >{summaryText}</div>
                 </div>
               );
             })}
