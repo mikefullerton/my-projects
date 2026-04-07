@@ -791,6 +791,8 @@ nav .nav-count {
 .btn-ghost { color: var(--text-dim); border-color: var(--border); background: transparent; }
 .btn-ghost:hover { border-color: var(--text-muted); color: var(--text-muted); }
 .btn-small { padding: 4px 10px; font-size: 0.58rem; }
+.btn:disabled { opacity: 0.5; cursor: not-allowed; animation: btn-pulse 1.5s infinite; }
+@keyframes btn-pulse { 0%, 100% { opacity: 0.5; } 50% { opacity: 0.8; } }
 
 .btn-row { display: flex; gap: 8px; margin-top: 4px; }
 

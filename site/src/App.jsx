@@ -59,6 +59,7 @@ export default function App() {
         onNavigate={navigate}
         onSelectProject={selectProject}
         onRefresh={handleRefresh}
+        refreshing={refreshing}
       />
       <main>
         {/* Dashboard view */}

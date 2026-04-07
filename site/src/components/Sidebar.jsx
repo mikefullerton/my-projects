@@ -2,7 +2,7 @@ import { groupProjects, formatGroupName } from '../hooks/useData.js';
 import { useDB } from '../context/DataContext.jsx';
 import { COLORS } from '../lib/theme.js';
 
-export default function Sidebar({ projects, todos, issues, concerns, decisions, currentView, onNavigate, onSelectProject, onRefresh }) {
+export default function Sidebar({ projects, todos, issues, concerns, decisions, currentView, onNavigate, onSelectProject, onRefresh, refreshing }) {
   const { appConfig } = useDB();
   const groups = groupProjects(projects, appConfig);
 
@@ -35,7 +35,9 @@ export default function Sidebar({ projects, todos, issues, concerns, decisions, 
     <nav>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingRight: '16px' }}>
         <div className="nav-title">Project Hub</div>
-        <button className="btn btn-accent btn-small" id="refresh-btn" onClick={onRefresh}>Refresh</button>
+        <button className="btn btn-accent btn-small" id="refresh-btn" onClick={onRefresh} disabled={refreshing}>
+          {refreshing ? 'Scanning\u2026' : 'Refresh'}
+        </button>
       </div>
       <div className="nav-sub">Mike Fullerton</div>
 
