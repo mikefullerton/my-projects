@@ -50,7 +50,7 @@ const server = http.createServer((req, res) => {
         if (err) throw err;
         const scanned = JSON.parse(stdout);
 
-        const seedPath = path.join(ROOT, 'site', 'src', 'lib', 'seed.js');
+        const seedPath = path.join(ROOT, 'site', 'src', 'lib', 'seed.ts');
         const seedData = parseSeedData(seedPath);
 
         // Keep manual todos, rebuild auto-generated ones
@@ -119,7 +119,7 @@ const server = http.createServer((req, res) => {
         fs.writeFileSync(seedPath, newSeed);
 
         // Bump seed version in DataContext so localStorage re-seeds on reload
-        const ctxPath = path.join(ROOT, 'site', 'src', 'context', 'DataContext.jsx');
+        const ctxPath = path.join(ROOT, 'site', 'src', 'context', 'DataContext.tsx');
         let ctxSrc = fs.readFileSync(ctxPath, 'utf8');
         ctxSrc = ctxSrc.replace(
           /const SEED_VERSION = (\d+);/,
