@@ -5,6 +5,7 @@
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 BASE_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
 SITE_DIR="$BASE_DIR/site"
+CONFIG="$SITE_DIR/src/lib/config.js"
 
 # Discover new/moved/removed projects before scanning
 bash "$SCRIPT_DIR/discover-projects.sh" >&2
@@ -14,7 +15,7 @@ echo "["
 first=true
 # Parse config.js to get project id and path pairs
 # Extract lines like: "cat-herding": "../../personal/cat-herding",
-grep -E '^\s+"[^"]+"\s*:\s*"[^"]+"\s*,?\s*$' "$SITE_DIR/config.js" | \
+grep -E '^\s+"[^"]+"\s*:\s*"[^"]+"\s*,?\s*$' "$CONFIG" | \
   grep -v 'projectOrder' | \
   sed 's/[",:]//g' | \
   while read -r id path; do

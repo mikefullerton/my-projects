@@ -27,7 +27,7 @@ export const SEED_DATA = {
       "branchSummaries": {
         "feature/yolo-install-uninstall": "Adding install/uninstall commands for YOLO plugin"
       },
-      "latestWork": "Add site-manager add/deploy fix plan and spec docs.Update repo-tools and custom-status-line plugins.docs: update plugin.json to v1.4.0 and add site-manager add to skills table.",
+      "latestWork": "feat(repo-tools): show all-repo status chart, skip -tests dirs.chore: simplify git workflow rule to commit-and-push.Add site-manager add/deploy fix plan and spec docs.",
       "runCmd": "claude --plugin-dir ./plugins/webinitor",
       "tags": [
         "plugins",
@@ -38,12 +38,12 @@ export const SEED_DATA = {
         {
           "path": "plugins/repo-tools/skills/repo-tools/SKILL.md",
           "change": "modified",
-          "summary": "+45/-4 — changed: \"repos\": ["
+          "summary": "+7/-4 — changed: active/cat-herding            5 uncommitted files, 2 inactiv"
         },
         {
           "path": "plugins/repo-tools/skills/repo-tools/references/clean.py",
           "change": "modified",
-          "summary": "+19/-18 — changed: repo_dir = os.path.dirname(os.path.abspath(dot_git))"
+          "summary": "+28/-0 — added: def scan_needs_pull(repo, cur):"
         },
         {
           "path": "cli/site-manager/build/",
@@ -88,6 +88,14 @@ export const SEED_DATA = {
       "behindCount": 0,
       "latestCommits": [
         {
+          "hash": "42f0a72",
+          "message": "feat(repo-tools): show all-repo status chart, skip -tests dirs"
+        },
+        {
+          "hash": "4369236",
+          "message": "chore: simplify git workflow rule to commit-and-push"
+        },
+        {
           "hash": "6362312",
           "message": "Add site-manager add/deploy fix plan and spec docs"
         },
@@ -98,14 +106,6 @@ export const SEED_DATA = {
         {
           "hash": "c3b7562",
           "message": "docs: update plugin.json to v1.4.0 and add site-manager add to skills table"
-        },
-        {
-          "hash": "de44981",
-          "message": "feat(site-manager): add 'add' command to skill with addable catalog"
-        },
-        {
-          "hash": "65c2906",
-          "message": "feat(site-manager): add verify→repair loop to deploy commands"
         }
       ]
     },
@@ -355,9 +355,9 @@ export const SEED_DATA = {
       "path": "~/projects/personal/my-projects/",
       "branch": "main",
       "uncommitted": true,
-      "uncommittedDetail": "5 changed files",
+      "uncommittedDetail": "6 changed files",
       "openBranches": [],
-      "latestWork": "fix: refresh creates new projects and removes stale ones from seed data.feat: exclude test repos from discovery and dashboard.feat: auto-discover new/moved/removed projects before scanning.",
+      "latestWork": "fix: scanner does full sync — no hardcoded paths or special entries.fix: refresh creates new projects and removes stale ones from seed data.feat: exclude test repos from discovery and dashboard.",
       "runCmd": "open index.html",
       "tags": [
         "meta",
@@ -366,39 +366,48 @@ export const SEED_DATA = {
       ],
       "modifiedFiles": [
         {
-          "path": "scanner/discover-projects.sh",
+          "path": "scanner/scan-projects.sh",
           "change": "modified",
-          "summary": "+5/-6 — changed: # my-projects is discovered normally via the walk (it's in a"
+          "summary": "+2/-1 — changed: CONFIG=\"$SITE_DIR/src/lib/config.js\""
+        },
+        {
+          "path": "site/config.js",
+          "change": "deleted",
+          "summary": "file removed"
+        },
+        {
+          "path": "site/db.js",
+          "change": "deleted",
+          "summary": "file removed"
+        },
+        {
+          "path": "site/seed-data.js",
+          "change": "deleted",
+          "summary": "file removed"
         },
         {
           "path": "site/src/context/DataContext.jsx",
           "change": "modified",
-          "summary": "+1/-1 — changed: const SEED_VERSION = 31;"
-        },
-        {
-          "path": "site/src/hooks/useData.js",
-          "change": "modified",
-          "summary": "+1/-2 — changed: return parts.length > 1 ? parts[0] : 'other';"
-        },
-        {
-          "path": "site/src/lib/config.js",
-          "change": "modified",
-          "summary": "+1/-4 — changed: \"my-projects\": \"../../active/my-projects\","
+          "summary": "+1/-1 — changed: const SEED_VERSION = 36;"
         },
         {
           "path": "site/src/lib/seed.js",
           "change": "modified",
-          "summary": "+9/-33 — changed: \"uncommitted\": false,"
+          "summary": "+22/-47 — changed: \"uncommittedDetail\": \"1 changed files\","
         }
       ],
       "branchDetails": [],
-      "stagedCount": 0,
-      "modifiedCount": 5,
+      "stagedCount": 3,
+      "modifiedCount": 3,
       "untrackedCount": 0,
-      "deletedCount": 0,
+      "deletedCount": 3,
       "aheadCount": 0,
       "behindCount": 0,
       "latestCommits": [
+        {
+          "hash": "905f39e",
+          "message": "fix: scanner does full sync — no hardcoded paths or special entries"
+        },
         {
           "hash": "f65635f",
           "message": "fix: refresh creates new projects and removes stale ones from seed data"
@@ -414,10 +423,6 @@ export const SEED_DATA = {
         {
           "hash": "49006b4",
           "message": "feat: restore issues summary under project names in nav"
-        },
-        {
-          "hash": "a4fe0b9",
-          "message": "chore: update seed data and bump seed version from refresh scan"
         }
       ]
     },
@@ -1947,533 +1952,120 @@ export const SEED_DATA = {
       "latestWork": "Update dotfiles path reference to deprecated/dotfiles.chore: add .gitignore.docs: update dotfiles path from ~/.dotfiles to ~/projects/dotfiles."
     },
     {
-      "id": "code-review-pipeline-test",
-      "name": "Code Review Pipeline Test",
+      "id": "agentic-auth-service",
+      "name": "Agentic Auth Service",
       "tagline": "",
       "status": "active",
       "techStack": [
-        "Kotlin"
+        "Node.js",
+        "TypeScript",
+        "Claude Code"
       ],
-      "openBranches": [
-        "chore/wrapper-refs-main",
-        "config/on-demand-reviews",
-        "feature/add-anthropic-review",
-        "feature/agent-wrappers",
-        "feature/test-pipeline-review",
-        "feature/thorin-code-review",
-        "main"
-      ],
+      "openBranches": [],
       "latestCommits": [
         {
-          "hash": "f20dec1",
-          "message": "Update dotfiles path reference to deprecated/dotfiles"
+          "hash": "7aed6ff",
+          "message": "Add .claude/ project config"
         },
         {
-          "hash": "18370ef",
-          "message": "chore: standardize worktree directory to .claude/worktrees/"
+          "hash": "a48b32d",
+          "message": "docs: add architecture research document"
         },
         {
-          "hash": "55774a6",
-          "message": "docs: update dotfiles path from ~/.dotfiles to ~/projects/dotfiles"
+          "hash": "bb9a47c",
+          "message": "chore: replace KeyLike with CryptoKey type in keys config"
         },
         {
-          "hash": "32fb0a5",
-          "message": "config: make Thorin code review on-demand only"
+          "hash": "08a9668",
+          "message": "fix: standalone seed script, add deployed manifest and public key"
         },
         {
-          "hash": "864daad",
-          "message": "config: adopt combined review, make Anthropic on-demand"
+          "hash": "5696997",
+          "message": "fix: standalone migration runner, increase healthcheck timeout"
         }
       ],
-      "branch": "feature/cost-optimization",
+      "branch": "main",
       "uncommitted": false,
       "uncommittedDetail": "",
-      "branchDetails": [
-        {
-          "name": "chore/wrapper-refs-main",
-          "commits": [
-            {
-              "hash": "5c2f39e",
-              "message": "chore: switch wrapper references to @main"
-            }
-          ],
-          "summary": "chore: switch wrapper references to @main",
-          "commitCount": 1
-        },
-        {
-          "name": "config/on-demand-reviews",
-          "commits": [
-            {
-              "hash": "7164100",
-              "message": "config: make specialized reviews on-demand only"
-            },
-            {
-              "hash": "587669e",
-              "message": "feat: add Anthropic code reviewer workflow"
-            }
-          ],
-          "summary": "2 commits — config: make specialized reviews on-demand only",
-          "commitCount": 2
-        },
-        {
-          "name": "feature/add-anthropic-review",
-          "commits": [
-            {
-              "hash": "587669e",
-              "message": "feat: add Anthropic code reviewer workflow"
-            }
-          ],
-          "summary": "feat: add Anthropic code reviewer workflow",
-          "commitCount": 1
-        },
-        {
-          "name": "feature/agent-wrappers",
-          "commits": [
-            {
-              "hash": "a6389d3",
-              "message": "feat: switch all workflows to agent wrapper references"
-            }
-          ],
-          "summary": "feat: switch all workflows to agent wrapper references",
-          "commitCount": 1
-        },
-        {
-          "name": "feature/test-pipeline-review",
-          "commits": [
-            {
-              "hash": "6a07285",
-              "message": "feat: add time-aware greetings"
-            }
-          ],
-          "summary": "feat: add time-aware greetings",
-          "commitCount": 1
-        },
-        {
-          "name": "feature/thorin-code-review",
-          "commits": [
-            {
-              "hash": "779c6fe",
-              "message": "feat: switch to thorin-code-review and update reviewer names"
-            }
-          ],
-          "summary": "feat: switch to thorin-code-review and update reviewer names",
-          "commitCount": 1
-        },
-        {
-          "name": "main",
-          "commits": [],
-          "summary": "no unique commits",
-          "commitCount": 0
-        }
-      ],
+      "branchDetails": [],
       "modifiedFiles": [],
       "stagedCount": 0,
       "modifiedCount": 0,
       "untrackedCount": 0,
       "deletedCount": 0,
-      "aheadCount": 5,
+      "aheadCount": 0,
       "behindCount": 0,
-      "latestWork": "Update dotfiles path reference to deprecated/dotfiles.chore: standardize worktree directory to .claude/worktrees/.docs: update dotfiles path from ~/.dotfiles to ~/projects/dotfiles."
+      "latestWork": "Add .claude/ project config.docs: add architecture research document.chore: replace KeyLike with CryptoKey type in keys config."
     },
     {
-      "id": "cookbook-tests",
-      "name": "Cookbook Tests",
+      "id": "learntruefacts",
+      "name": "Learntruefacts",
       "tagline": "",
       "status": "active",
-      "techStack": [
-        "Node.js",
-        "TypeScript"
-      ],
+      "techStack": [],
       "openBranches": [],
       "latestCommits": [
         {
-          "hash": "86a9d82",
-          "message": "chore: add .gitignore"
-        },
-        {
-          "hash": "2b558dd",
-          "message": "Add cc-plugin-eval research findings"
+          "hash": "71263e8",
+          "message": "Add docs/ and ignore .DS_Store"
         }
       ],
       "branch": "main",
-      "uncommitted": true,
-      "uncommittedDetail": "8 changed files",
+      "uncommitted": false,
+      "uncommittedDetail": "",
       "branchDetails": [],
-      "modifiedFiles": [
-        {
-          "path": "fixtures/",
-          "change": "untracked",
-          "summary": "new directory (2 items)"
-        },
-        {
-          "path": "lib/",
-          "change": "untracked",
-          "summary": "new directory (3 items)"
-        },
-        {
-          "path": "node_modules/",
-          "change": "untracked",
-          "summary": "new directory (50 items)"
-        },
-        {
-          "path": "package-lock.json",
-          "change": "untracked",
-          "summary": "40KB — {"
-        },
-        {
-          "path": "package.json",
-          "change": "untracked",
-          "summary": "231B — {"
-        },
-        {
-          "path": "specs/",
-          "change": "untracked",
-          "summary": "new directory (2 items)"
-        },
-        {
-          "path": "tsconfig.json",
-          "change": "untracked",
-          "summary": "328B — {"
-        },
-        {
-          "path": "vitest.config.ts",
-          "change": "untracked",
-          "summary": "284B — import { defineConfig } from \"vitest/config\";"
-        }
-      ],
+      "modifiedFiles": [],
       "stagedCount": 0,
       "modifiedCount": 0,
-      "untrackedCount": 8,
+      "untrackedCount": 0,
       "deletedCount": 0,
       "aheadCount": 0,
       "behindCount": 0,
-      "latestWork": "chore: add .gitignore.Add cc-plugin-eval research findings."
+      "latestWork": "Add docs/ and ignore .DS_Store."
     },
     {
-      "id": "roadmaps-tests",
-      "name": "Roadmaps Tests",
+      "id": "my-projects-overview",
+      "name": "My Projects Overview",
       "tagline": "",
       "status": "active",
       "techStack": [
         "Claude Code"
       ],
-      "openBranches": [
-        "feature/AllAuto3Step-test_all_auto_steps_single_pr-002a7c5b",
-        "feature/AllAuto3Step-test_all_auto_steps_single_pr-02817111",
-        "feature/AllAuto3Step-test_all_auto_steps_single_pr-05ecac52",
-        "feature/AllAuto3Step-test_all_auto_steps_single_pr-158cb3df",
-        "feature/AllAuto3Step-test_all_auto_steps_single_pr-21fef51b",
-        "feature/AllAuto3Step-test_all_auto_steps_single_pr-2e33aec5",
-        "feature/AllAuto3Step-test_all_auto_steps_single_pr-3b5fb56d",
-        "feature/AllAuto3Step-test_all_auto_steps_single_pr-4a3d41a9",
-        "feature/AllAuto3Step-test_all_auto_steps_single_pr-51045263",
-        "feature/AllAuto3Step-test_all_auto_steps_single_pr-67bc9d38"
-      ],
+      "openBranches": [],
       "latestCommits": [
         {
-          "hash": "fa065ef",
-          "message": "chore: add .gitignore"
+          "hash": "a1f0d8c",
+          "message": "feat: project title headers and raw markdown popover"
         },
         {
-          "hash": "a2ad31a",
-          "message": "test: add SingleStep roadmap fixture"
+          "hash": "119b16e",
+          "message": "fix: embed project details inline for file:// compatibility"
         },
         {
-          "hash": "237d06e",
-          "message": "test: add AllAuto3Step roadmap fixture"
+          "hash": "114e0b4",
+          "message": "feat: SPA navigation — sidebar clicks load project detail inline"
         },
         {
-          "hash": "e6622ba",
-          "message": "test: add WithDependencies roadmap fixture"
+          "hash": "88a5965",
+          "message": "redesign: match my-projects layout with sidebar navigation"
         },
         {
-          "hash": "c4253da",
-          "message": "test: add AllAuto3Step roadmap fixture"
+          "hash": "338309a",
+          "message": "update: refresh remaining overviews from parallel agents"
         }
       ],
       "branch": "main",
       "uncommitted": false,
       "uncommittedDetail": "",
-      "branchDetails": [
-        {
-          "name": "feature/AllAuto3Step-test_all_auto_steps_single_pr-002a7c5b",
-          "commits": [
-            {
-              "hash": "fd18b90",
-              "message": "feat: complete step 3"
-            },
-            {
-              "hash": "291c218",
-              "message": "feat: complete step 2"
-            },
-            {
-              "hash": "a53e897",
-              "message": "feat: complete step 1"
-            },
-            {
-              "hash": "cc2a7fd",
-              "message": "test: add AllAuto3Step roadmap fixture"
-            },
-            {
-              "hash": "7410a12",
-              "message": "Initial empty commit for test"
-            }
-          ],
-          "summary": "5 commits — feat: complete step 3",
-          "commitCount": 5
-        },
-        {
-          "name": "feature/AllAuto3Step-test_all_auto_steps_single_pr-02817111",
-          "commits": [
-            {
-              "hash": "94f364d",
-              "message": "feat: complete step 3"
-            },
-            {
-              "hash": "86463af",
-              "message": "feat: complete step 2"
-            },
-            {
-              "hash": "9c294e7",
-              "message": "feat: complete step 1"
-            },
-            {
-              "hash": "0457626",
-              "message": "test: add AllAuto3Step roadmap fixture"
-            },
-            {
-              "hash": "aba754c",
-              "message": "Initial empty commit for test"
-            }
-          ],
-          "summary": "5 commits — feat: complete step 3",
-          "commitCount": 5
-        },
-        {
-          "name": "feature/AllAuto3Step-test_all_auto_steps_single_pr-05ecac52",
-          "commits": [
-            {
-              "hash": "c868c49",
-              "message": "feat: complete step 3"
-            },
-            {
-              "hash": "c96817f",
-              "message": "feat: complete step 2"
-            },
-            {
-              "hash": "e5fb866",
-              "message": "feat: complete step 1"
-            },
-            {
-              "hash": "29e1fee",
-              "message": "test: add AllAuto3Step roadmap fixture"
-            },
-            {
-              "hash": "0602056",
-              "message": "Initial empty commit for test"
-            }
-          ],
-          "summary": "5 commits — feat: complete step 3",
-          "commitCount": 5
-        },
-        {
-          "name": "feature/AllAuto3Step-test_all_auto_steps_single_pr-158cb3df",
-          "commits": [
-            {
-              "hash": "0501977",
-              "message": "feat: complete step 3"
-            },
-            {
-              "hash": "214c471",
-              "message": "feat: complete step 2"
-            },
-            {
-              "hash": "8b4405f",
-              "message": "feat: complete step 1"
-            },
-            {
-              "hash": "24cb64a",
-              "message": "test: add AllAuto3Step roadmap fixture"
-            },
-            {
-              "hash": "3caa019",
-              "message": "Initial empty commit for test"
-            }
-          ],
-          "summary": "5 commits — feat: complete step 3",
-          "commitCount": 5
-        },
-        {
-          "name": "feature/AllAuto3Step-test_all_auto_steps_single_pr-21fef51b",
-          "commits": [
-            {
-              "hash": "af08579",
-              "message": "feat: complete step 3"
-            },
-            {
-              "hash": "d97f3bf",
-              "message": "feat: complete step 2"
-            },
-            {
-              "hash": "82ca64c",
-              "message": "feat: complete step 1"
-            },
-            {
-              "hash": "f7c2e5b",
-              "message": "test: add AllAuto3Step roadmap fixture"
-            },
-            {
-              "hash": "c93e0c7",
-              "message": "Initial empty commit for test"
-            }
-          ],
-          "summary": "5 commits — feat: complete step 3",
-          "commitCount": 5
-        },
-        {
-          "name": "feature/AllAuto3Step-test_all_auto_steps_single_pr-2e33aec5",
-          "commits": [
-            {
-              "hash": "24825bc",
-              "message": "feat: complete step 3"
-            },
-            {
-              "hash": "c58feb4",
-              "message": "feat: complete step 2"
-            },
-            {
-              "hash": "82906ca",
-              "message": "feat: complete step 1"
-            },
-            {
-              "hash": "f4690d4",
-              "message": "test: add AllAuto3Step roadmap fixture"
-            },
-            {
-              "hash": "4f90841",
-              "message": "Initial empty commit for test"
-            }
-          ],
-          "summary": "5 commits — feat: complete step 3",
-          "commitCount": 5
-        },
-        {
-          "name": "feature/AllAuto3Step-test_all_auto_steps_single_pr-3b5fb56d",
-          "commits": [
-            {
-              "hash": "a5fa500",
-              "message": "feat: complete step 3"
-            },
-            {
-              "hash": "54f2fed",
-              "message": "feat: complete step 2"
-            },
-            {
-              "hash": "cd2747f",
-              "message": "feat: complete step 1"
-            },
-            {
-              "hash": "eff782d",
-              "message": "test: add AllAuto3Step roadmap fixture"
-            },
-            {
-              "hash": "deb5887",
-              "message": "Initial empty commit for test"
-            }
-          ],
-          "summary": "5 commits — feat: complete step 3",
-          "commitCount": 5
-        },
-        {
-          "name": "feature/AllAuto3Step-test_all_auto_steps_single_pr-4a3d41a9",
-          "commits": [
-            {
-              "hash": "180fc0e",
-              "message": "feat: complete step 3"
-            },
-            {
-              "hash": "7e7c341",
-              "message": "feat: complete step 2"
-            },
-            {
-              "hash": "d2ce950",
-              "message": "feat: complete step 1"
-            },
-            {
-              "hash": "f3f5350",
-              "message": "test: add AllAuto3Step roadmap fixture"
-            },
-            {
-              "hash": "fb0dc5b",
-              "message": "Initial empty commit for test"
-            }
-          ],
-          "summary": "5 commits — feat: complete step 3",
-          "commitCount": 5
-        },
-        {
-          "name": "feature/AllAuto3Step-test_all_auto_steps_single_pr-51045263",
-          "commits": [
-            {
-              "hash": "bec5b30",
-              "message": "feat: complete step 3"
-            },
-            {
-              "hash": "2d5a25c",
-              "message": "feat: complete step 2"
-            },
-            {
-              "hash": "5a85168",
-              "message": "feat: complete step 1"
-            },
-            {
-              "hash": "bda91c8",
-              "message": "test: add AllAuto3Step roadmap fixture"
-            },
-            {
-              "hash": "e88f9f7",
-              "message": "Initial empty commit for test"
-            }
-          ],
-          "summary": "5 commits — feat: complete step 3",
-          "commitCount": 5
-        },
-        {
-          "name": "feature/AllAuto3Step-test_all_auto_steps_single_pr-67bc9d38",
-          "commits": [
-            {
-              "hash": "e88e340",
-              "message": "feat: complete step 3"
-            },
-            {
-              "hash": "56c3c9d",
-              "message": "feat: complete step 2"
-            },
-            {
-              "hash": "ca49169",
-              "message": "feat: complete step 1"
-            },
-            {
-              "hash": "7c36f9a",
-              "message": "test: add AllAuto3Step roadmap fixture"
-            },
-            {
-              "hash": "5aff77b",
-              "message": "Initial empty commit for test"
-            }
-          ],
-          "summary": "5 commits — feat: complete step 3",
-          "commitCount": 5
-        }
-      ],
+      "branchDetails": [],
       "modifiedFiles": [],
       "stagedCount": 0,
       "modifiedCount": 0,
       "untrackedCount": 0,
       "deletedCount": 0,
-      "aheadCount": 1,
-      "behindCount": 1,
-      "latestWork": "chore: add .gitignore.test: add SingleStep roadmap fixture.test: add AllAuto3Step roadmap fixture."
+      "aheadCount": 0,
+      "behindCount": 0,
+      "latestWork": "feat: project title headers and raw markdown popover.fix: embed project details inline for file:// compatibility.feat: SPA navigation — sidebar clicks load project detail inline."
     }
   ],
   "todos": [
@@ -2598,38 +2190,6 @@ export const SEED_DATA = {
       "assignee": "Mike"
     },
     {
-      "id": "auto-mikefullerton-com-branches",
-      "projectId": "mikefullerton-com",
-      "title": "Review/merge 2 open branches",
-      "priority": "low",
-      "status": "open",
-      "assignee": "Mike"
-    },
-    {
-      "id": "auto-my-projects-uncommitted",
-      "projectId": "my-projects",
-      "title": "Commit 5 changed files",
-      "priority": "medium",
-      "status": "open",
-      "assignee": "Mike"
-    },
-    {
-      "id": "auto-mysetup-branches",
-      "projectId": "mysetup",
-      "title": "Review/merge 1 open branch",
-      "priority": "low",
-      "status": "open",
-      "assignee": "Mike"
-    },
-    {
-      "id": "auto-temporal-branches",
-      "projectId": "temporal",
-      "title": "Review/merge 1 open branch",
-      "priority": "low",
-      "status": "open",
-      "assignee": "Mike"
-    },
-    {
       "id": "auto-market-research-branches",
       "projectId": "market-research",
       "title": "Review/merge 1 open branch",
@@ -2638,8 +2198,32 @@ export const SEED_DATA = {
       "assignee": "Mike"
     },
     {
+      "id": "auto-mikefullerton-com-branches",
+      "projectId": "mikefullerton-com",
+      "title": "Review/merge 2 open branches",
+      "priority": "low",
+      "status": "open",
+      "assignee": "Mike"
+    },
+    {
       "id": "auto-mikeisdrumming-branches",
       "projectId": "mikeisdrumming",
+      "title": "Review/merge 1 open branch",
+      "priority": "low",
+      "status": "open",
+      "assignee": "Mike"
+    },
+    {
+      "id": "auto-my-projects-uncommitted",
+      "projectId": "my-projects",
+      "title": "Commit 6 changed files",
+      "priority": "medium",
+      "status": "open",
+      "assignee": "Mike"
+    },
+    {
+      "id": "auto-mysetup-branches",
+      "projectId": "mysetup",
       "title": "Review/merge 1 open branch",
       "priority": "low",
       "status": "open",
@@ -2654,33 +2238,17 @@ export const SEED_DATA = {
       "assignee": "Mike"
     },
     {
+      "id": "auto-temporal-branches",
+      "projectId": "temporal",
+      "title": "Review/merge 1 open branch",
+      "priority": "low",
+      "status": "open",
+      "assignee": "Mike"
+    },
+    {
       "id": "auto-workflows-branches",
       "projectId": "workflows",
       "title": "Review/merge 4 open branches",
-      "priority": "low",
-      "status": "open",
-      "assignee": "Mike"
-    },
-    {
-      "id": "auto-code-review-pipeline-test-branches",
-      "projectId": "code-review-pipeline-test",
-      "title": "Review/merge 7 open branches",
-      "priority": "low",
-      "status": "open",
-      "assignee": "Mike"
-    },
-    {
-      "id": "auto-cookbook-tests-uncommitted",
-      "projectId": "cookbook-tests",
-      "title": "Commit 8 changed files",
-      "priority": "medium",
-      "status": "open",
-      "assignee": "Mike"
-    },
-    {
-      "id": "auto-roadmaps-tests-branches",
-      "projectId": "roadmaps-tests",
-      "title": "Review/merge 10 open branches",
       "priority": "low",
       "status": "open",
       "assignee": "Mike"
