@@ -148,7 +148,8 @@ export default function Sidebar({ projects, todos, issues, concerns, decisions, 
                   key={p.id}
                   className="nav-project-item"
                   onMouseEnter={(e) => {
-                    cancelClose();
+                    if (closeTimer.current) clearTimeout(closeTimer.current);
+                    closeTimer.current = null;
                     const nameSpan = e.currentTarget.querySelector('.nav-project-name');
                     const rect = nameSpan ? nameSpan.getBoundingClientRect() : e.currentTarget.getBoundingClientRect();
                     const centerY = rect.top + rect.height / 2;
