@@ -149,10 +149,10 @@ export default function Sidebar({ projects, todos, issues, concerns, decisions, 
                   className="nav-project-item"
                   onMouseEnter={(e) => {
                     cancelClose();
-                    const dot = e.currentTarget.querySelector('.nav-repo-dot');
-                    const dotRect = dot ? dot.getBoundingClientRect() : e.currentTarget.getBoundingClientRect();
-                    const dotCenterX = dotRect.left + dotRect.width / 2;
-                    setPopoverPos({ top: dotRect.top - 8, left: dotCenterX });
+                    const link = e.currentTarget.querySelector('a');
+                    const linkRect = link ? link.getBoundingClientRect() : e.currentTarget.getBoundingClientRect();
+                    const centerY = linkRect.top + linkRect.height / 2;
+                    setPopoverPos({ top: centerY, left: linkRect.right + 12 });
                     setHoveredProject(p.id);
                   }}
                   onMouseLeave={scheduleClose}
@@ -167,7 +167,7 @@ export default function Sidebar({ projects, todos, issues, concerns, decisions, 
                   {hasPopover && hoveredProject === p.id && createPortal(
                     <div
                       className="nav-popover"
-                      style={{ top: popoverPos.top, left: popoverPos.left - 20, transform: 'translateY(-100%)' }}
+                      style={{ top: popoverPos.top, left: popoverPos.left, transform: 'translateY(-50%)' }}
                       onMouseEnter={cancelClose}
                       onMouseLeave={scheduleClose}
                     >
