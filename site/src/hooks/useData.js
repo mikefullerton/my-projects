@@ -11,9 +11,8 @@ function getOrderedProjects(projects, appConfig) {
 
 export function getProjectGroup(projectId, appConfig) {
   const path = (appConfig.projects || {})[projectId] || '';
-  if (path === '.' || path === '../..') return 'personal';
   const parts = path.replace(/^\.\.\/\.\.\//,'').split('/');
-  return parts.length > 1 ? parts[0] : 'personal';
+  return parts.length > 1 ? parts[0] : 'other';
 }
 
 export function groupProjects(projects, appConfig) {

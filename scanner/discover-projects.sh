@@ -37,9 +37,8 @@ for category in sorted(os.listdir(projects_root)):
             continue
         discovered[pid] = relpath
 
-# Always include self and root
-discovered["my-projects"] = "."
-discovered["projects-root"] = "../.."
+# my-projects is discovered normally via the walk (it's in active/)
+# No special entries needed
 
 # Read current config
 with open(config_path) as f:
@@ -90,10 +89,10 @@ for pid, path in current_projects.items():
         if pid.endswith('-tests') or pid.endswith('-test') or '/tests/' in path:
             removed.append(f"  removed: {pid} ({path})")
             continue
-        # Check if the path still exists on disk
+        # Check if the path still exists on disk as a git repo
         abs_path = os.path.normpath(os.path.join(base_dir, path))
-        if os.path.isdir(abs_path):
-            # Path exists but wasn't discovered (maybe not a git repo)
+        if os.path.isdir(os.path.join(abs_path, '.git')):
+            # Git repo exists but wasn't discovered (maybe outside ~/projects)
             new_projects[pid] = path
         else:
             removed.append(f"  removed: {pid} ({path})")

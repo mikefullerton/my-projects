@@ -38,12 +38,12 @@ export const SEED_DATA = {
         {
           "path": "plugins/repo-tools/skills/repo-tools/SKILL.md",
           "change": "modified",
-          "summary": "+27/-2 — changed: **Parse the JSON output.** If `interactive` is empty, skip t"
+          "summary": "+45/-4 — changed: \"repos\": ["
         },
         {
           "path": "plugins/repo-tools/skills/repo-tools/references/clean.py",
           "change": "modified",
-          "summary": "+3/-0 — added: repo_dir = os.path.dirname(os.path.abspath(dot_git))"
+          "summary": "+19/-18 — changed: repo_dir = os.path.dirname(os.path.abspath(dot_git))"
         },
         {
           "path": "cli/site-manager/build/",
@@ -234,31 +234,6 @@ export const SEED_DATA = {
       ]
     },
     {
-      "id": "name-craft",
-      "name": "Name Craft",
-      "tagline": "AI-powered silly character name generator",
-      "status": "stable",
-      "techStack": [
-        "Flask 3.0",
-        "Python 3",
-        "Claude API",
-        "SQLite",
-        "SSE"
-      ],
-      "path": "~/projects/personal/name-craft/",
-      "branch": "main",
-      "uncommitted": false,
-      "uncommittedDetail": "",
-      "openBranches": [],
-      "latestWork": "Added silly words pool to name-components reference. Word builder DB scaffolding complete. Core system fully functional with mock mode.",
-      "runCmd": "python -m services.server",
-      "tags": [
-        "ai",
-        "web-app",
-        "fun"
-      ]
-    },
-    {
       "id": "scratchyfish",
       "name": "Scratchy Fish",
       "tagline": "Progressive jazz rock band website — scratchyfish.com",
@@ -380,9 +355,9 @@ export const SEED_DATA = {
       "path": "~/projects/personal/my-projects/",
       "branch": "main",
       "uncommitted": true,
-      "uncommittedDetail": "3 changed files",
+      "uncommittedDetail": "5 changed files",
       "openBranches": [],
-      "latestWork": "feat: exclude test repos from discovery and dashboard.feat: auto-discover new/moved/removed projects before scanning.feat: restore issues summary under project names in nav.",
+      "latestWork": "fix: refresh creates new projects and removes stale ones from seed data.feat: exclude test repos from discovery and dashboard.feat: auto-discover new/moved/removed projects before scanning.",
       "runCmd": "open index.html",
       "tags": [
         "meta",
@@ -391,29 +366,43 @@ export const SEED_DATA = {
       ],
       "modifiedFiles": [
         {
-          "path": "server/server.js",
+          "path": "scanner/discover-projects.sh",
           "change": "modified",
-          "summary": "+13/-2 — changed: // Remove projects no longer in config"
+          "summary": "+5/-6 — changed: # my-projects is discovered normally via the walk (it's in a"
         },
         {
           "path": "site/src/context/DataContext.jsx",
           "change": "modified",
-          "summary": "+1/-1 — changed: const SEED_VERSION = 29;"
+          "summary": "+1/-1 — changed: const SEED_VERSION = 31;"
+        },
+        {
+          "path": "site/src/hooks/useData.js",
+          "change": "modified",
+          "summary": "+1/-2 — changed: return parts.length > 1 ? parts[0] : 'other';"
+        },
+        {
+          "path": "site/src/lib/config.js",
+          "change": "modified",
+          "summary": "+1/-4 — changed: \"my-projects\": \"../../active/my-projects\","
         },
         {
           "path": "site/src/lib/seed.js",
           "change": "modified",
-          "summary": "+143/-297 — changed: \"uncommitted\": true,"
+          "summary": "+9/-33 — changed: \"uncommitted\": false,"
         }
       ],
       "branchDetails": [],
       "stagedCount": 0,
-      "modifiedCount": 3,
+      "modifiedCount": 5,
       "untrackedCount": 0,
       "deletedCount": 0,
       "aheadCount": 0,
       "behindCount": 0,
       "latestCommits": [
+        {
+          "hash": "f65635f",
+          "message": "fix: refresh creates new projects and removes stale ones from seed data"
+        },
         {
           "hash": "3869be9",
           "message": "feat: exclude test repos from discovery and dashboard"
@@ -429,10 +418,6 @@ export const SEED_DATA = {
         {
           "hash": "a4fe0b9",
           "message": "chore: update seed data and bump seed version from refresh scan"
-        },
-        {
-          "hash": "aa8dd4b",
-          "message": "feat: inline git status after project name, remove colored subtitles"
         }
       ]
     },
@@ -2623,7 +2608,7 @@ export const SEED_DATA = {
     {
       "id": "auto-my-projects-uncommitted",
       "projectId": "my-projects",
-      "title": "Commit 3 changed files",
+      "title": "Commit 5 changed files",
       "priority": "medium",
       "status": "open",
       "assignee": "Mike"
