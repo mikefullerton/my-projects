@@ -12,7 +12,7 @@ import DecisionsView from './components/DecisionsView.jsx';
 
 export default function App() {
   const data = useData();
-  const { refresh } = useDB();
+  const { reseed } = useDB();
   const [currentView, setCurrentView] = useState('dashboard');
   const [currentProjectId, setCurrentProjectId] = useState(null);
   const [refreshing, setRefreshing] = useState(false);
@@ -33,15 +33,15 @@ export default function App() {
     try {
       const resp = await fetch('/api/refresh', { method: 'POST' });
       const result = await resp.json();
-      if (result.ok) {
-        setTimeout(() => location.reload(), 800);
-      } else {
-        setRefreshing(false);
+      if (result.ok && result.seedData) {
+        await reseed(result.seedData);
       }
     } catch {
+      // silently fail
+    } finally {
       setRefreshing(false);
     }
-  }, []);
+  }, [reseed]);
 
   if (!data) return null;
 

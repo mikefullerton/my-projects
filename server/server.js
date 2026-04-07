@@ -121,6 +121,7 @@ const server = http.createServer((req, res) => {
         scanned: scanned.length,
         uncommitted: scanned.filter(s => s.uncommitted).length,
         withBranches: scanned.filter(s => s.openBranches.length > 0).length,
+        seedData,
       }));
     } catch (err) {
       res.writeHead(500, { 'Content-Type': 'application/json' });

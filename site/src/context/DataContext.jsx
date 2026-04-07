@@ -3,7 +3,7 @@ import { ProjectDB } from '../lib/db.js';
 import { SEED_DATA } from '../lib/seed.js';
 import { APP_CONFIG } from '../lib/config.js';
 
-const SEED_VERSION = 15;
+const SEED_VERSION = 23;
 
 const DataContext = createContext(null);
 
@@ -38,10 +38,23 @@ export function DataProvider({ children }) {
     setRefreshKey(k => k + 1);
   }, []);
 
+  const reseed = useCallback(async (newSeedData) => {
+    await db.reset();
+    await db.seed(newSeedData);
+    for (const [id, path] of Object.entries(APP_CONFIG.projects || {})) {
+      const project = await db.getProject(id);
+      if (project) {
+        project.configPath = path;
+        await db.saveProject(project);
+      }
+    }
+    setRefreshKey(k => k + 1);
+  }, [db]);
+
   if (!ready) return null;
 
   return (
-    <DataContext.Provider value={{ db, refreshKey, refresh, appConfig: APP_CONFIG }}>
+    <DataContext.Provider value={{ db, refreshKey, refresh, reseed, appConfig: APP_CONFIG }}>
       {children}
     </DataContext.Provider>
   );
