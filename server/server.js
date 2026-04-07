@@ -26,8 +26,12 @@ function parseSeedData(seedPath) {
   // seed-data.js sets a global const, so we need to make it accessible
   // Write a temp wrapper that loads it
   const tmpPath = path.join(ROOT, '.seed-loader-tmp.js');
-  fs.writeFileSync(tmpPath, `globalThis.SEED_DATA = null;\n` +
-    fs.readFileSync(seedPath, 'utf8').replace('export const SEED_DATA', 'globalThis.SEED_DATA') +
+  let seedSrc = fs.readFileSync(seedPath, 'utf8');
+  // Strip TypeScript-only syntax so plain Node can execute it
+  seedSrc = seedSrc.replace(/^import\s+type\s+.*;\s*$/gm, '');
+  seedSrc = seedSrc.replace(/export const SEED_DATA:\s*\w+/, 'globalThis.SEED_DATA');
+  seedSrc = seedSrc.replace('export const SEED_DATA', 'globalThis.SEED_DATA');
+  fs.writeFileSync(tmpPath, `globalThis.SEED_DATA = null;\n` + seedSrc +
     `\nprocess.stdout.write(JSON.stringify(globalThis.SEED_DATA));\n`);
   try {
     const output = execFileSync('node', [tmpPath], { timeout: 5000 }).toString();
@@ -115,7 +119,7 @@ const server = http.createServer((req, res) => {
 
         seedData.todos = [...manualTodos, ...autoTodos];
 
-        const newSeed = `/**\n * Seed data for the project management dashboard.\n * Auto-updated by server refresh.\n */\n\nexport const SEED_DATA = ${JSON.stringify(seedData, null, 2)};\n`;
+        const newSeed = `/**\n * Seed data for the project management dashboard.\n * Auto-updated by server refresh.\n */\n\nimport type { SeedData } from '../types.ts';\n\nexport const SEED_DATA: SeedData = ${JSON.stringify(seedData, null, 2)};\n`;
         fs.writeFileSync(seedPath, newSeed);
 
         // Bump seed version in DataContext so localStorage re-seeds on reload

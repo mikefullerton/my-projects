@@ -75,56 +75,10 @@ export default function Sidebar({ projects, todos, issues, concerns, decisions, 
         onClick={e => { e.preventDefault(); onNavigate('dashboard'); }}
       >Dashboard</a>
 
+      {/* Tracking section temporarily disabled
       <div className="nav-section">Tracking</div>
-      {[
-        { id: 'nav-attention', view: 'attention', label: 'Needs Attention', count: attentionCount, dotClass: attColor ? `nav-dot-${(hasHighTodos || hasOpenIssues) ? 'red' : 'yellow'}` : 'nav-dot-green',
-          popoverText: `${projects.filter(p => p.uncommitted).length} uncommitted | ${todos.filter(t => t.priority === 'high' && t.status !== 'done').length} high todos | ${issues.filter(i => i.status !== 'resolved').length} open issues` },
-        { id: 'nav-todos', view: 'all-todos', label: 'All Todos', count: todoCount, dotClass: todoCount > 0 ? 'nav-dot-blue' : 'nav-dot-green',
-          popoverText: `${todos.filter(t => t.priority === 'high' && t.status !== 'done').length} high | ${todos.filter(t => t.priority === 'medium' && t.status !== 'done').length} medium | ${todos.filter(t => t.priority === 'low' && t.status !== 'done').length} low` },
-        { id: 'nav-issues', view: 'all-issues', label: 'All Issues', count: issueCount, dotClass: issueCount > 0 ? 'nav-dot-red' : 'nav-dot-green',
-          popoverText: issueCount > 0 ? `${issueCount} unresolved` : 'No issues' },
-        { id: 'nav-decisions', view: 'all-decisions', label: 'All Decisions', count: decisionCount, dotClass: 'nav-dot-green',
-          popoverText: decisionCount > 0 ? `${decisionCount} decision${decisionCount !== 1 ? 's' : ''} logged` : 'No decisions' },
-      ].map(item => (
-        <div
-          key={item.id}
-          className="nav-project-item"
-          onMouseMove={(e) => {
-            const nameSpan = e.currentTarget.querySelector('.nav-project-name');
-            if (!nameSpan) return;
-            const rect = nameSpan.getBoundingClientRect();
-            if (e.clientX >= rect.left && e.clientX <= rect.right && e.clientY >= rect.top && e.clientY <= rect.bottom) {
-              if (closeTimer.current) clearTimeout(closeTimer.current);
-              closeTimer.current = null;
-              const centerY = rect.top + rect.height / 2;
-              setPopoverPos({ top: centerY, left: rect.right + 12 });
-              setHoveredItem(item.id);
-            } else if (hoveredItem === item.id) {
-              scheduleClose();
-            }
-          }}
-          onMouseLeave={scheduleClose}
-        >
-          <a
-            href={`#${item.view}`}
-            className={currentView === item.view ? 'active' : ''}
-            id={item.id}
-            onClick={e => { e.preventDefault(); onNavigate(item.view); }}
-          >
-            <span className={`nav-repo-dot ${item.dotClass}`} />
-            <span className="nav-project-name">{item.label}</span>
-          </a>
-          {hoveredItem === item.id && createPortal(
-            <div
-              className="nav-popover"
-              style={{ top: popoverPos.top, left: popoverPos.left, transform: 'translateY(-50%)' }}
-            >
-              <div className="nav-popover-line">{item.popoverText}</div>
-            </div>,
-            document.body
-          )}
-        </div>
-      ))}
+      ... tracking nav items ...
+      */}
 
       <div id="nav-projects">
         {groups.map(g => (
