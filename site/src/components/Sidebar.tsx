@@ -89,14 +89,19 @@ export default function Sidebar({ projects, todos, issues, concerns, decisions, 
         <div
           key={item.id}
           className="nav-project-item"
-          onMouseEnter={(e) => {
-            if (closeTimer.current) clearTimeout(closeTimer.current);
-            closeTimer.current = null;
+          onMouseMove={(e) => {
             const nameSpan = e.currentTarget.querySelector('.nav-project-name');
-            const rect = nameSpan ? nameSpan.getBoundingClientRect() : e.currentTarget.getBoundingClientRect();
-            const centerY = rect.top + rect.height / 2;
-            setPopoverPos({ top: centerY, left: rect.right + 12 });
-            setHoveredItem(item.id);
+            if (!nameSpan) return;
+            const rect = nameSpan.getBoundingClientRect();
+            if (e.clientX >= rect.left && e.clientX <= rect.right && e.clientY >= rect.top && e.clientY <= rect.bottom) {
+              if (closeTimer.current) clearTimeout(closeTimer.current);
+              closeTimer.current = null;
+              const centerY = rect.top + rect.height / 2;
+              setPopoverPos({ top: centerY, left: rect.right + 12 });
+              setHoveredItem(item.id);
+            } else if (hoveredItem === item.id) {
+              scheduleClose();
+            }
           }}
           onMouseLeave={scheduleClose}
         >
@@ -159,14 +164,19 @@ export default function Sidebar({ projects, todos, issues, concerns, decisions, 
                 <div
                   key={p.id}
                   className="nav-project-item"
-                  onMouseEnter={(e) => {
-                    if (closeTimer.current) clearTimeout(closeTimer.current);
-                    closeTimer.current = null;
+                  onMouseMove={(e) => {
                     const nameSpan = e.currentTarget.querySelector('.nav-project-name');
-                    const rect = nameSpan ? nameSpan.getBoundingClientRect() : e.currentTarget.getBoundingClientRect();
-                    const centerY = rect.top + rect.height / 2;
-                    setPopoverPos({ top: centerY, left: rect.right + 12 });
-                    setHoveredItem(p.id);
+                    if (!nameSpan) return;
+                    const rect = nameSpan.getBoundingClientRect();
+                    if (e.clientX >= rect.left && e.clientX <= rect.right && e.clientY >= rect.top && e.clientY <= rect.bottom) {
+                      if (closeTimer.current) clearTimeout(closeTimer.current);
+                      closeTimer.current = null;
+                      const centerY = rect.top + rect.height / 2;
+                      setPopoverPos({ top: centerY, left: rect.right + 12 });
+                      setHoveredItem(p.id);
+                    } else if (hoveredItem === p.id) {
+                      scheduleClose();
+                    }
                   }}
                   onMouseLeave={scheduleClose}
                 >
