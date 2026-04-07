@@ -94,7 +94,7 @@ nav a {
   display: block;
   padding: 5px 16px 5px 28px;
   font-family: var(--mono);
-  font-size: 0.7rem;
+  font-size: 0.8rem;
   color: var(--text-muted);
   text-decoration: none;
   transition: all 0.2s;
