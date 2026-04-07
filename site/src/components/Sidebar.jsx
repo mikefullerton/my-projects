@@ -110,6 +110,12 @@ export default function Sidebar({ projects, todos, issues, concerns, decisions, 
                 : 'no issues';
               const summaryClass = active.length === 0 ? 'clean' : needsAttention ? 'has-attention' : pLowPrioTodosOnly ? 'has-low-todos' : hasTodosOnly ? 'has-todos' : 'has-items';
 
+              const isRepoClean = !p.uncommitted
+                && (p.openBranches || []).length === 0
+                && (p.aheadCount || 0) === 0
+                && (p.behindCount || 0) === 0;
+              const repoDotClass = isRepoClean ? 'nav-dot-green' : 'nav-dot-red';
+
               return (
                 <div key={p.id}>
                   <a
@@ -117,6 +123,7 @@ export default function Sidebar({ projects, todos, issues, concerns, decisions, 
                     className={badgeClass}
                     onClick={e => { e.preventDefault(); onSelectProject(p.id); }}
                   >
+                    <span className={`nav-repo-dot ${repoDotClass}`} />
                     {p.name}
                     {badgeClass && <span className={`nav-dot ${badgeClass}`} />}
                   </a>

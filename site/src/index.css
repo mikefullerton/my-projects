@@ -403,6 +403,18 @@ nav .nav-dot {
   vertical-align: middle;
 }
 
+nav .nav-repo-dot {
+  display: inline-block;
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  margin-right: 6px;
+  vertical-align: middle;
+  flex-shrink: 0;
+}
+
+nav .nav-repo-dot.nav-dot-green { background: var(--green); }
+nav .nav-repo-dot.nav-dot-red { background: var(--red); }
+
 nav .nav-dot.nav-badge-yellow { background: var(--yellow); }
 nav .nav-dot.nav-badge-red { background: var(--red); }
 nav .nav-dot.nav-badge-blue { background: var(--blue); }
