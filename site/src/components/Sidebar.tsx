@@ -19,6 +19,7 @@ interface SidebarProps {
 
 export default function Sidebar({ projects, todos, issues, concerns, decisions, currentView, onNavigate, onSelectProject, onRefresh, refreshing }: SidebarProps) {
   const [hoveredProject, setHoveredProject] = useState<string | null>(null);
+  const [popoverPos, setPopoverPos] = useState<{ top: number; left: number }>({ top: 0, left: 0 });
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const scheduleClose = useCallback(() => {
     closeTimer.current = setTimeout(() => setHoveredProject(null), 200);
@@ -145,7 +146,12 @@ export default function Sidebar({ projects, todos, issues, concerns, decisions, 
                 <div
                   key={p.id}
                   className="nav-project-item"
-                  onMouseEnter={() => { cancelClose(); setHoveredProject(p.id); }}
+                  onMouseEnter={(e) => {
+                    cancelClose();
+                    const rect = e.currentTarget.getBoundingClientRect();
+                    setPopoverPos({ top: rect.top, left: rect.right + 8 });
+                    setHoveredProject(p.id);
+                  }}
                   onMouseLeave={scheduleClose}
                 >
                   <a
@@ -158,6 +164,7 @@ export default function Sidebar({ projects, todos, issues, concerns, decisions, 
                   {hasPopover && hoveredProject === p.id && (
                     <div
                       className="nav-popover"
+                      style={{ top: popoverPos.top, left: popoverPos.left }}
                       onMouseEnter={cancelClose}
                       onMouseLeave={scheduleClose}
                     >
