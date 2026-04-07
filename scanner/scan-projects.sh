@@ -6,6 +6,9 @@ SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 BASE_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
 SITE_DIR="$BASE_DIR/site"
 
+# Discover new/moved/removed projects before scanning
+bash "$SCRIPT_DIR/discover-projects.sh" >&2
+
 echo "["
 
 first=true
