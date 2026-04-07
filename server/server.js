@@ -57,10 +57,21 @@ const server = http.createServer((req, res) => {
         const manualTodos = seedData.todos.filter(t => !t.id.startsWith('auto-'));
         const autoTodos = [];
 
+        // Remove projects no longer in config
+        const configPath = path.join(ROOT, 'site', 'src', 'lib', 'config.js');
+        const configSrc = fs.readFileSync(configPath, 'utf8');
+        const configIds = new Set([...configSrc.matchAll(/"([^"]+)"\s*:\s*"[^"]+"/g)].map(m => m[1]));
+        seedData.projects = seedData.projects.filter(p => configIds.has(p.id));
+
         for (const scan of scanned) {
           const id = scan.id.replace(/:$/, '');
-          const proj = seedData.projects.find(p => p.id === id);
-          if (!proj) continue;
+          let proj = seedData.projects.find(p => p.id === id);
+          if (!proj) {
+            // New project discovered — create entry
+            const name = id.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+            proj = { id, name, tagline: '', status: 'active', techStack: [], openBranches: [], latestCommits: [] };
+            seedData.projects.push(proj);
+          }
 
           proj.branch = scan.branch;
           proj.uncommitted = scan.uncommitted;

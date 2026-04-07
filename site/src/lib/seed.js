@@ -19,22 +19,38 @@ export const SEED_DATA = {
       ],
       "path": "~/projects/personal/cat-herding/",
       "branch": "main",
-      "uncommitted": false,
-      "uncommittedDetail": "",
+      "uncommitted": true,
+      "uncommittedDetail": "3 changed files",
       "openBranches": [
         "feature/yolo-install-uninstall"
       ],
       "branchSummaries": {
         "feature/yolo-install-uninstall": "Adding install/uninstall commands for YOLO plugin"
       },
-      "latestWork": "docs: update CLAUDE.md skills table, repo-tools v2.0.0.feat(status-line): align columns, dynamic widths, YOLO in model col.chore: remove tracked egg-info directories (now gitignored).",
+      "latestWork": "Add site-manager add/deploy fix plan and spec docs.Update repo-tools and custom-status-line plugins.docs: update plugin.json to v1.4.0 and add site-manager add to skills table.",
       "runCmd": "claude --plugin-dir ./plugins/webinitor",
       "tags": [
         "plugins",
         "infrastructure",
         "scaffolding"
       ],
-      "modifiedFiles": [],
+      "modifiedFiles": [
+        {
+          "path": "plugins/repo-tools/skills/repo-tools/SKILL.md",
+          "change": "modified",
+          "summary": "+27/-2 — changed: **Parse the JSON output.** If `interactive` is empty, skip t"
+        },
+        {
+          "path": "plugins/repo-tools/skills/repo-tools/references/clean.py",
+          "change": "modified",
+          "summary": "+3/-0 — added: repo_dir = os.path.dirname(os.path.abspath(dot_git))"
+        },
+        {
+          "path": "cli/site-manager/build/",
+          "change": "untracked",
+          "summary": "new directory (2 items)"
+        }
+      ],
       "branchDetails": [
         {
           "name": "feature/yolo-install-uninstall",
@@ -65,31 +81,31 @@ export const SEED_DATA = {
         }
       ],
       "stagedCount": 0,
-      "modifiedCount": 0,
-      "untrackedCount": 0,
+      "modifiedCount": 2,
+      "untrackedCount": 1,
       "deletedCount": 0,
       "aheadCount": 0,
       "behindCount": 0,
       "latestCommits": [
         {
-          "hash": "bb830ca",
-          "message": "docs: update CLAUDE.md skills table, repo-tools v2.0.0"
+          "hash": "6362312",
+          "message": "Add site-manager add/deploy fix plan and spec docs"
         },
         {
-          "hash": "a1a0461",
-          "message": "feat(status-line): align columns, dynamic widths, YOLO in model col"
+          "hash": "ad30fab",
+          "message": "Update repo-tools and custom-status-line plugins"
         },
         {
-          "hash": "ef97e5c",
-          "message": "chore: remove tracked egg-info directories (now gitignored)"
+          "hash": "c3b7562",
+          "message": "docs: update plugin.json to v1.4.0 and add site-manager add to skills table"
         },
         {
-          "hash": "72203bd",
-          "message": "docs: update plans, specs, and plugin development rule"
+          "hash": "de44981",
+          "message": "feat(site-manager): add 'add' command to skill with addable catalog"
         },
         {
-          "hash": "cb9e8be",
-          "message": "feat(site-manager): project types, auth service, go-live, migrate"
+          "hash": "65c2906",
+          "message": "feat(site-manager): add verify→repair loop to deploy commands"
         }
       ]
     },
@@ -105,40 +121,28 @@ export const SEED_DATA = {
       ],
       "path": "~/projects/personal/my-agentic-interviews/",
       "branch": "main",
-      "uncommitted": true,
-      "uncommittedDetail": "3 changed files",
+      "uncommitted": false,
+      "uncommittedDetail": "",
       "openBranches": [],
-      "latestWork": "chore: remove whippet-cookbook docs (moved elsewhere).Add SQLite persistence recipe for Whippet cookbook.Add AIRequestBuilder service recipe for Whippet cookbook.",
+      "latestWork": "Ignore .DS_Store files.chore: remove whippet-cookbook docs (moved elsewhere).Add SQLite persistence recipe for Whippet cookbook.",
       "runCmd": "/interview",
       "tags": [
         "documentation",
         "knowledge-management"
       ],
-      "modifiedFiles": [
-        {
-          "path": ".DS_Store",
-          "change": "untracked",
-          "summary": "8KB — \u0000\u0000\u0000\u0001Bud1\u0000\u0000\u0018\u0000\u0000\u0000\b\u0000\u0000\u0000\u0018\u0000\u0000\u0000\u0010\u000b\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\b\u0000\u0000\u0000\b\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000..."
-        },
-        {
-          "path": ".gitignore",
-          "change": "untracked",
-          "summary": "19B — .claude/worktrees/"
-        },
-        {
-          "path": "projects/.DS_Store",
-          "change": "untracked",
-          "summary": "6KB — \u0000\u0000\u0000\u0001Bud1\u0000\u0000\u0010\u0000\u0000\u0000\b\u0000\u0000\u0000\u0010\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\b\u0000\u0000\u0000\b\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000..."
-        }
-      ],
+      "modifiedFiles": [],
       "branchDetails": [],
       "stagedCount": 0,
       "modifiedCount": 0,
-      "untrackedCount": 3,
+      "untrackedCount": 0,
       "deletedCount": 0,
-      "aheadCount": 1,
+      "aheadCount": 0,
       "behindCount": 0,
       "latestCommits": [
+        {
+          "hash": "34ab4bf",
+          "message": "Ignore .DS_Store files"
+        },
         {
           "hash": "5078664",
           "message": "chore: remove whippet-cookbook docs (moved elsewhere)"
@@ -154,10 +158,6 @@ export const SEED_DATA = {
         {
           "hash": "1f681a9",
           "message": "Add launch-at-login infrastructure recipe for Whippet"
-        },
-        {
-          "hash": "7f540c7",
-          "message": "Add floating session panel recipe for Whippet cookbook"
         }
       ]
     },
@@ -368,28 +368,6 @@ export const SEED_DATA = {
       ]
     },
     {
-      "id": "social-media-bot-tests",
-      "name": "Social Media Bot Tests",
-      "tagline": "Integration test harness for social-media-bot",
-      "status": "stable",
-      "techStack": [
-        "TypeScript",
-        "Vitest 3.2",
-        "better-sqlite3"
-      ],
-      "path": "~/projects/personal/social-media-bot-tests/",
-      "branch": "main",
-      "uncommitted": false,
-      "uncommittedDetail": "",
-      "openBranches": [],
-      "latestWork": "Test fixtures and roadmap management. 28 tests across 7 suites covering full pipeline, approval flow, auto-poster, health backoff.",
-      "runCmd": "npm test",
-      "tags": [
-        "testing",
-        "automation"
-      ]
-    },
-    {
       "id": "my-projects",
       "name": "My Projects",
       "tagline": "Cross-project docs & unified data architecture specs",
@@ -402,9 +380,9 @@ export const SEED_DATA = {
       "path": "~/projects/personal/my-projects/",
       "branch": "main",
       "uncommitted": true,
-      "uncommittedDetail": "2 changed files",
+      "uncommittedDetail": "3 changed files",
       "openBranches": [],
-      "latestWork": "fix: refresh button now works without page reload.feat: update DataContext and seed data.feat: add green/red repo status dot before project names in nav.",
+      "latestWork": "feat: exclude test repos from discovery and dashboard.feat: auto-discover new/moved/removed projects before scanning.feat: restore issues summary under project names in nav.",
       "runCmd": "open index.html",
       "tags": [
         "meta",
@@ -413,184 +391,48 @@ export const SEED_DATA = {
       ],
       "modifiedFiles": [
         {
+          "path": "server/server.js",
+          "change": "modified",
+          "summary": "+13/-2 — changed: // Remove projects no longer in config"
+        },
+        {
           "path": "site/src/context/DataContext.jsx",
           "change": "modified",
-          "summary": "+1/-1 — changed: const SEED_VERSION = 24;"
+          "summary": "+1/-1 — changed: const SEED_VERSION = 29;"
         },
         {
           "path": "site/src/lib/seed.js",
           "change": "modified",
-          "summary": "+200/-613 — changed: \"latestWork\": \"docs: update CLAUDE.md skills table, repo-too"
+          "summary": "+143/-297 — changed: \"uncommitted\": true,"
         }
       ],
       "branchDetails": [],
       "stagedCount": 0,
-      "modifiedCount": 2,
+      "modifiedCount": 3,
       "untrackedCount": 0,
       "deletedCount": 0,
       "aheadCount": 0,
       "behindCount": 0,
       "latestCommits": [
         {
-          "hash": "505ad58",
-          "message": "fix: refresh button now works without page reload"
+          "hash": "3869be9",
+          "message": "feat: exclude test repos from discovery and dashboard"
         },
         {
-          "hash": "02bd89f",
-          "message": "feat: update DataContext and seed data"
+          "hash": "5768347",
+          "message": "feat: auto-discover new/moved/removed projects before scanning"
         },
         {
-          "hash": "3085d1a",
-          "message": "feat: add green/red repo status dot before project names in nav"
+          "hash": "49006b4",
+          "message": "feat: restore issues summary under project names in nav"
         },
         {
-          "hash": "83e3933",
-          "message": "refactor: centralize color mappings in theme.js"
+          "hash": "a4fe0b9",
+          "message": "chore: update seed data and bump seed version from refresh scan"
         },
         {
-          "hash": "e76e087",
-          "message": "style: change todo color from yellow to blue, dim low-priority nav todos"
-        }
-      ]
-    },
-    {
-      "id": "code-review-pipeline-test",
-      "name": "Code Review Pipeline Test",
-      "tagline": "KMP multiplatform app for testing Claude-powered PR review pipeline",
-      "status": "active",
-      "techStack": [
-        "Kotlin Multiplatform"
-      ],
-      "path": "~/projects/agentic-cookbook/code-review-pipeline-test/",
-      "branch": "feature/cost-optimization",
-      "uncommitted": true,
-      "uncommittedDetail": "1 changed files",
-      "openBranches": [
-        "chore/wrapper-refs-main",
-        "config/on-demand-reviews",
-        "feature/add-anthropic-review",
-        "feature/agent-wrappers",
-        "feature/test-pipeline-review",
-        "feature/thorin-code-review",
-        "main"
-      ],
-      "latestWork": "chore: standardize worktree directory to .claude/worktrees/.docs: update dotfiles path from ~/.dotfiles to ~/projects/dotfiles.config: make Thorin code review on-demand only.",
-      "runCmd": "",
-      "tags": [
-        "agentic-cookbook",
-        "testing"
-      ],
-      "modifiedFiles": [
-        {
-          "path": "CLAUDE.md",
-          "change": "modified",
-          "summary": "+1/-1 — changed: - `~/projects/deprecated/dotfiles` — Developer environment c"
-        }
-      ],
-      "branchDetails": [
-        {
-          "name": "chore/wrapper-refs-main",
-          "commits": [
-            {
-              "hash": "5c2f39e",
-              "message": "chore: switch wrapper references to @main"
-            }
-          ],
-          "summary": "chore: switch wrapper references to @main",
-          "commitCount": 1
-        },
-        {
-          "name": "config/on-demand-reviews",
-          "commits": [
-            {
-              "hash": "7164100",
-              "message": "config: make specialized reviews on-demand only"
-            },
-            {
-              "hash": "587669e",
-              "message": "feat: add Anthropic code reviewer workflow"
-            }
-          ],
-          "summary": "2 commits — config: make specialized reviews on-demand only",
-          "commitCount": 2
-        },
-        {
-          "name": "feature/add-anthropic-review",
-          "commits": [
-            {
-              "hash": "587669e",
-              "message": "feat: add Anthropic code reviewer workflow"
-            }
-          ],
-          "summary": "feat: add Anthropic code reviewer workflow",
-          "commitCount": 1
-        },
-        {
-          "name": "feature/agent-wrappers",
-          "commits": [
-            {
-              "hash": "a6389d3",
-              "message": "feat: switch all workflows to agent wrapper references"
-            }
-          ],
-          "summary": "feat: switch all workflows to agent wrapper references",
-          "commitCount": 1
-        },
-        {
-          "name": "feature/test-pipeline-review",
-          "commits": [
-            {
-              "hash": "6a07285",
-              "message": "feat: add time-aware greetings"
-            }
-          ],
-          "summary": "feat: add time-aware greetings",
-          "commitCount": 1
-        },
-        {
-          "name": "feature/thorin-code-review",
-          "commits": [
-            {
-              "hash": "779c6fe",
-              "message": "feat: switch to thorin-code-review and update reviewer names"
-            }
-          ],
-          "summary": "feat: switch to thorin-code-review and update reviewer names",
-          "commitCount": 1
-        },
-        {
-          "name": "main",
-          "commits": [],
-          "summary": "no unique commits",
-          "commitCount": 0
-        }
-      ],
-      "stagedCount": 0,
-      "modifiedCount": 1,
-      "untrackedCount": 0,
-      "deletedCount": 0,
-      "aheadCount": 4,
-      "behindCount": 0,
-      "latestCommits": [
-        {
-          "hash": "18370ef",
-          "message": "chore: standardize worktree directory to .claude/worktrees/"
-        },
-        {
-          "hash": "55774a6",
-          "message": "docs: update dotfiles path from ~/.dotfiles to ~/projects/dotfiles"
-        },
-        {
-          "hash": "32fb0a5",
-          "message": "config: make Thorin code review on-demand only"
-        },
-        {
-          "hash": "864daad",
-          "message": "config: adopt combined review, make Anthropic on-demand"
-        },
-        {
-          "hash": "7aa7d26",
-          "message": "config: make specialized reviews on-demand only (#71)"
+          "hash": "aa8dd4b",
+          "message": "feat: inline git status after project name, remove colored subtitles"
         }
       ]
     },
@@ -606,51 +448,29 @@ export const SEED_DATA = {
       ],
       "path": "~/projects/agentic-cookbook/code-review-pipline/",
       "branch": "main",
-      "uncommitted": true,
-      "uncommittedDetail": "5 changed files",
+      "uncommitted": false,
+      "uncommittedDetail": "",
       "openBranches": [],
-      "latestWork": "chore: add .gitignore.",
+      "latestWork": "Initial project files: config, requirements, src, and tests.chore: add .gitignore.",
       "runCmd": "",
       "tags": [
         "agentic-cookbook",
         "automation",
         "code-review"
       ],
-      "modifiedFiles": [
-        {
-          "path": "CLAUDE.md",
-          "change": "untracked",
-          "summary": "1KB — agentic-code-review-pipline"
-        },
-        {
-          "path": "config.yaml",
-          "change": "untracked",
-          "summary": "946B — poll_interval_seconds: 300"
-        },
-        {
-          "path": "requirements.txt",
-          "change": "untracked",
-          "summary": "42B — pyyaml>=6.0"
-        },
-        {
-          "path": "src/",
-          "change": "untracked",
-          "summary": "new directory (11 items)"
-        },
-        {
-          "path": "tests/",
-          "change": "untracked",
-          "summary": "new directory (9 items)"
-        }
-      ],
+      "modifiedFiles": [],
       "branchDetails": [],
       "stagedCount": 0,
       "modifiedCount": 0,
-      "untrackedCount": 5,
+      "untrackedCount": 0,
       "deletedCount": 0,
       "aheadCount": 0,
       "behindCount": 0,
       "latestCommits": [
+        {
+          "hash": "42cf4f9",
+          "message": "Initial project files: config, requirements, src, and tests"
+        },
         {
           "hash": "59fc63c",
           "message": "chore: add .gitignore"
@@ -714,7 +534,7 @@ export const SEED_DATA = {
       "modifiedCount": 0,
       "untrackedCount": 0,
       "deletedCount": 0,
-      "aheadCount": 1,
+      "aheadCount": 0,
       "behindCount": 0,
       "latestCommits": [
         {
@@ -740,86 +560,6 @@ export const SEED_DATA = {
       ]
     },
     {
-      "id": "cookbook-tests",
-      "name": "Cookbook Tests",
-      "tagline": "Test output repository for agentic interview team workflows",
-      "status": "active",
-      "techStack": [
-        "Node.js",
-        "TypeScript"
-      ],
-      "path": "~/projects/agentic-cookbook/cookbook-tests/",
-      "branch": "main",
-      "uncommitted": true,
-      "uncommittedDetail": "8 changed files",
-      "openBranches": [],
-      "latestWork": "chore: add .gitignore.Add cc-plugin-eval research findings.",
-      "runCmd": "",
-      "tags": [
-        "agentic-cookbook",
-        "testing"
-      ],
-      "modifiedFiles": [
-        {
-          "path": "fixtures/",
-          "change": "untracked",
-          "summary": "new directory (2 items)"
-        },
-        {
-          "path": "lib/",
-          "change": "untracked",
-          "summary": "new directory (3 items)"
-        },
-        {
-          "path": "node_modules/",
-          "change": "untracked",
-          "summary": "new directory (50 items)"
-        },
-        {
-          "path": "package-lock.json",
-          "change": "untracked",
-          "summary": "40KB — {"
-        },
-        {
-          "path": "package.json",
-          "change": "untracked",
-          "summary": "231B — {"
-        },
-        {
-          "path": "specs/",
-          "change": "untracked",
-          "summary": "new directory (2 items)"
-        },
-        {
-          "path": "tsconfig.json",
-          "change": "untracked",
-          "summary": "328B — {"
-        },
-        {
-          "path": "vitest.config.ts",
-          "change": "untracked",
-          "summary": "284B — import { defineConfig } from \"vitest/config\";"
-        }
-      ],
-      "branchDetails": [],
-      "stagedCount": 0,
-      "modifiedCount": 0,
-      "untrackedCount": 8,
-      "deletedCount": 0,
-      "aheadCount": 0,
-      "behindCount": 0,
-      "latestCommits": [
-        {
-          "hash": "86a9d82",
-          "message": "chore: add .gitignore"
-        },
-        {
-          "hash": "2b558dd",
-          "message": "Add cc-plugin-eval research findings"
-        }
-      ]
-    },
-    {
       "id": "cookbook-web",
       "name": "Cookbook Web",
       "tagline": "Documentation website for the agentic cookbook",
@@ -831,24 +571,18 @@ export const SEED_DATA = {
       ],
       "path": "~/projects/agentic-cookbook/cookbook-web/",
       "branch": "main",
-      "uncommitted": true,
-      "uncommittedDetail": "1 changed files",
+      "uncommitted": false,
+      "uncommittedDetail": "",
       "openBranches": [
         "feature/add-site-design-rule"
       ],
-      "latestWork": "chore: gitignore PNG screenshots in project root.Add cookbook project config and meta files.Update web app for cookbook restructuring.",
+      "latestWork": "Ignore .superpowers/ directory.chore: gitignore PNG screenshots in project root.Add cookbook project config and meta files.",
       "runCmd": "",
       "tags": [
         "agentic-cookbook",
         "website"
       ],
-      "modifiedFiles": [
-        {
-          "path": "cookbook/.superpowers/",
-          "change": "untracked",
-          "summary": "new directory (1 items)"
-        }
-      ],
+      "modifiedFiles": [],
       "branchDetails": [
         {
           "name": "feature/add-site-design-rule",
@@ -868,11 +602,15 @@ export const SEED_DATA = {
       ],
       "stagedCount": 0,
       "modifiedCount": 0,
-      "untrackedCount": 1,
+      "untrackedCount": 0,
       "deletedCount": 0,
-      "aheadCount": 1,
+      "aheadCount": 0,
       "behindCount": 0,
       "latestCommits": [
+        {
+          "hash": "e98b95a",
+          "message": "Ignore .superpowers/ directory"
+        },
         {
           "hash": "6da7c65",
           "message": "chore: gitignore PNG screenshots in project root"
@@ -888,10 +626,6 @@ export const SEED_DATA = {
         {
           "hash": "5c7bf0c",
           "message": "Restructure cookbook: migrate recipes to ingredients, add formatting specs"
-        },
-        {
-          "hash": "d4cf696",
-          "message": "Sync cookbook content: update guidelines, principles, and introduction"
         }
       ]
     },
@@ -907,108 +641,44 @@ export const SEED_DATA = {
       ],
       "path": "~/projects/agentic-cookbook/dev-team/",
       "branch": "main",
-      "uncommitted": true,
-      "uncommittedDetail": "3 changed files",
+      "uncommitted": false,
+      "uncommittedDetail": "",
       "openBranches": [],
-      "latestWork": "Add deterministic test runner: tests/run_tests.py.Add tests for all uncovered areas: agents, specialists, skills, observers, session, dashboard.Add test coverage design spec.",
+      "latestWork": "Reorganize tests into testing/unit and testing/functional structure.Remove old arbitrator/markdown and project-storage/markdown backends.Unify storage into single storage-provider, arbitrator delegates to it.",
       "runCmd": "",
       "tags": [
         "agentic-cookbook",
         "ai",
         "agents"
       ],
-      "modifiedFiles": [
-        {
-          "path": "plugins/dev-team/tests/consulting-teams/",
-          "change": "untracked",
-          "summary": "new directory (1 items)"
-        },
-        {
-          "path": "plugins/dev-team/tests/specialty-teams/",
-          "change": "untracked",
-          "summary": "new directory (1 items)"
-        },
-        {
-          "path": "tests/harness/fixtures_lib.py",
-          "change": "untracked",
-          "summary": "2KB — Fixture management for interview tests."
-        }
-      ],
+      "modifiedFiles": [],
       "branchDetails": [],
       "stagedCount": 0,
       "modifiedCount": 0,
-      "untrackedCount": 3,
-      "deletedCount": 0,
-      "aheadCount": 1,
-      "behindCount": 0,
-      "latestCommits": [
-        {
-          "hash": "8b9e27a",
-          "message": "Add deterministic test runner: tests/run_tests.py"
-        },
-        {
-          "hash": "ff1b2cb",
-          "message": "Add tests for all uncovered areas: agents, specialists, skills, observers, session, dashboard"
-        },
-        {
-          "hash": "022ecf2",
-          "message": "Add test coverage design spec"
-        },
-        {
-          "hash": "9b93c9b",
-          "message": "Remove vitest unit tests (replaced by pytest)"
-        },
-        {
-          "hash": "0d1cf1c",
-          "message": "Migrate all vitest tests to pytest"
-        }
-      ]
-    },
-    {
-      "id": "dev-team-tests",
-      "name": "Dev Team Tests",
-      "tagline": "Test fixtures and output for dev-team agent workflows",
-      "status": "active",
-      "techStack": [],
-      "path": "~/projects/agentic-cookbook/dev-team-tests/",
-      "branch": "main",
-      "uncommitted": true,
-      "uncommittedDetail": "3 changed files",
-      "openBranches": [],
-      "latestWork": "Initial test output repo setup.",
-      "runCmd": "",
-      "tags": [
-        "agentic-cookbook",
-        "testing"
-      ],
-      "modifiedFiles": [
-        {
-          "path": "config/test-config.json",
-          "change": "modified",
-          "summary": "+3/-3 — changed: \"interview_repo\": \"/Users/mfullerton/projects/agentic-cookbo"
-        },
-        {
-          "path": ".gitignore",
-          "change": "untracked",
-          "summary": "19B — .claude/worktrees/"
-        },
-        {
-          "path": "projects/lumina/",
-          "change": "untracked",
-          "summary": "new directory (4 items)"
-        }
-      ],
-      "branchDetails": [],
-      "stagedCount": 0,
-      "modifiedCount": 1,
-      "untrackedCount": 2,
+      "untrackedCount": 0,
       "deletedCount": 0,
       "aheadCount": 0,
       "behindCount": 0,
       "latestCommits": [
         {
-          "hash": "830ef3f",
-          "message": "Initial test output repo setup"
+          "hash": "6653fa8",
+          "message": "Reorganize tests into testing/unit and testing/functional structure"
+        },
+        {
+          "hash": "3f526a1",
+          "message": "Remove old arbitrator/markdown and project-storage/markdown backends"
+        },
+        {
+          "hash": "4d035cc",
+          "message": "Unify storage into single storage-provider, arbitrator delegates to it"
+        },
+        {
+          "hash": "e04a6dc",
+          "message": "Add storage-provider unification and data model spec"
+        },
+        {
+          "hash": "f8d88f7",
+          "message": "Move pyproject.toml into tests/ to keep repo root clean"
         }
       ]
     },
@@ -1106,30 +776,28 @@ export const SEED_DATA = {
       ],
       "path": "~/projects/agentic-cookbook/roadmaps/",
       "branch": "main",
-      "uncommitted": true,
-      "uncommittedDetail": "1 changed files",
+      "uncommitted": false,
+      "uncommittedDetail": "",
       "openBranches": [],
-      "latestWork": "docs: update CLAUDE.md, README, and docs index.chore: standardize worktree directory to .claude/worktrees/.chore: install agentic cookbook (rule, manifest, preferences).",
+      "latestWork": "fix: confine test harness to ~/projects/tests/ directory.docs: update CLAUDE.md, README, and docs index.chore: standardize worktree directory to .claude/worktrees/.",
       "runCmd": "",
       "tags": [
         "agentic-cookbook",
         "planning"
       ],
-      "modifiedFiles": [
-        {
-          "path": "\"misc test files?/\"",
-          "change": "untracked",
-          "summary": "new file"
-        }
-      ],
+      "modifiedFiles": [],
       "branchDetails": [],
       "stagedCount": 0,
       "modifiedCount": 0,
-      "untrackedCount": 1,
+      "untrackedCount": 0,
       "deletedCount": 0,
-      "aheadCount": 1,
+      "aheadCount": 0,
       "behindCount": 0,
       "latestCommits": [
+        {
+          "hash": "bf7eac0",
+          "message": "fix: confine test harness to ~/projects/tests/ directory"
+        },
         {
           "hash": "a9f9c8f",
           "message": "docs: update CLAUDE.md, README, and docs index"
@@ -1145,25 +813,1365 @@ export const SEED_DATA = {
         {
           "hash": "946ae74",
           "message": "Merge pull request #51 from mikefullerton/feature/progress-format"
-        },
-        {
-          "hash": "c712498",
-          "message": "feat(implement-roadmap): standardize progress output format"
         }
       ]
     },
     {
-      "id": "roadmaps-tests",
-      "name": "Roadmaps Tests",
-      "tagline": "Test output repository for roadmap system workflows",
+      "id": "agentic-tools",
+      "name": "Agentic Tools",
+      "tagline": "User-facing tools for interacting with the agentic cookbook system",
+      "status": "active",
+      "techStack": [
+        "Claude Code",
+        "Shell"
+      ],
+      "path": "~/projects/agentic-cookbook/tools/",
+      "branch": "main",
+      "uncommitted": false,
+      "uncommittedDetail": "",
+      "openBranches": [],
+      "latestWork": "feat: add lint skill directories (agent, compliance, project, recipe, skill).chore: standardize worktree directory to .claude/worktrees/.Add cookbook-statusline.sh script from dev-team repo.",
+      "runCmd": "",
+      "tags": [
+        "agentic-cookbook",
+        "tools"
+      ],
+      "modifiedFiles": [],
+      "branchDetails": [],
+      "stagedCount": 0,
+      "modifiedCount": 0,
+      "untrackedCount": 0,
+      "deletedCount": 0,
+      "aheadCount": 0,
+      "behindCount": 0,
+      "latestCommits": [
+        {
+          "hash": "80b2526",
+          "message": "feat: add lint skill directories (agent, compliance, project, recipe, skill)"
+        },
+        {
+          "hash": "60b97e1",
+          "message": "chore: standardize worktree directory to .claude/worktrees/"
+        },
+        {
+          "hash": "102490f",
+          "message": "Add cookbook-statusline.sh script from dev-team repo"
+        },
+        {
+          "hash": "6288621",
+          "message": "Initial commit: tools repo with rules, skills, and project setup"
+        }
+      ]
+    },
+    {
+      "id": "catnip",
+      "name": "Catnip",
+      "tagline": "iOS app with Claude backend integration and user profiles",
+      "status": "active",
+      "techStack": [
+        "Swift",
+        "Claude Code"
+      ],
+      "path": "~/projects/apps/catnip/",
+      "branch": "main",
+      "uncommitted": false,
+      "uncommittedDetail": "",
+      "openBranches": [
+        "feature/catnipwebservice-step-4",
+        "feature/catnipwebservice-step-5",
+        "feature/deployment-step-12",
+        "feature/frontend-dashboard-step-10",
+        "feature/roadmaps-api",
+        "feature/websocket-integration-step-11",
+        "feature/websocket-step-8"
+      ],
+      "latestWork": "chore: standardize worktree directory to .claude/worktrees/.chore: rename cat-herding → agentic-roadmaps in roadmap and demo script.refactor: rename runs to roadmaps across frontend, backend, and CLI.",
+      "runCmd": "",
+      "tags": [
+        "apps",
+        "ios",
+        "ai"
+      ],
+      "modifiedFiles": [],
+      "branchDetails": [
+        {
+          "name": "feature/catnipwebservice-step-4",
+          "commits": [
+            {
+              "hash": "83cebac",
+              "message": "feat: backend project scaffolding with Hono, Drizzle schema, and health endpoint (#4)"
+            }
+          ],
+          "summary": "feat: backend project scaffolding with Hono, Drizzle schema, and health endpoint (#4)",
+          "commitCount": 1
+        },
+        {
+          "name": "feature/catnipwebservice-step-5",
+          "commits": [
+            {
+              "hash": "0ec917c",
+              "message": "feat: add GitHub OAuth and JWT authentication (#5)"
+            }
+          ],
+          "summary": "feat: add GitHub OAuth and JWT authentication (#5)",
+          "commitCount": 1
+        },
+        {
+          "name": "feature/deployment-step-12",
+          "commits": [
+            {
+              "hash": "c3a4dfa",
+              "message": "fix: remove unnecessary drizzle.config.ts from production Docker image (#12)"
+            },
+            {
+              "hash": "8739ecd",
+              "message": "feat: add deployment configuration for Railway and Cloudflare Pages (#12)"
+            }
+          ],
+          "summary": "2 commits — fix: remove unnecessary drizzle.config.ts from production Docker image (#12)",
+          "commitCount": 2
+        },
+        {
+          "name": "feature/frontend-dashboard-step-10",
+          "commits": [
+            {
+              "hash": "4fae474",
+              "message": "refactor: remove unused DashboardPage placeholder (#10)"
+            },
+            {
+              "hash": "f7a3404",
+              "message": "feat: add run list and run detail dashboard (#10)"
+            }
+          ],
+          "summary": "2 commits — refactor: remove unused DashboardPage placeholder (#10)",
+          "commitCount": 2
+        },
+        {
+          "name": "feature/roadmaps-api",
+          "commits": [
+            {
+              "hash": "1e9ee00",
+              "message": "feat: evolve API from runs to roadmaps with full workflow support"
+            }
+          ],
+          "summary": "feat: evolve API from runs to roadmaps with full workflow support",
+          "commitCount": 1
+        },
+        {
+          "name": "feature/websocket-integration-step-11",
+          "commits": [
+            {
+              "hash": "246b3e3",
+              "message": "feat: add frontend WebSocket integration for real-time updates (#11)"
+            }
+          ],
+          "summary": "feat: add frontend WebSocket integration for real-time updates (#11)",
+          "commitCount": 1
+        },
+        {
+          "name": "feature/websocket-step-8",
+          "commits": [
+            {
+              "hash": "31ad23b",
+              "message": "feat: add WebSocket real-time broadcast (#8)"
+            }
+          ],
+          "summary": "feat: add WebSocket real-time broadcast (#8)",
+          "commitCount": 1
+        }
+      ],
+      "stagedCount": 0,
+      "modifiedCount": 0,
+      "untrackedCount": 0,
+      "deletedCount": 0,
+      "aheadCount": 0,
+      "behindCount": 0,
+      "latestCommits": [
+        {
+          "hash": "0c6264a",
+          "message": "chore: standardize worktree directory to .claude/worktrees/"
+        },
+        {
+          "hash": "3894133",
+          "message": "chore: rename cat-herding → agentic-roadmaps in roadmap and demo script"
+        },
+        {
+          "hash": "ccea5a3",
+          "message": "refactor: rename runs to roadmaps across frontend, backend, and CLI"
+        },
+        {
+          "hash": "d6daec6",
+          "message": "refactor: migrate 1 roadmaps to flat file format"
+        },
+        {
+          "hash": "5cb0120",
+          "message": "refactor: migrate roadmaps to per-directory File Record structure"
+        }
+      ]
+    },
+    {
+      "id": "catnip-terminal",
+      "name": "Catnip Terminal",
+      "tagline": "Terminal-based interface companion to the Catnip iOS app",
+      "status": "active",
+      "techStack": [
+        "Swift",
+        "macOS",
+        "Xcode"
+      ],
+      "path": "~/projects/apps/catnip-terminal/",
+      "branch": "feature/ai-session-summarization",
+      "uncommitted": false,
+      "uncommittedDetail": "",
+      "openBranches": [
+        "worktree-appkit-conversion"
+      ],
+      "latestWork": "chore: add CLAUDE.md.chore: standardize worktree directory to .claude/worktrees/.feat: AI-powered session summarization with multi-provider support.",
+      "runCmd": "",
+      "tags": [
+        "apps",
+        "terminal",
+        "macos"
+      ],
+      "modifiedFiles": [],
+      "branchDetails": [
+        {
+          "name": "worktree-appkit-conversion",
+          "commits": [
+            {
+              "hash": "44aca92",
+              "message": "fix: show ~ instead of username when session CWD is home directory"
+            },
+            {
+              "hash": "4b54221",
+              "message": "fix: show CWD folder name and git branch as session title"
+            },
+            {
+              "hash": "c65bf50",
+              "message": "feat: add Quick Chat to AI settings panel"
+            },
+            {
+              "hash": "377fca2",
+              "message": "fix: parity fixes from deep comparison with original SwiftUI branch"
+            },
+            {
+              "hash": "6953a25",
+              "message": "fix: switch settings window from toolbar tabs to sidebar layout"
+            }
+          ],
+          "summary": "5 commits — fix: show ~ instead of username when session CWD is home directory",
+          "commitCount": 5
+        }
+      ],
+      "stagedCount": 0,
+      "modifiedCount": 0,
+      "untrackedCount": 0,
+      "deletedCount": 0,
+      "aheadCount": 0,
+      "behindCount": 0,
+      "latestCommits": [
+        {
+          "hash": "d3bb5de",
+          "message": "chore: add CLAUDE.md"
+        },
+        {
+          "hash": "50cdef8",
+          "message": "chore: standardize worktree directory to .claude/worktrees/"
+        },
+        {
+          "hash": "a634235",
+          "message": "feat: AI-powered session summarization with multi-provider support"
+        },
+        {
+          "hash": "35505c0",
+          "message": "fix: remove sidebar toggle button from settings window"
+        },
+        {
+          "hash": "714ce30",
+          "message": "refactor: switch settings to sidebar layout per litterbox spec"
+        }
+      ]
+    },
+    {
+      "id": "hairball",
+      "name": "Hairball",
+      "tagline": "Native macOS menu bar app for window-level task context management",
+      "status": "active",
+      "techStack": [
+        "Swift",
+        "macOS",
+        "AppKit",
+        "Xcode"
+      ],
+      "path": "~/projects/apps/Hairball/",
+      "branch": "main",
+      "uncommitted": false,
+      "uncommittedDetail": "",
+      "openBranches": [],
+      "latestWork": "feat: add AppState, WindowExplorer, WorkGroups views and refactor app structure.chore: standardize worktree directory to .claude/worktrees/.Update CLAUDE.md: litterbox → agentic-cookbook.",
+      "runCmd": "",
+      "tags": [
+        "apps",
+        "macos"
+      ],
+      "modifiedFiles": [],
+      "branchDetails": [],
+      "stagedCount": 0,
+      "modifiedCount": 0,
+      "untrackedCount": 0,
+      "deletedCount": 0,
+      "aheadCount": 0,
+      "behindCount": 0,
+      "latestCommits": [
+        {
+          "hash": "814e3a3",
+          "message": "feat: add AppState, WindowExplorer, WorkGroups views and refactor app structure"
+        },
+        {
+          "hash": "4273eec",
+          "message": "chore: standardize worktree directory to .claude/worktrees/"
+        },
+        {
+          "hash": "b8857de",
+          "message": "Update CLAUDE.md: litterbox → agentic-cookbook"
+        },
+        {
+          "hash": "0f564bd",
+          "message": "feat: add Help window, Discovery window, oslog logging, rename contexts to Hairballs"
+        },
+        {
+          "hash": "5ef2245",
+          "message": "refactor: migrate 1 roadmaps to flat file format"
+        }
+      ]
+    },
+    {
+      "id": "scratching-post",
+      "name": "Scratching Post",
+      "tagline": "macOS IDE enhancement with file browser improvements and window management",
+      "status": "active",
+      "techStack": [
+        "Swift",
+        "macOS",
+        "Xcode"
+      ],
+      "path": "~/projects/apps/scratching-post/",
+      "branch": "main",
+      "uncommitted": false,
+      "uncommittedDetail": "",
+      "openBranches": [],
+      "latestWork": "chore: standardize worktree directory to .claude/worktrees/.Update CLAUDE.md: litterbox → agentic-cookbook.fix: only update session summary on topic change, not every input.",
+      "runCmd": "",
+      "tags": [
+        "apps",
+        "macos",
+        "ide"
+      ],
+      "modifiedFiles": [],
+      "branchDetails": [],
+      "stagedCount": 0,
+      "modifiedCount": 0,
+      "untrackedCount": 0,
+      "deletedCount": 0,
+      "aheadCount": 0,
+      "behindCount": 0,
+      "latestCommits": [
+        {
+          "hash": "763cc12",
+          "message": "chore: standardize worktree directory to .claude/worktrees/"
+        },
+        {
+          "hash": "d48543a",
+          "message": "Update CLAUDE.md: litterbox → agentic-cookbook"
+        },
+        {
+          "hash": "07237d3",
+          "message": "fix: only update session summary on topic change, not every input"
+        },
+        {
+          "hash": "431572a",
+          "message": "feat: AI-powered session summarization with multi-provider support"
+        },
+        {
+          "hash": "df6ad28",
+          "message": "feat: dynamic pane layout with arrangement picker"
+        }
+      ]
+    },
+    {
+      "id": "temporal",
+      "name": "Temporal",
+      "tagline": "Spec-driven cross-platform framework using Kotlin Multiplatform",
+      "status": "active",
+      "techStack": [
+        "Kotlin Multiplatform",
+        "Claude Code"
+      ],
+      "path": "~/projects/apps/temporal/",
+      "branch": "main",
+      "uncommitted": false,
+      "uncommittedDetail": "",
+      "openBranches": [
+        "feature/repo-reorg"
+      ],
+      "latestWork": "docs: consolidate persona files and enrich naming research.fix: web smoke test CORS error and Apple CI build failure (#587).fix: make seed discussion categories public (#584) (#586).",
+      "runCmd": "",
+      "tags": [
+        "apps",
+        "cross-platform"
+      ],
+      "modifiedFiles": [],
+      "branchDetails": [
+        {
+          "name": "feature/repo-reorg",
+          "commits": [
+            {
+              "hash": "f051ee7",
+              "message": "fix: extend platform availability guards to tvOS"
+            },
+            {
+              "hash": "b8a641c",
+              "message": "ci: pin Apple CI to Xcode 26.3 (closest to local 26.4)"
+            },
+            {
+              "hash": "feb604e",
+              "message": "fix: add watchOS compatibility guards for unavailable SwiftUI APIs"
+            },
+            {
+              "hash": "c04e3ac",
+              "message": "fix: simplify KMP build script — always skip Android, preserve JAVA_HOME"
+            },
+            {
+              "hash": "ace97cc",
+              "message": "fix: skip KMP build script in CI where framework is pre-built"
+            },
+            {
+              "hash": "3ff49c2",
+              "message": "fix: resolve web smoke test CORS error and Apple CI build failure"
+            },
+            {
+              "hash": "d3dbced",
+              "message": "fix: make seed discussion categories public (#584)"
+            }
+          ],
+          "summary": "7 commits — fix: extend platform availability guards to tvOS",
+          "commitCount": 7
+        }
+      ],
+      "stagedCount": 0,
+      "modifiedCount": 0,
+      "untrackedCount": 0,
+      "deletedCount": 0,
+      "aheadCount": 0,
+      "behindCount": 0,
+      "latestCommits": [
+        {
+          "hash": "392ea17",
+          "message": "docs: consolidate persona files and enrich naming research"
+        },
+        {
+          "hash": "a6a05ab",
+          "message": "fix: web smoke test CORS error and Apple CI build failure (#587)"
+        },
+        {
+          "hash": "d093e24",
+          "message": "fix: make seed discussion categories public (#584) (#586)"
+        },
+        {
+          "hash": "225d641",
+          "message": "refactor: reorganize repo structure by purpose (#584)"
+        },
+        {
+          "hash": "2e806eb",
+          "message": "refine documents layout"
+        }
+      ]
+    },
+    {
+      "id": "temporal-platform",
+      "name": "Temporal Platform",
+      "tagline": "Specification repository for offline-first sync platform across Swift, Kotlin, and TypeScript",
+      "status": "active",
+      "techStack": [
+        "Markdown",
+        "Claude Code"
+      ],
+      "path": "~/projects/apps/temporal-platform/",
+      "branch": "main",
+      "uncommitted": false,
+      "uncommittedDetail": "",
+      "openBranches": [],
+      "latestWork": "chore: standardize worktree directory to .claude/worktrees/.chore: rename cat-herding → agentic-roadmaps in shared project reference.Update CLAUDE.md: litterbox → agentic-cookbook.",
+      "runCmd": "",
+      "tags": [
+        "apps",
+        "specs",
+        "cross-platform"
+      ],
+      "modifiedFiles": [],
+      "branchDetails": [],
+      "stagedCount": 0,
+      "modifiedCount": 0,
+      "untrackedCount": 0,
+      "deletedCount": 0,
+      "aheadCount": 0,
+      "behindCount": 0,
+      "latestCommits": [
+        {
+          "hash": "f600b40",
+          "message": "chore: standardize worktree directory to .claude/worktrees/"
+        },
+        {
+          "hash": "cf2749c",
+          "message": "chore: rename cat-herding → agentic-roadmaps in shared project reference"
+        },
+        {
+          "hash": "83c4a21",
+          "message": "Update CLAUDE.md: litterbox → agentic-cookbook"
+        },
+        {
+          "hash": "a3e849b",
+          "message": "fix: remove Swift .build artifacts and fix .gitignore"
+        },
+        {
+          "hash": "6cf7187",
+          "message": "feat: add full-stack verification playbook"
+        }
+      ]
+    },
+    {
+      "id": "whippet",
+      "name": "Whippet",
+      "tagline": "macOS menu bar app monitoring Claude Code sessions in real time",
+      "status": "active",
+      "techStack": [
+        "Swift",
+        "macOS",
+        "AppKit",
+        "SQLite",
+        "Claude Code"
+      ],
+      "path": "~/projects/apps/Whippet/",
+      "branch": "main",
+      "uncommitted": false,
+      "uncommittedDetail": "",
+      "openBranches": [],
+      "latestWork": "cleanup.chore: standardize worktree directory to .claude/worktrees/.Update CLAUDE.md: litterbox → agentic-cookbook.",
+      "runCmd": "",
+      "tags": [
+        "apps",
+        "macos",
+        "ai"
+      ],
+      "modifiedFiles": [],
+      "branchDetails": [],
+      "stagedCount": 0,
+      "modifiedCount": 0,
+      "untrackedCount": 0,
+      "deletedCount": 0,
+      "aheadCount": 0,
+      "behindCount": 0,
+      "latestCommits": [
+        {
+          "hash": "4173947",
+          "message": "cleanup"
+        },
+        {
+          "hash": "f0cdd3a",
+          "message": "chore: standardize worktree directory to .claude/worktrees/"
+        },
+        {
+          "hash": "eb5f062",
+          "message": "Update CLAUDE.md: litterbox → agentic-cookbook"
+        },
+        {
+          "hash": "caa388c",
+          "message": "feat: AI session summarization, frontmost window tracking, minimal UI"
+        },
+        {
+          "hash": "15a6a1b",
+          "message": "fix: snapshot app metadata on main thread, enumerate windows on background"
+        }
+      ]
+    },
+    {
+      "id": "qualitytime",
+      "name": "QualityTime",
+      "tagline": "Time tracking and project management application",
+      "status": "paused",
+      "techStack": [
+        "Kotlin",
+        "Claude Code"
+      ],
+      "path": "~/projects/paused-projects/QualityTime/",
+      "branch": "feature/agent-wrappers",
+      "uncommitted": false,
+      "uncommittedDetail": "",
+      "openBranches": [
+        "feature/anthropic-review",
+        "feature/thorin-code-review",
+        "fix/on-demand-reviews",
+        "main"
+      ],
+      "latestWork": "chore: standardize worktree directory to .claude/worktrees/.Update CLAUDE.md: litterbox → agentic-cookbook.docs: update CLAUDE.md.",
+      "runCmd": "",
+      "tags": [
+        "paused",
+        "productivity"
+      ],
+      "modifiedFiles": [],
+      "branchDetails": [
+        {
+          "name": "feature/anthropic-review",
+          "commits": [
+            {
+              "hash": "1267bd2",
+              "message": "feat: add Anthropic code reviewer workflow"
+            },
+            {
+              "hash": "e82a559",
+              "message": "feat: switch code review to claude-code-action via thorin-code-review (#10)"
+            },
+            {
+              "hash": "7cc8a18",
+              "message": "feat: switch workflows to agent wrappers (#3)"
+            }
+          ],
+          "summary": "3 commits — feat: add Anthropic code reviewer workflow",
+          "commitCount": 3
+        },
+        {
+          "name": "feature/thorin-code-review",
+          "commits": [
+            {
+              "hash": "2417a89",
+              "message": "feat: switch code review to claude-code-action via thorin-code-review"
+            },
+            {
+              "hash": "7cc8a18",
+              "message": "feat: switch workflows to agent wrappers (#3)"
+            }
+          ],
+          "summary": "2 commits — feat: switch code review to claude-code-action via thorin-code-review",
+          "commitCount": 2
+        },
+        {
+          "name": "fix/on-demand-reviews",
+          "commits": [
+            {
+              "hash": "c7fe9ca",
+              "message": "fix: make code reviews on-demand only, not automatic on PR open"
+            },
+            {
+              "hash": "651da63",
+              "message": "feat: add Anthropic code reviewer workflow (#11)"
+            },
+            {
+              "hash": "e82a559",
+              "message": "feat: switch code review to claude-code-action via thorin-code-review (#10)"
+            },
+            {
+              "hash": "7cc8a18",
+              "message": "feat: switch workflows to agent wrappers (#3)"
+            }
+          ],
+          "summary": "4 commits — fix: make code reviews on-demand only, not automatic on PR open",
+          "commitCount": 4
+        },
+        {
+          "name": "main",
+          "commits": [],
+          "summary": "no unique commits",
+          "commitCount": 0
+        }
+      ],
+      "stagedCount": 0,
+      "modifiedCount": 0,
+      "untrackedCount": 0,
+      "deletedCount": 0,
+      "aheadCount": 7,
+      "behindCount": 0,
+      "latestCommits": [
+        {
+          "hash": "a62f072",
+          "message": "chore: standardize worktree directory to .claude/worktrees/"
+        },
+        {
+          "hash": "69c08b8",
+          "message": "Update CLAUDE.md: litterbox → agentic-cookbook"
+        },
+        {
+          "hash": "a16c6ac",
+          "message": "docs: update CLAUDE.md"
+        },
+        {
+          "hash": "d342ddc",
+          "message": "Merge remote-tracking branch 'origin/main' into feature/agent-wrappers"
+        },
+        {
+          "hash": "7cc8a18",
+          "message": "feat: switch workflows to agent wrappers (#3)"
+        }
+      ]
+    },
+    {
+      "id": "search-helper",
+      "name": "Search Helper",
+      "tagline": "macOS utility for enhanced search and file navigation",
+      "status": "paused",
+      "techStack": [
+        "Swift",
+        "macOS"
+      ],
+      "path": "~/projects/paused-projects/search-helper/",
+      "branch": "main",
+      "uncommitted": false,
+      "uncommittedDetail": "",
+      "openBranches": [],
+      "latestWork": "chore: standardize worktree directory to .claude/worktrees/.Add deep linking URL scheme (browsingpal://) (#13).Add Links Tracker window for saving and browsing URLs (#11).",
+      "runCmd": "",
+      "tags": [
+        "paused",
+        "macos"
+      ],
+      "modifiedFiles": [],
+      "branchDetails": [],
+      "stagedCount": 0,
+      "modifiedCount": 0,
+      "untrackedCount": 0,
+      "deletedCount": 0,
+      "aheadCount": 0,
+      "behindCount": 0,
+      "latestCommits": [
+        {
+          "hash": "084634a",
+          "message": "chore: standardize worktree directory to .claude/worktrees/"
+        },
+        {
+          "hash": "c99e7a2",
+          "message": "Add deep linking URL scheme (browsingpal://) (#13)"
+        },
+        {
+          "hash": "3331cc9",
+          "message": "Add Links Tracker window for saving and browsing URLs (#11)"
+        },
+        {
+          "hash": "c88fb95",
+          "message": "Move search terms into Settings tabs, remove SearchPal window (#12)"
+        },
+        {
+          "hash": "da1ea57",
+          "message": "Add browser switch setting, formed search autocomplete, and browser activation (#10)"
+        }
+      ]
+    },
+    {
+      "id": "agentic-kitchen",
+      "name": "Agentic Kitchen",
+      "tagline": "",
+      "status": "active",
+      "techStack": [],
+      "openBranches": [],
+      "latestCommits": [],
+      "branch": "HEAD\nunknown",
+      "uncommitted": false,
+      "uncommittedDetail": "",
+      "branchDetails": [],
+      "modifiedFiles": [],
+      "stagedCount": 0,
+      "modifiedCount": 0,
+      "untrackedCount": 0,
+      "deletedCount": 0,
+      "aheadCount": 0,
+      "behindCount": 0
+    },
+    {
+      "id": "mikefullerton-com",
+      "name": "Mikefullerton Com",
+      "tagline": "",
       "status": "active",
       "techStack": [
         "Claude Code"
       ],
-      "path": "~/projects/agentic-cookbook/roadmaps-tests/",
+      "openBranches": [
+        "master",
+        "worktree-new-website-design"
+      ],
+      "latestCommits": [
+        {
+          "hash": "81195c6",
+          "message": "Add cats_and_dogs_quotes.md and ignore .superpowers/"
+        },
+        {
+          "hash": "45a4c9c",
+          "message": "chore: add .gitignore"
+        },
+        {
+          "hash": "a4d197a",
+          "message": "Center social icons below all content (#9)"
+        },
+        {
+          "hash": "842c6d0",
+          "message": "Fix spelling: emphasises -> emphasizes (#8)"
+        },
+        {
+          "hash": "fc05de8",
+          "message": "Re-crop OG preview image to include full face"
+        }
+      ],
+      "branch": "gh-pages",
+      "uncommitted": false,
+      "uncommittedDetail": "",
+      "branchDetails": [
+        {
+          "name": "master",
+          "commits": [],
+          "summary": "no unique commits",
+          "commitCount": 0
+        },
+        {
+          "name": "worktree-new-website-design",
+          "commits": [
+            {
+              "hash": "700ff42",
+              "message": "chore: remove LLM chat widget research doc (moved elsewhere)"
+            },
+            {
+              "hash": "1b9a984",
+              "message": "fix: Fragment wrappers for flex layout, add label+url link style"
+            },
+            {
+              "hash": "6509517",
+              "message": "fix: add bubble engine to sub-tag panels, reset nested state on close"
+            },
+            {
+              "hash": "c35f4a3",
+              "message": "chore: remove legacy files, add .gitignore"
+            },
+            {
+              "hash": "87def67",
+              "message": "feat: add Hero component, wire up App"
+            },
+            {
+              "hash": "32c4c1c",
+              "message": "feat: add TagRow component with bubble engine"
+            },
+            {
+              "hash": "3980312",
+              "message": "feat: add typed site content data module"
+            },
+            {
+              "hash": "13c67e5",
+              "message": "feat: add PetFactTicker component"
+            },
+            {
+              "hash": "7bdfcc6",
+              "message": "feat: add ActivityFeed component"
+            },
+            {
+              "hash": "1868d66",
+              "message": "feat: convert bubble engine to typed ES module"
+            },
+            {
+              "hash": "6cc209d",
+              "message": "feat: add TagPanel component"
+            },
+            {
+              "hash": "4a19190",
+              "message": "feat: scaffold Vite + React + TypeScript project"
+            },
+            {
+              "hash": "3c060a1",
+              "message": "Add React migration implementation plan"
+            },
+            {
+              "hash": "dbe2681",
+              "message": "Add React + TypeScript migration design spec"
+            },
+            {
+              "hash": "8968904",
+              "message": "Add LLM chat widget research doc"
+            },
+            {
+              "hash": "cf3cb8c",
+              "message": "Hide activity feed, add feed architecture research"
+            },
+            {
+              "hash": "f38c0d7",
+              "message": "Add pet facts ticker with cat/dog quotes"
+            },
+            {
+              "hash": "ebb6dda",
+              "message": "Redesign landing page with portrait hero and tag navigation"
+            },
+            {
+              "hash": "c0c5251",
+              "message": "Add site content JSON and interactive JS"
+            },
+            {
+              "hash": "c45d6c9",
+              "message": "Add optimized B&W portrait photo"
+            }
+          ],
+          "summary": "20 commits — chore: remove LLM chat widget research doc (moved elsewhere)",
+          "commitCount": 20
+        }
+      ],
+      "modifiedFiles": [],
+      "stagedCount": 0,
+      "modifiedCount": 0,
+      "untrackedCount": 0,
+      "deletedCount": 0,
+      "aheadCount": 0,
+      "behindCount": 0,
+      "latestWork": "Add cats_and_dogs_quotes.md and ignore .superpowers/.chore: add .gitignore.Center social icons below all content (#9)."
+    },
+    {
+      "id": "myagenticprojects",
+      "name": "Myagenticprojects",
+      "tagline": "",
+      "status": "active",
+      "techStack": [
+        "Node.js"
+      ],
+      "openBranches": [],
+      "latestCommits": [
+        {
+          "hash": "b9981d8",
+          "message": "fix: update seed script to support password resets and lower minimum to 10 chars"
+        },
+        {
+          "hash": "553f8fe",
+          "message": "chore: update manifest with deployment URLs"
+        },
+        {
+          "hash": "11441c7",
+          "message": "chore: update templates to site-manager v1.3.0"
+        },
+        {
+          "hash": "446f449",
+          "message": "chore: update manifest with deployment URLs"
+        },
+        {
+          "hash": "5b1fcea",
+          "message": "chore: remove custom domain routes pending DNS setup"
+        }
+      ],
       "branch": "main",
       "uncommitted": false,
       "uncommittedDetail": "",
+      "branchDetails": [],
+      "modifiedFiles": [],
+      "stagedCount": 0,
+      "modifiedCount": 0,
+      "untrackedCount": 0,
+      "deletedCount": 0,
+      "aheadCount": 0,
+      "behindCount": 0,
+      "latestWork": "fix: update seed script to support password resets and lower minimum to 10 chars.chore: update manifest with deployment URLs.chore: update templates to site-manager v1.3.0."
+    },
+    {
+      "id": "market-research",
+      "name": "Market Research",
+      "tagline": "",
+      "status": "active",
+      "techStack": [
+        "Python",
+        "Claude Code"
+      ],
+      "openBranches": [
+        "main"
+      ],
+      "latestCommits": [
+        {
+          "hash": "9ba46f4",
+          "message": "chore: standardize worktree directory to .claude/worktrees/"
+        },
+        {
+          "hash": "fdacaa3",
+          "message": "Add project documentation"
+        },
+        {
+          "hash": "e48a0a7",
+          "message": "Add market research agent system (#1)"
+        },
+        {
+          "hash": "8163769",
+          "message": "Initial commit with .gitignore"
+        }
+      ],
+      "branch": "docs/project-history",
+      "uncommitted": false,
+      "uncommittedDetail": "",
+      "branchDetails": [
+        {
+          "name": "main",
+          "commits": [],
+          "summary": "no unique commits",
+          "commitCount": 0
+        }
+      ],
+      "modifiedFiles": [],
+      "stagedCount": 0,
+      "modifiedCount": 0,
+      "untrackedCount": 0,
+      "deletedCount": 0,
+      "aheadCount": 2,
+      "behindCount": 0,
+      "latestWork": "chore: standardize worktree directory to .claude/worktrees/.Add project documentation.Add market research agent system (#1)."
+    },
+    {
+      "id": "mikeisdrumming",
+      "name": "Mikeisdrumming",
+      "tagline": "",
+      "status": "active",
+      "techStack": [
+        "Claude Code"
+      ],
+      "openBranches": [
+        "main"
+      ],
+      "latestCommits": [
+        {
+          "hash": "51b931d",
+          "message": "chore: add .gitignore"
+        },
+        {
+          "hash": "552c896",
+          "message": "feat: add GitHub Pages landing page and custom domain"
+        },
+        {
+          "hash": "c4441aa",
+          "message": "Add music service API research document"
+        },
+        {
+          "hash": "35dbee6",
+          "message": "Initial commit"
+        }
+      ],
+      "branch": "feature/github-pages-landing",
+      "uncommitted": false,
+      "uncommittedDetail": "",
+      "branchDetails": [
+        {
+          "name": "main",
+          "commits": [],
+          "summary": "no unique commits",
+          "commitCount": 0
+        }
+      ],
+      "modifiedFiles": [],
+      "stagedCount": 0,
+      "modifiedCount": 0,
+      "untrackedCount": 0,
+      "deletedCount": 0,
+      "aheadCount": 2,
+      "behindCount": 0,
+      "latestWork": "chore: add .gitignore.feat: add GitHub Pages landing page and custom domain.Add music service API research document."
+    },
+    {
+      "id": "workflows",
+      "name": "Workflows",
+      "tagline": "",
+      "status": "active",
+      "techStack": [],
+      "openBranches": [
+        "feature/agent-wrappers",
+        "feature/anthropic-code-reviewer",
+        "feature/code-review-action-and-rename-personas",
+        "feature/cost-optimization"
+      ],
+      "latestCommits": [
+        {
+          "hash": "5e7097e",
+          "message": "Update dotfiles path reference to deprecated/dotfiles"
+        },
+        {
+          "hash": "b2f9f07",
+          "message": "chore: add .gitignore"
+        },
+        {
+          "hash": "b4b5e3a",
+          "message": "docs: update dotfiles path from ~/.dotfiles to ~/projects/dotfiles"
+        },
+        {
+          "hash": "9171bdc",
+          "message": "feat: cost optimization — max_turns, cheaper models, combined review (#13)"
+        },
+        {
+          "hash": "8974cf7",
+          "message": "feat: add Anthropic code reviewer agent (#12)"
+        }
+      ],
+      "branch": "main",
+      "uncommitted": false,
+      "uncommittedDetail": "",
+      "branchDetails": [
+        {
+          "name": "feature/agent-wrappers",
+          "commits": [
+            {
+              "hash": "4f2b652",
+              "message": "feat: add agent wrapper workflows for centralized pipeline config"
+            }
+          ],
+          "summary": "feat: add agent wrapper workflows for centralized pipeline config",
+          "commitCount": 1
+        },
+        {
+          "name": "feature/anthropic-code-reviewer",
+          "commits": [
+            {
+              "hash": "b3ea608",
+              "message": "feat: add Anthropic code reviewer agent"
+            }
+          ],
+          "summary": "feat: add Anthropic code reviewer agent",
+          "commitCount": 1
+        },
+        {
+          "name": "feature/code-review-action-and-rename-personas",
+          "commits": [
+            {
+              "hash": "e77c698",
+              "message": "feat: add claude-code-action review workflow and rename dwarf personas"
+            }
+          ],
+          "summary": "feat: add claude-code-action review workflow and rename dwarf personas",
+          "commitCount": 1
+        },
+        {
+          "name": "feature/cost-optimization",
+          "commits": [
+            {
+              "hash": "ebdce39",
+              "message": "feat: cost optimization — max_turns, cheaper models, combined review"
+            }
+          ],
+          "summary": "feat: cost optimization — max_turns, cheaper models, combined review",
+          "commitCount": 1
+        }
+      ],
+      "modifiedFiles": [],
+      "stagedCount": 0,
+      "modifiedCount": 0,
+      "untrackedCount": 0,
+      "deletedCount": 0,
+      "aheadCount": 0,
+      "behindCount": 0,
+      "latestWork": "Update dotfiles path reference to deprecated/dotfiles.chore: add .gitignore.docs: update dotfiles path from ~/.dotfiles to ~/projects/dotfiles."
+    },
+    {
+      "id": "code-review-pipeline-test",
+      "name": "Code Review Pipeline Test",
+      "tagline": "",
+      "status": "active",
+      "techStack": [
+        "Kotlin"
+      ],
+      "openBranches": [
+        "chore/wrapper-refs-main",
+        "config/on-demand-reviews",
+        "feature/add-anthropic-review",
+        "feature/agent-wrappers",
+        "feature/test-pipeline-review",
+        "feature/thorin-code-review",
+        "main"
+      ],
+      "latestCommits": [
+        {
+          "hash": "f20dec1",
+          "message": "Update dotfiles path reference to deprecated/dotfiles"
+        },
+        {
+          "hash": "18370ef",
+          "message": "chore: standardize worktree directory to .claude/worktrees/"
+        },
+        {
+          "hash": "55774a6",
+          "message": "docs: update dotfiles path from ~/.dotfiles to ~/projects/dotfiles"
+        },
+        {
+          "hash": "32fb0a5",
+          "message": "config: make Thorin code review on-demand only"
+        },
+        {
+          "hash": "864daad",
+          "message": "config: adopt combined review, make Anthropic on-demand"
+        }
+      ],
+      "branch": "feature/cost-optimization",
+      "uncommitted": false,
+      "uncommittedDetail": "",
+      "branchDetails": [
+        {
+          "name": "chore/wrapper-refs-main",
+          "commits": [
+            {
+              "hash": "5c2f39e",
+              "message": "chore: switch wrapper references to @main"
+            }
+          ],
+          "summary": "chore: switch wrapper references to @main",
+          "commitCount": 1
+        },
+        {
+          "name": "config/on-demand-reviews",
+          "commits": [
+            {
+              "hash": "7164100",
+              "message": "config: make specialized reviews on-demand only"
+            },
+            {
+              "hash": "587669e",
+              "message": "feat: add Anthropic code reviewer workflow"
+            }
+          ],
+          "summary": "2 commits — config: make specialized reviews on-demand only",
+          "commitCount": 2
+        },
+        {
+          "name": "feature/add-anthropic-review",
+          "commits": [
+            {
+              "hash": "587669e",
+              "message": "feat: add Anthropic code reviewer workflow"
+            }
+          ],
+          "summary": "feat: add Anthropic code reviewer workflow",
+          "commitCount": 1
+        },
+        {
+          "name": "feature/agent-wrappers",
+          "commits": [
+            {
+              "hash": "a6389d3",
+              "message": "feat: switch all workflows to agent wrapper references"
+            }
+          ],
+          "summary": "feat: switch all workflows to agent wrapper references",
+          "commitCount": 1
+        },
+        {
+          "name": "feature/test-pipeline-review",
+          "commits": [
+            {
+              "hash": "6a07285",
+              "message": "feat: add time-aware greetings"
+            }
+          ],
+          "summary": "feat: add time-aware greetings",
+          "commitCount": 1
+        },
+        {
+          "name": "feature/thorin-code-review",
+          "commits": [
+            {
+              "hash": "779c6fe",
+              "message": "feat: switch to thorin-code-review and update reviewer names"
+            }
+          ],
+          "summary": "feat: switch to thorin-code-review and update reviewer names",
+          "commitCount": 1
+        },
+        {
+          "name": "main",
+          "commits": [],
+          "summary": "no unique commits",
+          "commitCount": 0
+        }
+      ],
+      "modifiedFiles": [],
+      "stagedCount": 0,
+      "modifiedCount": 0,
+      "untrackedCount": 0,
+      "deletedCount": 0,
+      "aheadCount": 5,
+      "behindCount": 0,
+      "latestWork": "Update dotfiles path reference to deprecated/dotfiles.chore: standardize worktree directory to .claude/worktrees/.docs: update dotfiles path from ~/.dotfiles to ~/projects/dotfiles."
+    },
+    {
+      "id": "cookbook-tests",
+      "name": "Cookbook Tests",
+      "tagline": "",
+      "status": "active",
+      "techStack": [
+        "Node.js",
+        "TypeScript"
+      ],
+      "openBranches": [],
+      "latestCommits": [
+        {
+          "hash": "86a9d82",
+          "message": "chore: add .gitignore"
+        },
+        {
+          "hash": "2b558dd",
+          "message": "Add cc-plugin-eval research findings"
+        }
+      ],
+      "branch": "main",
+      "uncommitted": true,
+      "uncommittedDetail": "8 changed files",
+      "branchDetails": [],
+      "modifiedFiles": [
+        {
+          "path": "fixtures/",
+          "change": "untracked",
+          "summary": "new directory (2 items)"
+        },
+        {
+          "path": "lib/",
+          "change": "untracked",
+          "summary": "new directory (3 items)"
+        },
+        {
+          "path": "node_modules/",
+          "change": "untracked",
+          "summary": "new directory (50 items)"
+        },
+        {
+          "path": "package-lock.json",
+          "change": "untracked",
+          "summary": "40KB — {"
+        },
+        {
+          "path": "package.json",
+          "change": "untracked",
+          "summary": "231B — {"
+        },
+        {
+          "path": "specs/",
+          "change": "untracked",
+          "summary": "new directory (2 items)"
+        },
+        {
+          "path": "tsconfig.json",
+          "change": "untracked",
+          "summary": "328B — {"
+        },
+        {
+          "path": "vitest.config.ts",
+          "change": "untracked",
+          "summary": "284B — import { defineConfig } from \"vitest/config\";"
+        }
+      ],
+      "stagedCount": 0,
+      "modifiedCount": 0,
+      "untrackedCount": 8,
+      "deletedCount": 0,
+      "aheadCount": 0,
+      "behindCount": 0,
+      "latestWork": "chore: add .gitignore.Add cc-plugin-eval research findings."
+    },
+    {
+      "id": "roadmaps-tests",
+      "name": "Roadmaps Tests",
+      "tagline": "",
+      "status": "active",
+      "techStack": [
+        "Claude Code"
+      ],
       "openBranches": [
         "feature/AllAuto3Step-test_all_auto_steps_single_pr-002a7c5b",
         "feature/AllAuto3Step-test_all_auto_steps_single_pr-02817111",
@@ -1176,13 +2184,31 @@ export const SEED_DATA = {
         "feature/AllAuto3Step-test_all_auto_steps_single_pr-51045263",
         "feature/AllAuto3Step-test_all_auto_steps_single_pr-67bc9d38"
       ],
-      "latestWork": "chore: add .gitignore.test: add SingleStep roadmap fixture.test: add AllAuto3Step roadmap fixture.",
-      "runCmd": "",
-      "tags": [
-        "agentic-cookbook",
-        "testing"
+      "latestCommits": [
+        {
+          "hash": "fa065ef",
+          "message": "chore: add .gitignore"
+        },
+        {
+          "hash": "a2ad31a",
+          "message": "test: add SingleStep roadmap fixture"
+        },
+        {
+          "hash": "237d06e",
+          "message": "test: add AllAuto3Step roadmap fixture"
+        },
+        {
+          "hash": "e6622ba",
+          "message": "test: add WithDependencies roadmap fixture"
+        },
+        {
+          "hash": "c4253da",
+          "message": "test: add AllAuto3Step roadmap fixture"
+        }
       ],
-      "modifiedFiles": [],
+      "branch": "main",
+      "uncommitted": false,
+      "uncommittedDetail": "",
       "branchDetails": [
         {
           "name": "feature/AllAuto3Step-test_all_auto_steps_single_pr-002a7c5b",
@@ -1455,825 +2481,14 @@ export const SEED_DATA = {
           "commitCount": 5
         }
       ],
+      "modifiedFiles": [],
       "stagedCount": 0,
       "modifiedCount": 0,
       "untrackedCount": 0,
       "deletedCount": 0,
       "aheadCount": 1,
       "behindCount": 1,
-      "latestCommits": [
-        {
-          "hash": "fa065ef",
-          "message": "chore: add .gitignore"
-        },
-        {
-          "hash": "a2ad31a",
-          "message": "test: add SingleStep roadmap fixture"
-        },
-        {
-          "hash": "237d06e",
-          "message": "test: add AllAuto3Step roadmap fixture"
-        },
-        {
-          "hash": "e6622ba",
-          "message": "test: add WithDependencies roadmap fixture"
-        },
-        {
-          "hash": "c4253da",
-          "message": "test: add AllAuto3Step roadmap fixture"
-        }
-      ]
-    },
-    {
-      "id": "agentic-tools",
-      "name": "Agentic Tools",
-      "tagline": "User-facing tools for interacting with the agentic cookbook system",
-      "status": "active",
-      "techStack": [
-        "Claude Code",
-        "Shell"
-      ],
-      "path": "~/projects/agentic-cookbook/tools/",
-      "branch": "main",
-      "uncommitted": false,
-      "uncommittedDetail": "",
-      "openBranches": [],
-      "latestWork": "feat: add lint skill directories (agent, compliance, project, recipe, skill).chore: standardize worktree directory to .claude/worktrees/.Add cookbook-statusline.sh script from dev-team repo.",
-      "runCmd": "",
-      "tags": [
-        "agentic-cookbook",
-        "tools"
-      ],
-      "modifiedFiles": [],
-      "branchDetails": [],
-      "stagedCount": 0,
-      "modifiedCount": 0,
-      "untrackedCount": 0,
-      "deletedCount": 0,
-      "aheadCount": 1,
-      "behindCount": 0,
-      "latestCommits": [
-        {
-          "hash": "80b2526",
-          "message": "feat: add lint skill directories (agent, compliance, project, recipe, skill)"
-        },
-        {
-          "hash": "60b97e1",
-          "message": "chore: standardize worktree directory to .claude/worktrees/"
-        },
-        {
-          "hash": "102490f",
-          "message": "Add cookbook-statusline.sh script from dev-team repo"
-        },
-        {
-          "hash": "6288621",
-          "message": "Initial commit: tools repo with rules, skills, and project setup"
-        }
-      ]
-    },
-    {
-      "id": "catnip",
-      "name": "Catnip",
-      "tagline": "iOS app with Claude backend integration and user profiles",
-      "status": "active",
-      "techStack": [
-        "Swift",
-        "Claude Code"
-      ],
-      "path": "~/projects/apps/catnip/",
-      "branch": "main",
-      "uncommitted": false,
-      "uncommittedDetail": "",
-      "openBranches": [
-        "feature/catnipwebservice-step-4",
-        "feature/catnipwebservice-step-5",
-        "feature/deployment-step-12",
-        "feature/frontend-dashboard-step-10",
-        "feature/roadmaps-api",
-        "feature/websocket-integration-step-11",
-        "feature/websocket-step-8"
-      ],
-      "latestWork": "chore: standardize worktree directory to .claude/worktrees/.chore: rename cat-herding → agentic-roadmaps in roadmap and demo script.refactor: rename runs to roadmaps across frontend, backend, and CLI.",
-      "runCmd": "",
-      "tags": [
-        "apps",
-        "ios",
-        "ai"
-      ],
-      "modifiedFiles": [],
-      "branchDetails": [
-        {
-          "name": "feature/catnipwebservice-step-4",
-          "commits": [
-            {
-              "hash": "83cebac",
-              "message": "feat: backend project scaffolding with Hono, Drizzle schema, and health endpoint (#4)"
-            }
-          ],
-          "summary": "feat: backend project scaffolding with Hono, Drizzle schema, and health endpoint (#4)",
-          "commitCount": 1
-        },
-        {
-          "name": "feature/catnipwebservice-step-5",
-          "commits": [
-            {
-              "hash": "0ec917c",
-              "message": "feat: add GitHub OAuth and JWT authentication (#5)"
-            }
-          ],
-          "summary": "feat: add GitHub OAuth and JWT authentication (#5)",
-          "commitCount": 1
-        },
-        {
-          "name": "feature/deployment-step-12",
-          "commits": [
-            {
-              "hash": "c3a4dfa",
-              "message": "fix: remove unnecessary drizzle.config.ts from production Docker image (#12)"
-            },
-            {
-              "hash": "8739ecd",
-              "message": "feat: add deployment configuration for Railway and Cloudflare Pages (#12)"
-            }
-          ],
-          "summary": "2 commits — fix: remove unnecessary drizzle.config.ts from production Docker image (#12)",
-          "commitCount": 2
-        },
-        {
-          "name": "feature/frontend-dashboard-step-10",
-          "commits": [
-            {
-              "hash": "4fae474",
-              "message": "refactor: remove unused DashboardPage placeholder (#10)"
-            },
-            {
-              "hash": "f7a3404",
-              "message": "feat: add run list and run detail dashboard (#10)"
-            }
-          ],
-          "summary": "2 commits — refactor: remove unused DashboardPage placeholder (#10)",
-          "commitCount": 2
-        },
-        {
-          "name": "feature/roadmaps-api",
-          "commits": [
-            {
-              "hash": "1e9ee00",
-              "message": "feat: evolve API from runs to roadmaps with full workflow support"
-            }
-          ],
-          "summary": "feat: evolve API from runs to roadmaps with full workflow support",
-          "commitCount": 1
-        },
-        {
-          "name": "feature/websocket-integration-step-11",
-          "commits": [
-            {
-              "hash": "246b3e3",
-              "message": "feat: add frontend WebSocket integration for real-time updates (#11)"
-            }
-          ],
-          "summary": "feat: add frontend WebSocket integration for real-time updates (#11)",
-          "commitCount": 1
-        },
-        {
-          "name": "feature/websocket-step-8",
-          "commits": [
-            {
-              "hash": "31ad23b",
-              "message": "feat: add WebSocket real-time broadcast (#8)"
-            }
-          ],
-          "summary": "feat: add WebSocket real-time broadcast (#8)",
-          "commitCount": 1
-        }
-      ],
-      "stagedCount": 0,
-      "modifiedCount": 0,
-      "untrackedCount": 0,
-      "deletedCount": 0,
-      "aheadCount": 0,
-      "behindCount": 0,
-      "latestCommits": [
-        {
-          "hash": "0c6264a",
-          "message": "chore: standardize worktree directory to .claude/worktrees/"
-        },
-        {
-          "hash": "3894133",
-          "message": "chore: rename cat-herding → agentic-roadmaps in roadmap and demo script"
-        },
-        {
-          "hash": "ccea5a3",
-          "message": "refactor: rename runs to roadmaps across frontend, backend, and CLI"
-        },
-        {
-          "hash": "d6daec6",
-          "message": "refactor: migrate 1 roadmaps to flat file format"
-        },
-        {
-          "hash": "5cb0120",
-          "message": "refactor: migrate roadmaps to per-directory File Record structure"
-        }
-      ]
-    },
-    {
-      "id": "catnip-terminal",
-      "name": "Catnip Terminal",
-      "tagline": "Terminal-based interface companion to the Catnip iOS app",
-      "status": "active",
-      "techStack": [
-        "Swift",
-        "macOS",
-        "Xcode"
-      ],
-      "path": "~/projects/apps/catnip-terminal/",
-      "branch": "feature/ai-session-summarization",
-      "uncommitted": true,
-      "uncommittedDetail": "1 changed files",
-      "openBranches": [
-        "main",
-        "worktree-appkit-conversion"
-      ],
-      "latestWork": "chore: standardize worktree directory to .claude/worktrees/.feat: AI-powered session summarization with multi-provider support.fix: remove sidebar toggle button from settings window.",
-      "runCmd": "",
-      "tags": [
-        "apps",
-        "terminal",
-        "macos"
-      ],
-      "modifiedFiles": [
-        {
-          "path": "CLAUDE.md",
-          "change": "untracked",
-          "summary": "19B — catnip-terminal"
-        }
-      ],
-      "branchDetails": [
-        {
-          "name": "main",
-          "commits": [],
-          "summary": "no unique commits",
-          "commitCount": 0
-        },
-        {
-          "name": "worktree-appkit-conversion",
-          "commits": [
-            {
-              "hash": "44aca92",
-              "message": "fix: show ~ instead of username when session CWD is home directory"
-            },
-            {
-              "hash": "4b54221",
-              "message": "fix: show CWD folder name and git branch as session title"
-            },
-            {
-              "hash": "c65bf50",
-              "message": "feat: add Quick Chat to AI settings panel"
-            },
-            {
-              "hash": "377fca2",
-              "message": "fix: parity fixes from deep comparison with original SwiftUI branch"
-            },
-            {
-              "hash": "6953a25",
-              "message": "fix: switch settings window from toolbar tabs to sidebar layout"
-            },
-            {
-              "hash": "0841022",
-              "message": "feat: add AI-powered session summarization with AppKit settings"
-            },
-            {
-              "hash": "a85aecc",
-              "message": "refactor: convert entire app from SwiftUI to native AppKit"
-            }
-          ],
-          "summary": "7 commits — fix: show ~ instead of username when session CWD is home directory",
-          "commitCount": 7
-        }
-      ],
-      "stagedCount": 0,
-      "modifiedCount": 0,
-      "untrackedCount": 1,
-      "deletedCount": 0,
-      "aheadCount": 2,
-      "behindCount": 0,
-      "latestCommits": [
-        {
-          "hash": "50cdef8",
-          "message": "chore: standardize worktree directory to .claude/worktrees/"
-        },
-        {
-          "hash": "a634235",
-          "message": "feat: AI-powered session summarization with multi-provider support"
-        },
-        {
-          "hash": "35505c0",
-          "message": "fix: remove sidebar toggle button from settings window"
-        },
-        {
-          "hash": "714ce30",
-          "message": "refactor: switch settings to sidebar layout per litterbox spec"
-        },
-        {
-          "hash": "5de22f2",
-          "message": "fix: apply litterbox specs for window frame persistence and titles"
-        }
-      ]
-    },
-    {
-      "id": "hairball",
-      "name": "Hairball",
-      "tagline": "Native macOS menu bar app for window-level task context management",
-      "status": "active",
-      "techStack": [
-        "Swift",
-        "macOS",
-        "AppKit",
-        "Xcode"
-      ],
-      "path": "~/projects/apps/Hairball/",
-      "branch": "main",
-      "uncommitted": false,
-      "uncommittedDetail": "",
-      "openBranches": [],
-      "latestWork": "feat: add AppState, WindowExplorer, WorkGroups views and refactor app structure.chore: standardize worktree directory to .claude/worktrees/.Update CLAUDE.md: litterbox → agentic-cookbook.",
-      "runCmd": "",
-      "tags": [
-        "apps",
-        "macos"
-      ],
-      "modifiedFiles": [],
-      "branchDetails": [],
-      "stagedCount": 0,
-      "modifiedCount": 0,
-      "untrackedCount": 0,
-      "deletedCount": 0,
-      "aheadCount": 1,
-      "behindCount": 0,
-      "latestCommits": [
-        {
-          "hash": "814e3a3",
-          "message": "feat: add AppState, WindowExplorer, WorkGroups views and refactor app structure"
-        },
-        {
-          "hash": "4273eec",
-          "message": "chore: standardize worktree directory to .claude/worktrees/"
-        },
-        {
-          "hash": "b8857de",
-          "message": "Update CLAUDE.md: litterbox → agentic-cookbook"
-        },
-        {
-          "hash": "0f564bd",
-          "message": "feat: add Help window, Discovery window, oslog logging, rename contexts to Hairballs"
-        },
-        {
-          "hash": "5ef2245",
-          "message": "refactor: migrate 1 roadmaps to flat file format"
-        }
-      ]
-    },
-    {
-      "id": "scratching-post",
-      "name": "Scratching Post",
-      "tagline": "macOS IDE enhancement with file browser improvements and window management",
-      "status": "active",
-      "techStack": [
-        "Swift",
-        "macOS",
-        "Xcode"
-      ],
-      "path": "~/projects/apps/scratching-post/",
-      "branch": "main",
-      "uncommitted": false,
-      "uncommittedDetail": "",
-      "openBranches": [],
-      "latestWork": "chore: standardize worktree directory to .claude/worktrees/.Update CLAUDE.md: litterbox → agentic-cookbook.fix: only update session summary on topic change, not every input.",
-      "runCmd": "",
-      "tags": [
-        "apps",
-        "macos",
-        "ide"
-      ],
-      "modifiedFiles": [],
-      "branchDetails": [],
-      "stagedCount": 0,
-      "modifiedCount": 0,
-      "untrackedCount": 0,
-      "deletedCount": 0,
-      "aheadCount": 0,
-      "behindCount": 0,
-      "latestCommits": [
-        {
-          "hash": "763cc12",
-          "message": "chore: standardize worktree directory to .claude/worktrees/"
-        },
-        {
-          "hash": "d48543a",
-          "message": "Update CLAUDE.md: litterbox → agentic-cookbook"
-        },
-        {
-          "hash": "07237d3",
-          "message": "fix: only update session summary on topic change, not every input"
-        },
-        {
-          "hash": "431572a",
-          "message": "feat: AI-powered session summarization with multi-provider support"
-        },
-        {
-          "hash": "df6ad28",
-          "message": "feat: dynamic pane layout with arrangement picker"
-        }
-      ]
-    },
-    {
-      "id": "temporal",
-      "name": "Temporal",
-      "tagline": "Spec-driven cross-platform framework using Kotlin Multiplatform",
-      "status": "active",
-      "techStack": [
-        "Kotlin Multiplatform",
-        "Claude Code"
-      ],
-      "path": "~/projects/apps/temporal/",
-      "branch": "main",
-      "uncommitted": false,
-      "uncommittedDetail": "",
-      "openBranches": [
-        "feature/repo-reorg"
-      ],
-      "latestWork": "docs: consolidate persona files and enrich naming research.fix: web smoke test CORS error and Apple CI build failure (#587).fix: make seed discussion categories public (#584) (#586).",
-      "runCmd": "",
-      "tags": [
-        "apps",
-        "cross-platform"
-      ],
-      "modifiedFiles": [],
-      "branchDetails": [
-        {
-          "name": "feature/repo-reorg",
-          "commits": [
-            {
-              "hash": "f051ee7",
-              "message": "fix: extend platform availability guards to tvOS"
-            },
-            {
-              "hash": "b8a641c",
-              "message": "ci: pin Apple CI to Xcode 26.3 (closest to local 26.4)"
-            },
-            {
-              "hash": "feb604e",
-              "message": "fix: add watchOS compatibility guards for unavailable SwiftUI APIs"
-            },
-            {
-              "hash": "c04e3ac",
-              "message": "fix: simplify KMP build script — always skip Android, preserve JAVA_HOME"
-            },
-            {
-              "hash": "ace97cc",
-              "message": "fix: skip KMP build script in CI where framework is pre-built"
-            },
-            {
-              "hash": "3ff49c2",
-              "message": "fix: resolve web smoke test CORS error and Apple CI build failure"
-            },
-            {
-              "hash": "d3dbced",
-              "message": "fix: make seed discussion categories public (#584)"
-            }
-          ],
-          "summary": "7 commits — fix: extend platform availability guards to tvOS",
-          "commitCount": 7
-        }
-      ],
-      "stagedCount": 0,
-      "modifiedCount": 0,
-      "untrackedCount": 0,
-      "deletedCount": 0,
-      "aheadCount": 0,
-      "behindCount": 0,
-      "latestCommits": [
-        {
-          "hash": "392ea17",
-          "message": "docs: consolidate persona files and enrich naming research"
-        },
-        {
-          "hash": "a6a05ab",
-          "message": "fix: web smoke test CORS error and Apple CI build failure (#587)"
-        },
-        {
-          "hash": "d093e24",
-          "message": "fix: make seed discussion categories public (#584) (#586)"
-        },
-        {
-          "hash": "225d641",
-          "message": "refactor: reorganize repo structure by purpose (#584)"
-        },
-        {
-          "hash": "2e806eb",
-          "message": "refine documents layout"
-        }
-      ]
-    },
-    {
-      "id": "temporal-platform",
-      "name": "Temporal Platform",
-      "tagline": "Specification repository for offline-first sync platform across Swift, Kotlin, and TypeScript",
-      "status": "active",
-      "techStack": [
-        "Markdown",
-        "Claude Code"
-      ],
-      "path": "~/projects/apps/temporal-platform/",
-      "branch": "main",
-      "uncommitted": false,
-      "uncommittedDetail": "",
-      "openBranches": [],
-      "latestWork": "chore: standardize worktree directory to .claude/worktrees/.chore: rename cat-herding → agentic-roadmaps in shared project reference.Update CLAUDE.md: litterbox → agentic-cookbook.",
-      "runCmd": "",
-      "tags": [
-        "apps",
-        "specs",
-        "cross-platform"
-      ],
-      "modifiedFiles": [],
-      "branchDetails": [],
-      "stagedCount": 0,
-      "modifiedCount": 0,
-      "untrackedCount": 0,
-      "deletedCount": 0,
-      "aheadCount": 0,
-      "behindCount": 0,
-      "latestCommits": [
-        {
-          "hash": "f600b40",
-          "message": "chore: standardize worktree directory to .claude/worktrees/"
-        },
-        {
-          "hash": "cf2749c",
-          "message": "chore: rename cat-herding → agentic-roadmaps in shared project reference"
-        },
-        {
-          "hash": "83c4a21",
-          "message": "Update CLAUDE.md: litterbox → agentic-cookbook"
-        },
-        {
-          "hash": "a3e849b",
-          "message": "fix: remove Swift .build artifacts and fix .gitignore"
-        },
-        {
-          "hash": "6cf7187",
-          "message": "feat: add full-stack verification playbook"
-        }
-      ]
-    },
-    {
-      "id": "whippet",
-      "name": "Whippet",
-      "tagline": "macOS menu bar app monitoring Claude Code sessions in real time",
-      "status": "active",
-      "techStack": [
-        "Swift",
-        "macOS",
-        "AppKit",
-        "SQLite",
-        "Claude Code"
-      ],
-      "path": "~/projects/apps/Whippet/",
-      "branch": "main",
-      "uncommitted": true,
-      "uncommittedDetail": "4 changed files",
-      "openBranches": [],
-      "latestWork": "chore: standardize worktree directory to .claude/worktrees/.Update CLAUDE.md: litterbox → agentic-cookbook.feat: AI session summarization, frontmost window tracking, minimal UI.",
-      "runCmd": "",
-      "tags": [
-        "apps",
-        "macos",
-        "ai"
-      ],
-      "modifiedFiles": [
-        {
-          "path": "Roadmaps/repair.log",
-          "change": "untracked",
-          "summary": "183B — [2026-03-26 08:00:47] repair-roadmap v1 started"
-        },
-        {
-          "path": "Scripts/",
-          "change": "untracked",
-          "summary": "new directory (2 items)"
-        },
-        {
-          "path": "Whippet-build/",
-          "change": "untracked",
-          "summary": "new directory (4 items)"
-        },
-        {
-          "path": "Whippet-cookbook/",
-          "change": "untracked",
-          "summary": "new directory (5 items)"
-        }
-      ],
-      "branchDetails": [],
-      "stagedCount": 0,
-      "modifiedCount": 0,
-      "untrackedCount": 4,
-      "deletedCount": 0,
-      "aheadCount": 0,
-      "behindCount": 0,
-      "latestCommits": [
-        {
-          "hash": "f0cdd3a",
-          "message": "chore: standardize worktree directory to .claude/worktrees/"
-        },
-        {
-          "hash": "eb5f062",
-          "message": "Update CLAUDE.md: litterbox → agentic-cookbook"
-        },
-        {
-          "hash": "caa388c",
-          "message": "feat: AI session summarization, frontmost window tracking, minimal UI"
-        },
-        {
-          "hash": "15a6a1b",
-          "message": "fix: snapshot app metadata on main thread, enumerate windows on background"
-        },
-        {
-          "hash": "1624c2d",
-          "message": "docs: update CLAUDE.md with litterbox component spec instructions"
-        }
-      ]
-    },
-    {
-      "id": "qualitytime",
-      "name": "QualityTime",
-      "tagline": "Time tracking and project management application",
-      "status": "paused",
-      "techStack": [
-        "Kotlin",
-        "Claude Code"
-      ],
-      "path": "~/projects/paused-projects/QualityTime/",
-      "branch": "feature/agent-wrappers",
-      "uncommitted": false,
-      "uncommittedDetail": "",
-      "openBranches": [
-        "feature/anthropic-review",
-        "feature/thorin-code-review",
-        "fix/on-demand-reviews",
-        "main"
-      ],
-      "latestWork": "chore: standardize worktree directory to .claude/worktrees/.Update CLAUDE.md: litterbox → agentic-cookbook.docs: update CLAUDE.md.",
-      "runCmd": "",
-      "tags": [
-        "paused",
-        "productivity"
-      ],
-      "modifiedFiles": [],
-      "branchDetails": [
-        {
-          "name": "feature/anthropic-review",
-          "commits": [
-            {
-              "hash": "1267bd2",
-              "message": "feat: add Anthropic code reviewer workflow"
-            },
-            {
-              "hash": "e82a559",
-              "message": "feat: switch code review to claude-code-action via thorin-code-review (#10)"
-            },
-            {
-              "hash": "7cc8a18",
-              "message": "feat: switch workflows to agent wrappers (#3)"
-            }
-          ],
-          "summary": "3 commits — feat: add Anthropic code reviewer workflow",
-          "commitCount": 3
-        },
-        {
-          "name": "feature/thorin-code-review",
-          "commits": [
-            {
-              "hash": "2417a89",
-              "message": "feat: switch code review to claude-code-action via thorin-code-review"
-            },
-            {
-              "hash": "7cc8a18",
-              "message": "feat: switch workflows to agent wrappers (#3)"
-            }
-          ],
-          "summary": "2 commits — feat: switch code review to claude-code-action via thorin-code-review",
-          "commitCount": 2
-        },
-        {
-          "name": "fix/on-demand-reviews",
-          "commits": [
-            {
-              "hash": "c7fe9ca",
-              "message": "fix: make code reviews on-demand only, not automatic on PR open"
-            },
-            {
-              "hash": "651da63",
-              "message": "feat: add Anthropic code reviewer workflow (#11)"
-            },
-            {
-              "hash": "e82a559",
-              "message": "feat: switch code review to claude-code-action via thorin-code-review (#10)"
-            },
-            {
-              "hash": "7cc8a18",
-              "message": "feat: switch workflows to agent wrappers (#3)"
-            }
-          ],
-          "summary": "4 commits — fix: make code reviews on-demand only, not automatic on PR open",
-          "commitCount": 4
-        },
-        {
-          "name": "main",
-          "commits": [],
-          "summary": "no unique commits",
-          "commitCount": 0
-        }
-      ],
-      "stagedCount": 0,
-      "modifiedCount": 0,
-      "untrackedCount": 0,
-      "deletedCount": 0,
-      "aheadCount": 7,
-      "behindCount": 0,
-      "latestCommits": [
-        {
-          "hash": "a62f072",
-          "message": "chore: standardize worktree directory to .claude/worktrees/"
-        },
-        {
-          "hash": "69c08b8",
-          "message": "Update CLAUDE.md: litterbox → agentic-cookbook"
-        },
-        {
-          "hash": "a16c6ac",
-          "message": "docs: update CLAUDE.md"
-        },
-        {
-          "hash": "d342ddc",
-          "message": "Merge remote-tracking branch 'origin/main' into feature/agent-wrappers"
-        },
-        {
-          "hash": "7cc8a18",
-          "message": "feat: switch workflows to agent wrappers (#3)"
-        }
-      ]
-    },
-    {
-      "id": "search-helper",
-      "name": "Search Helper",
-      "tagline": "macOS utility for enhanced search and file navigation",
-      "status": "paused",
-      "techStack": [
-        "Swift",
-        "macOS"
-      ],
-      "path": "~/projects/paused-projects/search-helper/",
-      "branch": "main",
-      "uncommitted": false,
-      "uncommittedDetail": "",
-      "openBranches": [],
-      "latestWork": "chore: standardize worktree directory to .claude/worktrees/.Add deep linking URL scheme (browsingpal://) (#13).Add Links Tracker window for saving and browsing URLs (#11).",
-      "runCmd": "",
-      "tags": [
-        "paused",
-        "macos"
-      ],
-      "modifiedFiles": [],
-      "branchDetails": [],
-      "stagedCount": 0,
-      "modifiedCount": 0,
-      "untrackedCount": 0,
-      "deletedCount": 0,
-      "aheadCount": 0,
-      "behindCount": 0,
-      "latestCommits": [
-        {
-          "hash": "084634a",
-          "message": "chore: standardize worktree directory to .claude/worktrees/"
-        },
-        {
-          "hash": "c99e7a2",
-          "message": "Add deep linking URL scheme (browsingpal://) (#13)"
-        },
-        {
-          "hash": "3331cc9",
-          "message": "Add Links Tracker window for saving and browsing URLs (#11)"
-        },
-        {
-          "hash": "c88fb95",
-          "message": "Move search terms into Settings tabs, remove SearchPal window (#12)"
-        },
-        {
-          "hash": "da1ea57",
-          "message": "Add browser switch setting, formed search autocomplete, and browser activation (#10)"
-        }
-      ]
+      "latestWork": "chore: add .gitignore.test: add SingleStep roadmap fixture.test: add AllAuto3Step roadmap fixture."
     }
   ],
   "todos": [
@@ -2350,6 +2565,14 @@ export const SEED_DATA = {
       "assignee": "Mike"
     },
     {
+      "id": "auto-cat-herding-uncommitted",
+      "projectId": "cat-herding",
+      "title": "Commit 3 changed files",
+      "priority": "medium",
+      "status": "open",
+      "assignee": "Mike"
+    },
+    {
       "id": "auto-cat-herding-branches",
       "projectId": "cat-herding",
       "title": "Review/merge 1 open branch",
@@ -2366,26 +2589,10 @@ export const SEED_DATA = {
       "assignee": "Mike"
     },
     {
-      "id": "auto-catnip-terminal-uncommitted",
-      "projectId": "catnip-terminal",
-      "title": "Commit 1 changed files",
-      "priority": "medium",
-      "status": "open",
-      "assignee": "Mike"
-    },
-    {
       "id": "auto-catnip-terminal-branches",
       "projectId": "catnip-terminal",
-      "title": "Review/merge 2 open branches",
+      "title": "Review/merge 1 open branch",
       "priority": "low",
-      "status": "open",
-      "assignee": "Mike"
-    },
-    {
-      "id": "auto-code-review-pipeline-uncommitted",
-      "projectId": "code-review-pipeline",
-      "title": "Commit 5 changed files",
-      "priority": "medium",
       "status": "open",
       "assignee": "Mike"
     },
@@ -2398,14 +2605,6 @@ export const SEED_DATA = {
       "assignee": "Mike"
     },
     {
-      "id": "auto-cookbook-web-uncommitted",
-      "projectId": "cookbook-web",
-      "title": "Commit 1 changed files",
-      "priority": "medium",
-      "status": "open",
-      "assignee": "Mike"
-    },
-    {
       "id": "auto-cookbook-web-branches",
       "projectId": "cookbook-web",
       "title": "Review/merge 1 open branch",
@@ -2414,17 +2613,17 @@ export const SEED_DATA = {
       "assignee": "Mike"
     },
     {
-      "id": "auto-dev-team-uncommitted",
-      "projectId": "dev-team",
-      "title": "Commit 3 changed files",
-      "priority": "medium",
+      "id": "auto-mikefullerton-com-branches",
+      "projectId": "mikefullerton-com",
+      "title": "Review/merge 2 open branches",
+      "priority": "low",
       "status": "open",
       "assignee": "Mike"
     },
     {
       "id": "auto-my-projects-uncommitted",
       "projectId": "my-projects",
-      "title": "Commit 2 changed files",
+      "title": "Commit 3 changed files",
       "priority": "medium",
       "status": "open",
       "assignee": "Mike"
@@ -2438,14 +2637,6 @@ export const SEED_DATA = {
       "assignee": "Mike"
     },
     {
-      "id": "auto-roadmaps-uncommitted",
-      "projectId": "roadmaps",
-      "title": "Commit 1 changed files",
-      "priority": "medium",
-      "status": "open",
-      "assignee": "Mike"
-    },
-    {
       "id": "auto-temporal-branches",
       "projectId": "temporal",
       "title": "Review/merge 1 open branch",
@@ -2454,10 +2645,18 @@ export const SEED_DATA = {
       "assignee": "Mike"
     },
     {
-      "id": "auto-whippet-uncommitted",
-      "projectId": "whippet",
-      "title": "Commit 4 changed files",
-      "priority": "medium",
+      "id": "auto-market-research-branches",
+      "projectId": "market-research",
+      "title": "Review/merge 1 open branch",
+      "priority": "low",
+      "status": "open",
+      "assignee": "Mike"
+    },
+    {
+      "id": "auto-mikeisdrumming-branches",
+      "projectId": "mikeisdrumming",
+      "title": "Review/merge 1 open branch",
+      "priority": "low",
       "status": "open",
       "assignee": "Mike"
     },
@@ -2470,18 +2669,10 @@ export const SEED_DATA = {
       "assignee": "Mike"
     },
     {
-      "id": "auto-my-agentic-interviews-uncommitted",
-      "projectId": "my-agentic-interviews",
-      "title": "Commit 3 changed files",
-      "priority": "medium",
-      "status": "open",
-      "assignee": "Mike"
-    },
-    {
-      "id": "auto-code-review-pipeline-test-uncommitted",
-      "projectId": "code-review-pipeline-test",
-      "title": "Commit 1 changed files",
-      "priority": "medium",
+      "id": "auto-workflows-branches",
+      "projectId": "workflows",
+      "title": "Review/merge 4 open branches",
+      "priority": "low",
       "status": "open",
       "assignee": "Mike"
     },
