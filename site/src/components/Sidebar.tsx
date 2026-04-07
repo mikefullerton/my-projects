@@ -1,4 +1,5 @@
 import { useState, useRef, useCallback } from 'react';
+import { createPortal } from 'react-dom';
 import { groupProjects, formatGroupName } from '../hooks/useData.ts';
 import { useDB } from '../context/DataContext.tsx';
 import { COLORS } from '../lib/theme.ts';
@@ -161,7 +162,7 @@ export default function Sidebar({ projects, todos, issues, concerns, decisions, 
                     <span className={`nav-repo-dot ${repoDotClass}`} />
                     {p.name}
                   </a>
-                  {hasPopover && hoveredProject === p.id && (
+                  {hasPopover && hoveredProject === p.id && createPortal(
                     <div
                       className="nav-popover"
                       style={{ top: popoverPos.top, left: popoverPos.left }}
@@ -170,7 +171,8 @@ export default function Sidebar({ projects, todos, issues, concerns, decisions, 
                     >
                       {gitInfo && <div className="nav-popover-line">{gitInfo}</div>}
                       {summaryText && <div className="nav-popover-line">{summaryText}</div>}
-                    </div>
+                    </div>,
+                    document.body
                   )}
                 </div>
               );
