@@ -57,6 +57,7 @@ export default function App() {
         concerns={concerns}
         decisions={decisions}
         currentView={currentView}
+        currentProjectId={currentProjectId}
         onNavigate={navigate}
         onSelectProject={selectProject}
         onRefresh={handleRefresh}

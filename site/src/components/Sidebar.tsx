@@ -12,18 +12,19 @@ interface SidebarProps {
   concerns: Concern[];
   decisions: Decision[];
   currentView: string;
+  currentProjectId: string | null;
   onNavigate: (view: string) => void;
   onSelectProject: (id: string) => void;
   onRefresh: () => void;
   refreshing: boolean;
 }
 
-export default function Sidebar({ projects, todos, issues, concerns, decisions, currentView, onNavigate, onSelectProject, onRefresh, refreshing }: SidebarProps) {
-  const [hoveredItem, setHoveredProject] = useState<string | null>(null);
+export default function Sidebar({ projects, todos, issues, concerns, decisions, currentView, currentProjectId, onNavigate, onSelectProject, onRefresh, refreshing }: SidebarProps) {
+  const [hoveredItem, setHoveredItem] = useState<string | null>(null);
   const [popoverPos, setPopoverPos] = useState<{ top: number; left: number }>({ top: 0, left: 0 });
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const scheduleClose = useCallback(() => {
-    closeTimer.current = setTimeout(() => setHoveredProject(null), 200);
+    closeTimer.current = setTimeout(() => setHoveredItem(null), 200);
   }, []);
   const cancelClose = useCallback(() => {
     if (closeTimer.current) clearTimeout(closeTimer.current);
@@ -171,7 +172,7 @@ export default function Sidebar({ projects, todos, issues, concerns, decisions, 
                 >
                   <a
                     href={`#project-${p.id}`}
-                    className={currentView === `project-${p.id}` ? 'active' : ''}
+                    className={currentView === 'project-detail' && currentProjectId === p.id ? 'active' : ''}
                     onClick={e => { e.preventDefault(); onSelectProject(p.id); }}
                   >
                     <span className={`nav-repo-dot ${repoDotClass}`} />
