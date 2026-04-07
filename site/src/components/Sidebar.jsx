@@ -1,8 +1,18 @@
+import { useState, useRef, useCallback } from 'react';
 import { groupProjects, formatGroupName } from '../hooks/useData.js';
 import { useDB } from '../context/DataContext.jsx';
 import { COLORS } from '../lib/theme.js';
 
 export default function Sidebar({ projects, todos, issues, concerns, decisions, currentView, onNavigate, onSelectProject, onRefresh, refreshing }) {
+  const [hoveredProject, setHoveredProject] = useState(null);
+  const closeTimer = useRef(null);
+  const scheduleClose = useCallback(() => {
+    closeTimer.current = setTimeout(() => setHoveredProject(null), 200);
+  }, []);
+  const cancelClose = useCallback(() => {
+    if (closeTimer.current) clearTimeout(closeTimer.current);
+  }, []);
+
   const { appConfig } = useDB();
   const groups = groupProjects(projects, appConfig);
 
@@ -93,15 +103,55 @@ export default function Sidebar({ projects, todos, issues, concerns, decisions, 
                 && (p.behindCount || 0) === 0;
               const repoDotClass = isRepoClean ? 'nav-dot-green' : 'nav-dot-red';
 
+              const pTodos = todos.filter(t => t.projectId === p.id && t.status !== 'done');
+              const pIssues = issues.filter(i => i.projectId === p.id && i.status !== 'resolved');
+              const pConcerns = concerns.filter(c => c.projectId === p.id && c.status !== 'closed');
+
+              const gitStats = [];
+              const dirty = (p.stagedCount || 0) + (p.modifiedCount || 0) + (p.untrackedCount || 0) + (p.deletedCount || 0);
+              if (dirty > 0) gitStats.push(`${dirty} files changed`);
+              const branches = (p.openBranches || []).length;
+              if (branches > 0) gitStats.push(`${branches} branch${branches > 1 ? 'es' : ''}`);
+              if ((p.aheadCount || 0) > 0) gitStats.push(`${p.aheadCount} ahead`);
+              if ((p.behindCount || 0) > 0) gitStats.push(`${p.behindCount} behind`);
+              const gitInfo = !isRepoClean && p.branch
+                ? `git:(${p.branch}) ${gitStats.join(', ')}`
+                : '';
+
+              const itemCounts = [
+                pTodos.length > 0 && `${pTodos.length} todo${pTodos.length > 1 ? 's' : ''}`,
+                pIssues.length > 0 && `${pIssues.length} issue${pIssues.length > 1 ? 's' : ''}`,
+                pConcerns.length > 0 && `${pConcerns.length} concern${pConcerns.length > 1 ? 's' : ''}`,
+              ].filter(Boolean);
+              const summaryText = itemCounts.length > 0 ? itemCounts.join(', ') : '';
+
+              const hasPopover = gitInfo || summaryText;
+
               return (
-                <a
+                <div
                   key={p.id}
-                  href={`#project-${p.id}`}
-                  onClick={e => { e.preventDefault(); onSelectProject(p.id); }}
+                  className="nav-project-item"
+                  onMouseEnter={() => { cancelClose(); setHoveredProject(p.id); }}
+                  onMouseLeave={scheduleClose}
                 >
-                  <span className={`nav-repo-dot ${repoDotClass}`} />
-                  {p.name}
-                </a>
+                  <a
+                    href={`#project-${p.id}`}
+                    onClick={e => { e.preventDefault(); onSelectProject(p.id); }}
+                  >
+                    <span className={`nav-repo-dot ${repoDotClass}`} />
+                    {p.name}
+                  </a>
+                  {hasPopover && hoveredProject === p.id && (
+                    <div
+                      className="nav-popover"
+                      onMouseEnter={cancelClose}
+                      onMouseLeave={scheduleClose}
+                    >
+                      {gitInfo && <div className="nav-popover-line">{gitInfo}</div>}
+                      {summaryText && <div className="nav-popover-line">{summaryText}</div>}
+                    </div>
+                  )}
+                </div>
               );
             })}
           </div>
